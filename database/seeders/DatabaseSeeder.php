@@ -2,24 +2,50 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Servicio;
 
-class DatabaseSeeder extends Seeder
+class ServicioSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $servicios = [
+            [
+                'nombre' => 'Pixie',
+                'categoria' => 'Cortes',
+                'precio' => 150.00,
+                'duracion_minutos' => 30,
+                'imagen' => 'pixie.jpg',
+                'estatus' => 'ALTA',
+            ],
+            [
+                'nombre' => 'Francesa',
+                'categoria' => 'Manicuras',
+                'precio' => 200.00,
+                'duracion_minutos' => 45,
+                'imagen' => 'francesa.jpg',
+                'estatus' => 'ALTA',
+            ],
+            [
+                'nombre' => 'Uñas Acrílicas',
+                'categoria' => 'Manicuras',
+                'precio' => 350.00,
+                'duracion_minutos' => 90,
+                'imagen' => 'acrilicas.jpg',
+                'estatus' => 'ALTA',
+            ],
+            [
+                'nombre' => 'Corte Capas',
+                'categoria' => 'Cortes',
+                'precio' => 180.00,
+                'duracion_minutos' => 40,
+                'imagen' => 'capas.jpg',
+                'estatus' => 'ALTA',
+            ],
+        ];
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($servicios as $servicio) {
+            Servicio::create($servicio);
+        }
     }
 }

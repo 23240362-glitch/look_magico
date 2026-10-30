@@ -6,6 +6,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/servicios', function () {
-    return view('servicios');
-});
+use App\Http\Controllers\ServicioController;
+
+Route::get('/servicios', [ServicioController::class, 'index']);
