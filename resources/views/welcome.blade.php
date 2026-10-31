@@ -127,10 +127,11 @@
 <body>
 
     <!-- Encabezado superior -->
-    <header>
-        <div class="logo-text">LOOK MAGICO</div>
-        <a href="/login" class="login-btn">Iniciar Sesión 💄</a>
-    </header>
+<header>
+    <div class="logo-header">LOOK MAGICO</div>
+    <a href="{{ route('login.roles') }}" class="btn-login-top">Iniciar Sesión 👄</a>
+    </a>
+</header>
 
     <!-- Menú de navegación de opciones -->
     <nav>
