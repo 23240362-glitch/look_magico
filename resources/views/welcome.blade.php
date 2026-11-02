@@ -153,7 +153,7 @@
 
         <!-- Texto principal -->
         <div class="hero-section">
-            <h1 class="hero-title">Hola<br>Belleza</h1>
+            <h1 class="hero-title">Hola <br>Belleza</h1>
             <button class="welcome-btn">Bienvenida....</button>
         </div>
 
