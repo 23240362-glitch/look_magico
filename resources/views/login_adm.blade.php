@@ -38,7 +38,7 @@
 
     <header>
         <div class="logo-badge">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" onerror="this.src='https://via.placeholder.com/80?text=Look+Magico'">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo" onerror="this.src='https://via.placeholder.com/80?text=Look+Magico'">
         </div>
         <div class="title-header">LOOK MAGICO - ACCESO ADMINISTRADORA</div>
     </header>

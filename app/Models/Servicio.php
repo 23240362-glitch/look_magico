@@ -11,8 +11,10 @@ class Servicio extends Model
     protected $fillable = [
         'nombre',
         'categoria',
+      //'subcategoria',
         'precio',
         'duracion_minutos',
+      //'duracion_horas',
         'imagen',
         'estatus',
     ];

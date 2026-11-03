@@ -50,6 +50,28 @@
             margin-bottom: 25px;
             text-align: center;
         }
+        
+        /*Menu de Servicios*/
+        nav {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .nav-container {
+            background-color: #FFD1DC; /* Rosa claro pastel */
+            border-radius: 30px;
+            padding: 12px 40px;
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-container a {
+            color: black;
+            text-decoration: underline;
+            font-weight: bold;
+            font-size: 17px;
+        }
 
         /* Grid de servicios */
         .grid-servicios {
@@ -107,6 +129,10 @@
             background-color: #9C5174;
             color: white;
         }
+
+        
+
+
     </style>
 </head>
 <body>
@@ -122,17 +148,68 @@
     <div class="container">
         <h1 class="titulo-seccion">Catálogo de Servicios</h1>
 
-        <div class="grid-servicios">
-            @foreach($servicios as $servicio)
-                <div class="card-servicio">
-                    <img src="{{ asset('img/servicios/' . $servicio->imagen) }}" alt="{{ $servicio->nombre }}">
-                    <h3>{{ $servicio->nombre }}</h3>
-                    <p class="precio">${{ number_format($servicio->precio, 2) }}</p>
-                    <a href="{{ url('/agenda') }}" class="btn-agregar">Agregar Servicio</a>
-                </div>
-            @endforeach
+
+    
+
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" onclick="filtrar('Servicios', event)">Servicios</a>
+            <a href="#" onclick="filtrar('Cortes', event)">Cortes</a>
+            <a href="#" onclick="filtrar('Depilaciones', event)">Depilaciones</a>
+            <a href="#" onclick="filtrar('Maquillajes', event)">Maquillajes</a>
+            <a href="#" onclick="filtrar('Peinados', event)">Peinados</a>
+            <a href="#" onclick="filtrar('Manicuras', event)">Manicuras</a>
+            <a href="#" onclick="filtrar('Pedicuras', event)">Pedicuras</a>
+            <a href="#" onclick="filtrar('Tintes', event)">Tintes</a>
+            <a href="#" onclick="filtrar('Rayos', event)">Rayos</a>
+            <a href="#" onclick="filtrar('Tratamientos', event)">Tratamientos</a>
         </div>
-    </div>
+    </nav>
+
+
+
+
+
+
+
+
+       
+
+    <div class="grid-servicios">
+    @foreach($servicios as $servicio)
+        
+        <!-- AQUÍ EN ESTA LÍNEA AGREGA EL data-categoria -->
+        <div class="card-servicio" data-categoria="{{ $servicio->categoria }}">
+            <img src="{{ asset('img/servicios/' . $servicio->imagen) }}" alt="{{ $servicio->nombre }}">
+            <h3>{{ $servicio->nombre }}</h3>
+            <p class="precio">${{ number_format($servicio->precio, 2) }}</p>
+            <a href="{{ url('/agenda') }}" class="btn-agregar">Agregar Servicio</a>
+        </div>
+
+    @endforeach
+</div>
+
+
+
+    <!-- AQUÍ AL FINAL PONES ESTAS LÍNEAS -->
+    <script>
+        function filtrar(categoria, e) {
+            if(e) e.preventDefault();
+            
+            let tarjetas = document.querySelectorAll('.card-servicio');
+            
+            tarjetas.forEach(card => {
+                let catCard = card.getAttribute('data-categoria');
+                
+                if (categoria === 'Servicios' || catCard === categoria) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>

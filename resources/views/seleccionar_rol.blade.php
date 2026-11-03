@@ -31,7 +31,7 @@
 
     <header>
         <div class="logo-badge">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" onerror="this.src='https://via.placeholder.com/80?text=Look+Magico'">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo" onerror="this.src='https://via.placeholder.com/80?text=Look+Magico'">
         </div>
         <div class="title-header">LOOK MAGICO</div>
     </header>
@@ -51,7 +51,7 @@
             <!-- Opción Administradora -->
             <a href="{{ route('login.admin') }}" class="role-card">
                 <div class="circle-avatar">
-                    <img src="{{ asset('images/admin-avatar.png') }}" alt="Soy Administradora" onerror="this.src='https://via.placeholder.com/180?text=Admin'">
+                    <img src="{{ asset('img/admin-avatar.jpg') }}" alt="Soy Administradora" onerror="this.src='https://via.placeholder.com/180?text=Admin'">
                 </div>
                 <button class="btn-role-pink">Soy administradora</button>
             </a>

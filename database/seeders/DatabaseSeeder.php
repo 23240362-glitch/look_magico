@@ -9,6 +9,10 @@ class ServicioSeeder extends Seeder
 {
     public function run(): void
     {
+        Servicio::truncate();
+
+
+
         $servicios = [
             [
                 'nombre' => 'Pixie',
