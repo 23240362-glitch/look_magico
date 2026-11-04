@@ -174,7 +174,18 @@
 
 
 
-       
+        <div class="grid-servicios">
+            @foreach($servicios as $servicio)
+                <div class="card-servicio">
+                    <img src="{{ asset('img/servicios/' . $servicio->imagen) }}" alt="{{ $servicio->nombre }}">
+                    <h3>{{ $servicio->nombre }}</h3>
+                    <p class="precio">${{ number_format($servicio->precio, 2) }}</p>
+                    <a href="{{ url('/agenda') }}" class="btn-agregar">Agregar Servicio</a>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
 
     <div class="grid-servicios">
     @foreach($servicios as $servicio)
