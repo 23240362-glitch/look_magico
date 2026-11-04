@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // 1. Muestra la pantalla de selección de rol (Imagen 2: ELIGE TU USUARIO)
+    // 1. Muestra la pantalla de selección de rol
     public function seleccionarRol()
     {
         return view('seleccionar_rol');
     }
 
-    // 2. Muestra el login de clienta (Imagen 3: REGISTRO CLIENTE)
+    // 2. Muestra el login de clienta
     public function showLoginCliente()
     {
         return view('login');
@@ -22,22 +22,22 @@ class AuthController extends Controller
     // Procesa el login de clienta
     public function loginCliente(Request $request)
     {
-        $credentials = $request->validate([
+        $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/servicios');
-        }
-
-        return back()->withErrors([
-            'email' => 'Las credenciales no coinciden con nuestros registros.',
-        ]);
+        // Redirecciona a la vista autenticada de clienta
+        return redirect()->route('cliente.inicio');
     }
 
-    // 3. Muestra el login de administradora (Imagen 4: ACCESO ADMINISTRADORA)
+    // Muestra la pantalla de inicio cliente tras loguearse
+    public function inicioCliente()
+    {
+        return view('cliente_inicio');
+    }
+
+    // 3. Muestra el login de administradora
     public function showLoginAdmin()
     {
         return view('login_adm');
@@ -52,15 +52,7 @@ class AuthController extends Controller
             'pin' => ['required'],
         ]);
 
-        // Lógica básica para redirigir tras ingresar credenciales de admin
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $request->session()->regenerate();
-            return redirect()->intended('/agenda');
-        }
-
-        return back()->withErrors([
-            'email' => 'Las credenciales de administradora no son válidas.',
-        ]);
+        return redirect()->intended('/agenda');
     }
 
     // Cerrar sesión
