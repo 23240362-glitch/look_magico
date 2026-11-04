@@ -27,6 +27,12 @@ Route::get('/cliente/inicio', [AuthController::class, 'inicioCliente'])->name('c
 Route::get('/login/admin', [AuthController::class, 'showLoginAdmin'])->name('login.admin');
 Route::post('/login/admin', [AuthController::class, 'loginAdmin'])->name('login.admin.post');
 
+Route::get('/forgot-password', function () {
+    return view('recuperar_pass'); // O el nombre de tu vista
+})->name('password.request');
+
+Route::post('/forgot-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
 // Ruta para mostrar el formulario de registro
 Route::get('/registro', function () {
     return view('registro');

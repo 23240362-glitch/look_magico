@@ -29,13 +29,13 @@
             align-items: center;
         }
 
-        header .logo-text {
+        header .logo-header {
             font-size: 22px;
             font-weight: bold;
             letter-spacing: 3px;
         }
 
-        header .login-btn {
+        header .btn-login-top {
             color: black;
             font-weight: bold;
             text-decoration: underline;
@@ -58,6 +58,7 @@
             padding: 12px 40px;
             display: flex;
             gap: 35px;
+            list-style: none; /* Quitamos viñetas de la lista */
         }
 
         .nav-container a {
@@ -127,39 +128,38 @@
 <body>
 
     <!-- Encabezado superior -->
-<header>
-    <div class="logo-header">LOOK MAGICO</div>
-    <a href="{{ route('login.roles') }}" class="btn-login-top">Iniciar Sesión 👄</a>
-    </a>
-</header>
+    <header>
+        <div class="logo-header">LOOK MAGICO</div>
+        <a href="{{ route('login.roles') }}" class="welcome-btn">Iniciar Sesión 👄</a>
+    </header>
 
-    <!-- Menú de navegación de opciones -->
+    <!-- Menú de navegación principal (estructurado como lista no ordenada) -->
     <nav>
-        <div class="nav-container">
-            <a href="/">Inicio</a>
-            <a href="/servicios">Servicios</a>
-            <a href="/agenda">Agenda</a>
-            <a href="/productos">Productos</a>
-            <a href="/contactos">Contactos</a>
-        </div>
+        <ul class="nav-container">
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/servicios">Servicios</a></li>
+            <li><a href="/agenda">Agenda</a></li>
+            <li><a href="/productos">Productos</a></li>
+            <li><a href="/contactos">Contactos</a></li>
+        </ul>
     </nav>
 
-    <!-- Sección central con logo, título y foto -->
+    <!-- Sección principal del sitio -->
     <main>
         <!-- Logo a la izquierda -->
         <div class="img-box">
             <img src="{{ asset('img/logo.png') }}" alt="Logo Look Mágico" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
         </div>
 
-        <!-- Texto principal -->
-        <div class="hero-section">
+        <!-- Mensaje principal de bienvenida -->
+        <section class="hero-section">
             <h1 class="hero-title">Hola<br>Belleza</h1>
             <button class="welcome-btn">Bienvenida....</button>
-        </div>
+        </section>
 
         <!-- Foto decorativa a la derecha -->
         <div class="img-box">
-            <img src="{{ asset('img/foto-derecha.png') }}" alt="Look Mágico Fotos" onerror="this.src='https://via.placeholder.com/150?text=Foto'">
+            <img src="{{ asset('img/collage.png') }}" alt="Logo Look Mágico" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
         </div>
     </main>
 

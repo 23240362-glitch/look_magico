@@ -25,34 +25,47 @@ class CitaController extends Controller
     }
 
     // En app/Http/Controllers/CitaController.php
-public function guardar(Request $request)
-{
-    $request->validate([
+    public function guardar(Request $request)
+    {
+     $request->validate([
         'servicio' => 'required|string',
         'fecha' => 'required|date',
         'hora' => 'required|string',
     ]);
 
-    $cita = Cita::create([
-        'user_id' => Auth::id() ?? 1,
-        'servicio' => $request->servicio,
-        'fecha' => $request->fecha,
-        'hora' => $request->hora,
-        'estado' => 'confirmada',
-    ]);
+    $userId = Auth::id() ?? \App\Models\User::first()->id ?? 1;
+        // 1. Obtener ID del usuario autenticado
+        $userId = Auth::id();
 
-    // Retornamos el ID de la cita para hacer la redirección
-    return response()->json([
-        'status' => 'success',
-        'cita_id' => $cita->id
-    ]);
-}
+        // 2. Si no hay sesión iniciada, toma el primer usuario registrado en la BD
+        if (!$userId) {
+            $user = User::first();
+            
+            // 3. Si no existe ningún usuario en la tabla 'users', crea uno por defecto
+            if (!$user) {
+                $user = User::create([
+                    'name'     => 'Pily Carmona',
+                    'email'    => 'pily@example.com',
+                    'password' => bcrypt('12345678'),
+                    'telefono' => '4772554597',
+                ]);
+            }
+            
+            $userId = $user->id;
+        }
 
-    public function confirmacion($id)
-    {
-         $cita = Cita::with('user')->findOrFail($id);
-         $montoEstimado = $precios[$cita->servicio] ?? 1000.00;
+        // Registrar la cita
+        $cita = Cita::create([
+            'user_id'  => $userId,
+            'servicio' => $request->servicio,
+            'fecha'    => $request->fecha,
+            'hora'     => $request->hora,
+            'estado'   => 'confirmada',
+        ]);
 
-    return view('confirmacion', compact('cita', 'montoEstimado'));
+        return response()->json([
+            'status'  => 'success',
+            'cita_id' => $cita->id,
+        ]);
     }
 }
