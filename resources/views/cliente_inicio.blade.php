@@ -104,6 +104,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            width: 100%;
         }
 
         .arrow {
@@ -194,7 +195,7 @@
             color: #000; 
         }
 
-        /* Fila de botones estructurada en lista */
+        /* Fila de botones */
         .buttons-row { 
             display: flex; 
             justify-content: center; 
@@ -281,19 +282,19 @@
 
     <!-- Contenido principal -->
     <main>
-        <h2 class="bienvenida-txt">¡BIENVENIDA A TU LUGAR SEGURO!</h2>
-        <p class="quote-txt">"Realza tu belleza natural y renueva tu energía"</p>
-
-        <div class="img-container">
-            <img src="{{ asset('img/inicio.png') }}" alt="Estilismo" onerror="this.src='https://via.placeholder.com/260x160/9C5174/FFFFFF?text=Estilismo'">
-        </div>
-
-        <p class="desc-txt">
-            Ofrecemos una experiencia exclusiva de estilismo, cuidado facial y relajación personalizada para que te sientas y te veas increíble.
-        </p>
-
-        <!-- Fila de Botones -->
         <section>
+            <h2 class="bienvenida-txt">¡BIENVENIDA A TU LUGAR SEGURO!</h2>
+            <p class="quote-txt">"Realza tu belleza natural y renueva tu energía"</p>
+
+            <div class="img-container">
+                <img src="{{ asset('img/inicio.png') }}" alt="Estilismo" onerror="this.src='https://via.placeholder.com/260x160/9C5174/FFFFFF?text=Estilismo'">
+            </div>
+
+            <p class="desc-txt">
+                Ofrecemos una experiencia exclusiva de estilismo, cuidado facial y relajación personalizada para que te sientas y te veas increíble.
+            </p>
+
+            <!-- Fila de Botones -->
             <ul class="buttons-row">
                 <li>
                     <a href="{{ url('/agenda') }}" class="btn-pink">Agenda tu cita hoy</a>
