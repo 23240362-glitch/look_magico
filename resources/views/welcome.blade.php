@@ -136,11 +136,11 @@
     <!-- Menú de navegación principal (estructurado como lista no ordenada) -->
     <nav>
         <ul class="nav-container">
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/servicios">Servicios</a></li>
-            <li><a href="/agenda">Agenda</a></li>
-            <li><a href="/productos">Productos</a></li>
-            <li><a href="/contactos">Contactos</a></li>
+            <li><a href="{{ url('/') }}">Inicio</a></li>
+            <li><a href="{{ url('/servicios') }}">Servicios</a></li>
+            <li><a href="{{ url('/agenda') }}">Agenda</a></li>
+            <li><a href="{{ url('/productos') }}">Productos</a></li>
+            <li><a href="{{ url('/contactos') }}">Contactos</a></li>
         </ul>
     </nav>
 

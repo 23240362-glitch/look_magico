@@ -167,12 +167,12 @@
         <section>
             <h2 class="title-bienvenida">¡BIENVENIDA DE NUEVO!</h2>
 
-    @if($errors->any())
-        <p style="color: red; font-size: 13px; font-weight: bold; margin-bottom: 15px;">
-            {{ $errors->first() }}
-        </p>
-    @endif
-    
+            @if($errors->any())
+                <p style="color: red; font-size: 13px; font-weight: bold; margin-bottom: 15px;">
+                    {{ $errors->first() }}
+                </p>
+            @endif
+
             <form action="{{ route('login.admin.post') }}" method="POST">
                 @csrf
                 
@@ -189,7 +189,8 @@
                     <label for="password">Contraseña</label>
                     <div class="input-purple-container">
                         <input type="password" id="password" name="password" class="input-purple" value="12345678" required>
-                        <span class="eye-icon">👁️</span>
+                        <!-- Se agrega el evento onclick -->
+                        <span class="eye-icon" onclick="togglePassword('password', this)">👁️</span>
                     </div>
                 </div>
 
@@ -215,5 +216,19 @@
         🔒 Panel exclusivo para la administración de Look Mágico.
     </footer>
 
+    <!-- Script de alternancia dentro de body -->
+    <script>
+        function togglePassword(inputId, eyeIcon) {
+            const input = document.getElementById(inputId);
+            
+            if (input.type === "password") {
+                input.type = "text";
+                eyeIcon.textContent = "🙈";
+            } else {
+                input.type = "password";
+                eyeIcon.textContent = "👁️";
+            }
+        }
+    </script>
 </body>
 </html>
