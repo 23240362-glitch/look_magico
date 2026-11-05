@@ -151,11 +151,13 @@
             <img src="{{ asset('img/logo.png') }}" alt="Logo Look Mágico" onerror="this.src='https://via.placeholder.com/150?text=Logo'">
         </div>
 
-        <!-- Mensaje principal de bienvenida -->
+    <!-- Mensaje principal de bienvenida -->
         <section class="hero-section">
             <h1 class="hero-title">Hola<br>Belleza</h1>
-            <button class="welcome-btn">Bienvenida....</button>
-        </section>
+    
+    <!-- Redirección directa a la vista cliente_inicio -->
+        <a href="{{ route('cliente.inicio') }}" class="welcome-btn">Bienvenida....</a>
+    </section>
 
         <!-- Foto decorativa a la derecha -->
         <div class="img-box">

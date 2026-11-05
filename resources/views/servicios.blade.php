@@ -1,1 +1,0 @@
-<h1>¡La vista de servicios ya funciona!</h1>
