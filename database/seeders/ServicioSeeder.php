@@ -9,13 +9,12 @@ class ServicioSeeder extends Seeder
 {
     public function run(): void
     {
-        \App\Models\Servicio::truncate();
         $servicios = [
-            //CORTES DE CABELLO
-            //Cortes de mujer
+            // CORTES DE MUJER
             [
                 'nombre' => 'Pixie',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'Pixie.jpg',
@@ -24,6 +23,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte en V',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'enV.jpg',
@@ -32,6 +32,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Recto',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'corterecto.jpg',
@@ -40,6 +41,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Bob Clasico',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'bobclasico.jpg',
@@ -48,6 +50,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'French Bob',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'frenchbob.jpg',
@@ -56,6 +59,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Desfilado',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'desfilado.jpg',
@@ -64,6 +68,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Capas',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortecapas.jpg',
@@ -72,6 +77,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Mariposa',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortemariposa.jpg',
@@ -80,6 +86,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Long Bob',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'longbob.jpg',
@@ -88,14 +95,16 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Italian Bob',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'italianbob.jpg',
                 'estatus' => 'ALTA',
             ],
             [
-                'nombre' => 'Corte Wob ',
+                'nombre' => 'Corte Wob',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortewob.jpg',
@@ -104,15 +113,18 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Shaggy',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Mujer',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
-                'imagen' => '.jpg',
+                'imagen' => 'corteshaggy.jpg',
                 'estatus' => 'ALTA',
             ],
-            //Cortes de hombre 
+
+            // CORTES DE HOMBRE
             [
                 'nombre' => 'Corte Fade',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortefade.jpg',
@@ -121,6 +133,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Middle Part',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortemiddlepart.jpg',
@@ -129,6 +142,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Buzz Cut',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortebuzzcut.jpg',
@@ -137,6 +151,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Mullet',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortemullet.jpg',
@@ -145,6 +160,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Crew Cut',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortecrewcut.jpg',
@@ -153,6 +169,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Cesar',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortecesar.jpg',
@@ -161,6 +178,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Mohicano',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortemohicano.jpg',
@@ -169,6 +187,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Wolf',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortewolf.jpg',
@@ -177,6 +196,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte French Crop',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortefrenchcrop.jpg',
@@ -185,6 +205,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Quiff',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortequiff.jpg',
@@ -193,6 +214,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Pompadour',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortepompadour.jpg',
@@ -201,6 +223,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Corte Spiky',
                 'categoria' => 'Cortes',
+                'subcategoria' => 'Hombre',
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'cortespiky.jpg',
@@ -211,6 +234,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Depilación de Bozo',
                 'categoria' => 'Depilaciones',
+                'subcategoria' => null,
                 'precio' => 50.00,
                 'duracion_minutos' => 15,
                 'imagen' => 'depilaciondebozo.jpg',
@@ -219,6 +243,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Depilación de Axilas',
                 'categoria' => 'Depilaciones',
+                'subcategoria' => null,
                 'precio' => 50.00,
                 'duracion_minutos' => 15,
                 'imagen' => 'depilaciondeaxilas.jpg',
@@ -227,6 +252,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Depilación de Piernas',
                 'categoria' => 'Depilaciones',
+                'subcategoria' => null,
                 'precio' => 50.00,
                 'duracion_minutos' => 15,
                 'imagen' => 'depilaciondepiernas.jpg',
@@ -235,6 +261,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Depilación de Abdomen',
                 'categoria' => 'Depilaciones',
+                'subcategoria' => null,
                 'precio' => 50.00,
                 'duracion_minutos' => 15,
                 'imagen' => 'depilaciondeabdomen.jpg',
@@ -243,6 +270,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Depilación de Bikini',
                 'categoria' => 'Depilaciones',
+                'subcategoria' => null,
                 'precio' => 50.00,
                 'duracion_minutos' => 15,
                 'imagen' => 'depilaciondebikini.jpg',
@@ -251,6 +279,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Depilación de Rostro',
                 'categoria' => 'Depilaciones',
+                'subcategoria' => null,
                 'precio' => 50.00,
                 'duracion_minutos' => 15,
                 'imagen' => 'depilacionderostro.jpg',
@@ -259,6 +288,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Depilación de Brazos',
                 'categoria' => 'Depilaciones',
+                'subcategoria' => null,
                 'precio' => 50.00,
                 'duracion_minutos' => 15,
                 'imagen' => 'depilaciondebrazos.jpg',
@@ -267,16 +297,18 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Depilación de Dedos',
                 'categoria' => 'Depilaciones',
+                'subcategoria' => null,
                 'precio' => 50.00,
                 'duracion_minutos' => 15,
                 'imagen' => 'depilaciondededos.jpg',
                 'estatus' => 'ALTA',
             ],
 
-            //MAQUILLAJES
+            // MAQUILLAJES
             [
                 'nombre' => 'Maquillaje Natural',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 1,
                 'imagen' => 'maquillajenatural.jpg',
@@ -285,6 +317,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Maquillaje Social',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 1,
                 'imagen' => 'maquillajesocial.jpg',
@@ -293,6 +326,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Maquillaje Novia',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'maquillajenovia.jpg',
@@ -301,6 +335,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Maquillaje Artistico',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'maquillajeartistico.jpg',
@@ -309,6 +344,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Maquillaje Fotografico',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'maquillajefotografico.jpg',
@@ -317,6 +353,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Maquillaje Teatral',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'maquillajeteatral.jpg',
@@ -325,6 +362,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Maquillaje Ahumado',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'maquillajeahumado.jpg',
@@ -333,6 +371,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Maquillaje Cut Crease',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'maquillajecutCrease.jpg',
@@ -341,6 +380,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Maquillaje Glam',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'maquillajeglam.jpg',
@@ -349,32 +389,36 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Maquillaje Contouring',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'maquillajecontouring.jpg',
                 'estatus' => 'ALTA',
             ],
             [
-                'nombre' => 'Maquillaje Strabing',
+                'nombre' => 'Maquillaje Strobing',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
-                'imagen' => 'maquillajenatural.jpg',
+                'imagen' => 'maquillajestrobing.jpg',
                 'estatus' => 'ALTA',
             ],
             [
                 'nombre' => 'Maquillaje Baking',
                 'categoria' => 'Maquillajes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'maquillajebaking.jpg',
                 'estatus' => 'ALTA',
             ],
 
-            //Peinados
+            // PEINADOS
             [
                 'nombre' => 'Peinado Bajo Pulido',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadobajopulido.jpg',
@@ -383,22 +427,25 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Peinado Messy Bun',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadomessybun.jpg',
                 'estatus' => 'ALTA',
             ],
             [
-                'nombre' => 'Peinado Recodigo',
+                'nombre' => 'Peinado Recogido',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
-                'imagen' => 'peinadorecodigo.jpg',
+                'imagen' => 'peinadorecogido.jpg',
                 'estatus' => 'ALTA',
             ],
             [
                 'nombre' => 'Peinado Half-up',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadohalf-up.jpg',
@@ -407,6 +454,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Peinado Semirrecogido',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadosemirrecogido.jpg',
@@ -415,6 +463,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Peinado Ondas',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadoondas.jpg',
@@ -423,6 +472,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Peinado Liso Espejo',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadolisoespejo.jpg',
@@ -431,6 +481,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Peinado Beach Waves',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadobeachwaves.jpg',
@@ -439,14 +490,16 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Peinado Baja Pulida',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
-                'imagen' => 'peinadobajapolida.jpg',
+                'imagen' => 'peinadobajapulida.jpg',
                 'estatus' => 'ALTA',
             ],
             [
                 'nombre' => 'Peinado Trenzas Sueltas',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadotrenzassueltas.jpg',
@@ -455,6 +508,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Peinado Hollywood',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadohollywood.jpg',
@@ -463,16 +517,18 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Peinado Half-down',
                 'categoria' => 'Peinados',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 2,
                 'imagen' => 'peinadohalf-down.jpg',
                 'estatus' => 'ALTA',
             ],
 
-            //Manicuras 
+            // MANICURAS
             [
                 'nombre' => 'Clásica',
                 'categoria' => 'Manicuras',
+                'subcategoria' => null,
                 'precio' => 150.00,
                 'duracion_minutos' => 30,
                 'imagen' => 'manicura_clasica.jpg',
@@ -481,6 +537,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Francesa',
                 'categoria' => 'Manicuras',
+                'subcategoria' => null,
                 'precio' => 180.00,
                 'duracion_minutos' => 45,
                 'imagen' => 'manicura_francesa.jpg',
@@ -489,6 +546,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Semipermanente',
                 'categoria' => 'Manicuras',
+                'subcategoria' => null,
                 'precio' => 200.00,
                 'duracion_minutos' => 45,
                 'imagen' => 'manicura_semipermanente.jpg',
@@ -497,6 +555,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Uñas Acrílicas',
                 'categoria' => 'Manicuras',
+                'subcategoria' => null,
                 'precio' => 350.00,
                 'duracion_minutos' => 90,
                 'imagen' => 'unhas_acrilicas.jpg',
@@ -505,6 +564,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Uñas de Gel',
                 'categoria' => 'Manicuras',
+                'subcategoria' => null,
                 'precio' => 320.00,
                 'duracion_minutos' => 75,
                 'imagen' => 'unhas_gel.jpg',
@@ -513,6 +573,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Rusa',
                 'categoria' => 'Manicuras',
+                'subcategoria' => null,
                 'precio' => 250.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'manicura_rusa.jpg',
@@ -521,6 +582,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Spa',
                 'categoria' => 'Manicuras',
+                'subcategoria' => null,
                 'precio' => 280.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'manicura_spa.jpg',
@@ -529,6 +591,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Japonés',
                 'categoria' => 'Manicuras',
+                'subcategoria' => null,
                 'precio' => 260.00,
                 'duracion_minutos' => 50,
                 'imagen' => 'manicura_japonesa.jpg',
@@ -537,16 +600,18 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Nail Art',
                 'categoria' => 'Manicuras',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'nail_art.jpg',
                 'estatus' => 'ALTA',
             ],
 
-            // Pedicuras
+            // PEDICURAS
             [
                 'nombre' => 'Clásica',
                 'categoria' => 'Pedicuras',
+                'subcategoria' => null,
                 'precio' => 200.00,
                 'duracion_minutos' => 45,
                 'imagen' => 'pedicura_clasica.jpg',
@@ -555,6 +620,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Seco',
                 'categoria' => 'Pedicuras',
+                'subcategoria' => null,
                 'precio' => 220.00,
                 'duracion_minutos' => 45,
                 'imagen' => 'pedicura_seco.jpg',
@@ -563,6 +629,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Semipermanente',
                 'categoria' => 'Pedicuras',
+                'subcategoria' => null,
                 'precio' => 250.00,
                 'duracion_minutos' => 50,
                 'imagen' => 'pedicura_semipermanente.jpg',
@@ -571,6 +638,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Francesa',
                 'categoria' => 'Pedicuras',
+                'subcategoria' => null,
                 'precio' => 230.00,
                 'duracion_minutos' => 50,
                 'imagen' => 'pedicura_francesa.jpg',
@@ -579,14 +647,16 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Parafina',
                 'categoria' => 'Pedicuras',
+                'subcategoria' => null,
                 'precio' => 280.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'pedicura_parafina.jpg',
                 'estatus' => 'ALTA',
             ],
             [
-                'nombre' => 'Piedras Calientes',
+                'nombre' => 'Piedras Negras',
                 'categoria' => 'Pedicuras',
+                'subcategoria' => null,
                 'precio' => 350.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'pedicura_piedras.jpg',
@@ -595,6 +665,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Spa',
                 'categoria' => 'Pedicuras',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'pedicura_spa.jpg',
@@ -603,16 +674,18 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Podológica',
                 'categoria' => 'Pedicuras',
+                'subcategoria' => null,
                 'precio' => 380.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'pedicura_podologica.jpg',
                 'estatus' => 'ALTA',
             ],
 
-            // Tintes
+            // TINTES
             [
                 'nombre' => 'Permanente',
                 'categoria' => 'Tintes',
+                'subcategoria' => null,
                 'precio' => 450.00,
                 'duracion_minutos' => 90,
                 'imagen' => 'tinte_permanente.jpg',
@@ -621,22 +694,25 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Permanente sin amoniaco',
                 'categoria' => 'Tintes',
+                'subcategoria' => null,
                 'precio' => 500.00,
                 'duracion_minutos' => 90,
-                'imagen' => 'tinte_sin_amoniaco.jpg',
+                'imagen' => 'tinte_sinamoniaco.jpg',
                 'estatus' => 'ALTA',
             ],
             [
                 'nombre' => 'Demi-permanente',
                 'categoria' => 'Tintes',
+                'subcategoria' => null,
                 'precio' => 400.00,
                 'duracion_minutos' => 60,
-                'imagen' => 'tinte_demi_permanente.jpg',
+                'imagen' => 'tinte_demipermanente.jpg',
                 'estatus' => 'ALTA',
             ],
             [
                 'nombre' => 'Semipermanente',
                 'categoria' => 'Tintes',
+                'subcategoria' => null,
                 'precio' => 380.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'tinte_semipermanente.jpg',
@@ -645,6 +721,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Temporal',
                 'categoria' => 'Tintes',
+                'subcategoria' => null,
                 'precio' => 250.00,
                 'duracion_minutos' => 45,
                 'imagen' => 'tinte_temporal.jpg',
@@ -653,24 +730,27 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Henna',
                 'categoria' => 'Tintes',
+                'subcategoria' => null,
                 'precio' => 300.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'tinte_henna.jpg',
                 'estatus' => 'ALTA',
             ],
 
-            // Rayos
+            // RAYOS
             [
                 'nombre' => 'Tradicionales',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 600.00,
                 'duracion_minutos' => 120,
-                'imagen' => 'rayos_tradicionales.jpg',
+                'imagen' => 'tradicionales.jpg',
                 'estatus' => 'ALTA',
             ],
             [
                 'nombre' => 'Babylights',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 700.00,
                 'duracion_minutos' => 120,
                 'imagen' => 'babylights.jpg',
@@ -679,6 +759,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Chunky Highlights',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 650.00,
                 'duracion_minutos' => 120,
                 'imagen' => 'chunky_highlights.jpg',
@@ -687,6 +768,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Reflejos',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 550.00,
                 'duracion_minutos' => 90,
                 'imagen' => 'reflejos.jpg',
@@ -695,6 +777,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Transparencias',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 580.00,
                 'duracion_minutos' => 90,
                 'imagen' => 'transparencias.jpg',
@@ -703,14 +786,16 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Balayage',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 850.00,
                 'duracion_minutos' => 150,
                 'imagen' => 'balayage.jpg',
                 'estatus' => 'ALTA',
             ],
             [
-                'nombre' => 'French Melted',
+                'nombre' => 'French Milky',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 800.00,
                 'duracion_minutos' => 150,
                 'imagen' => 'french_melted.jpg',
@@ -719,6 +804,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Californianos',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 750.00,
                 'duracion_minutos' => 120,
                 'imagen' => 'californianos.jpg',
@@ -727,6 +813,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Face Framing',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 500.00,
                 'duracion_minutos' => 90,
                 'imagen' => 'face_framing.jpg',
@@ -735,6 +822,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Money Piece',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 480.00,
                 'duracion_minutos' => 90,
                 'imagen' => 'money_piece.jpg',
@@ -743,6 +831,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Dorados',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 600.00,
                 'duracion_minutos' => 120,
                 'imagen' => 'dorados.jpg',
@@ -751,17 +840,18 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Cenizo',
                 'categoria' => 'Rayos',
+                'subcategoria' => null,
                 'precio' => 620.00,
                 'duracion_minutos' => 120,
                 'imagen' => 'cenizo.jpg',
                 'estatus' => 'ALTA',
             ],
 
-            // TRATAMIENTOS
-            //Corporales
+            // TRATAMIENTOS (CAPILARES, FACIALES Y CORPORALES)
             [
                 'nombre' => 'Botox capilar',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Capilares',
                 'precio' => 450.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'botox_capilar.jpg',
@@ -770,6 +860,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Queratina',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Capilares',
                 'precio' => 550.00,
                 'duracion_minutos' => 90,
                 'imagen' => 'queratina.jpg',
@@ -778,6 +869,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Cauterización',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Capilares',
                 'precio' => 400.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'cauterizacion.jpg',
@@ -786,6 +878,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Lifting',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Capilares',
                 'precio' => 480.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'lifting_capilar.jpg',
@@ -794,6 +887,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Detox',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Capilares',
                 'precio' => 350.00,
                 'duracion_minutos' => 45,
                 'imagen' => 'detox_capilar.jpg',
@@ -802,16 +896,16 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Anticaspa',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Capilares',
                 'precio' => 300.00,
                 'duracion_minutos' => 45,
                 'imagen' => 'anticaspa.jpg',
                 'estatus' => 'ALTA',
             ],
-
-            // Faciales
             [
                 'nombre' => 'Limpiezas profundas',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Faciales',
                 'precio' => 350.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'limpieza_profunda.jpg',
@@ -820,6 +914,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Peeling químico',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Faciales',
                 'precio' => 450.00,
                 'duracion_minutos' => 45,
                 'imagen' => 'peeling_quimico.jpg',
@@ -828,6 +923,7 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Hidratación y nutrición',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Faciales',
                 'precio' => 400.00,
                 'duracion_minutos' => 50,
                 'imagen' => 'hidratacion_facial.jpg',
@@ -836,16 +932,16 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Radiofrecuencia',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Faciales',
                 'precio' => 500.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'radiofrecuencia_facial.jpg',
                 'estatus' => 'ALTA',
             ],
-
-            // Corporales
             [
                 'nombre' => 'Cavitación',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Corporales',
                 'precio' => 500.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'cavitacion.jpg',
@@ -854,16 +950,12 @@ class ServicioSeeder extends Seeder
             [
                 'nombre' => 'Luz Pulsada',
                 'categoria' => 'Tratamientos',
+                'subcategoria' => 'Corporales',
                 'precio' => 600.00,
                 'duracion_minutos' => 60,
                 'imagen' => 'luz_pulsada.jpg',
                 'estatus' => 'ALTA',
             ],
-     
-            
-
-
-
         ];
 
         foreach ($servicios as $servicio) {
