@@ -130,15 +130,14 @@
     <!-- Encabezado superior -->
     <header>
         <div class="logo-header">LOOK MAGICO</div>
-        <a href="{{ route('login.roles') }}" class="welcome-btn">Iniciar Sesión 👄</a>
+      
     </header>
 
     <!-- Menú de navegación principal (estructurado como lista no ordenada) -->
     <nav>
         <ul class="nav-container">
             <li><a href="{{ url('/') }}">Inicio</a></li>
-            <li><a href="{{ url('/servicios') }}">Servicios</a></li>
-            <li><a href="{{ url('/agenda') }}">Agenda</a></li>
+            <li><a href="{{ route('servicios.general') }}">Servicios</a></li>
             <li><a href="{{ url('/productos') }}">Productos</a></li>
             <li><a href="{{ url('/contactos') }}">Contactos</a></li>
         </ul>
@@ -156,7 +155,7 @@
             <h1 class="hero-title">Hola<br>Belleza</h1>
     
     <!-- Redirección directa a la vista cliente_inicio -->
-        <a href="{{ route('cliente.inicio') }}" class="welcome-btn">Bienvenida....</a>
+        <a href="{{ route('login.roles') }}" class="welcome-btn">Iniciar Sesión 👄</a>
     </section>
 
         <!-- Foto decorativa a la derecha -->

@@ -247,15 +247,15 @@
                     <span class="arrow" id="arrow-servicios">▼</span>
                 </li>
                 <ul class="submenu" id="submenu-servicios">
-                    <li><a href="{{ url('/servicios/cortes') }}">CORTES <span>→</span></a></li>
-                    <li><a href="{{ url('/servicios/depilaciones') }}">DEPILACIONES <span>→</span></a></li>
-                    <li><a href="{{ url('/servicios/maquillajes') }}">MAQUILLAJES <span>→</span></a></li>
-                    <li><a href="{{ url('/servicios/peinados') }}">PEINADOS <span>→</span></a></li>
-                    <li><a href="{{ url('/servicios/manicuras') }}">MANICURAS <span>→</span></a></li>
-                    <li><a href="{{ url('/servicios/pedicuras') }}">PEDICURAS <span>→</span></a></li>
-                    <li><a href="{{ url('/servicios/tintes') }}">TINTES <span>→</span></a></li>
-                    <li><a href="{{ url('/servicios/rayos') }}">RAYOS <span>→</span></a></li>
-                    <li><a href="{{ url('/servicios/tratamientos') }}">TRATAMIENTOS <span>→</span></a></li>
+                    <li><a href="{{ url('/clasificacion') }}">CORTES <span>→</span></a></li>
+                    <li><a href="{{ url('/depilaciones') }}">DEPILACIONES <span>→</span></a></li>
+                    <li><a href="{{ url('/maquillajes') }}">MAQUILLAJES <span>→</span></a></li>
+                    <li><a href="{{ url('/peinados') }}">PEINADOS <span>→</span></a></li>
+                    <li><a href="{{ url('/manicuras') }}">MANICURAS <span>→</span></a></li>
+                    <li><a href="{{ url('/pedicuras') }}">PEDICURAS <span>→</span></a></li>
+                    <li><a href="{{ url('/tintes') }}">TINTES <span>→</span></a></li>
+                    <li><a href="{{ url('/rayos') }}">RAYOS <span>→</span></a></li>
+                    <li><a href="{{ url('/tratamientos') }}">TRATAMIENTOS <span>→</span></a></li>
                 </ul>
 
                 <!-- Desplegable Productos -->
