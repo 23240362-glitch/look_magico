@@ -69,4 +69,17 @@ class CitaController extends Controller
             'cita_id' => $cita->id,
         ]);
     }
+
+    // Muestra la vista de confirmación de la cita
+    public function confirmacion($id)
+    {
+        $cita = Cita::find($id) ?? (object)[
+            'id'       => $id,
+            'servicio' => 'Corte de cabello',
+            'fecha'    => date('Y-m-d'),
+            'hora'     => '12:00 PM'
+        ];
+
+        return view('confirmacion', compact('cita'));
+    }
 }
