@@ -36,6 +36,12 @@ class ServicioSeeder extends Seeder
             ],
         ];
 
-        DB::table('servicios')->insert($servicios);
+        // updateOrInsert evita que se dupliquen si el seeder se corre más de una vez
+        foreach ($servicios as $servicio) {
+            DB::table('servicios')->updateOrInsert(
+                ['nombre' => $servicio['nombre']],
+                $servicio + ['created_at' => now(), 'updated_at' => now()]
+            );
+        }
     }
 }

@@ -64,8 +64,11 @@ class AuthController extends Controller
         // Buscar a la administradora en la BD
         $user = User::where('email', $request->email)->first();
 
-        // Validar que exista el usuario, que la contraseña encriptada coincida y que el PIN sea correcto
-        if ($user && Hash::check($request->password, $user->password) && $user->pin == $request->pin) {
+        // Validar que exista el usuario, que tenga rol de administradora,
+        // que la contraseña encriptada coincida y que el PIN (también encriptado) sea correcto
+        if ($user && $user->esAdmin()
+            && Hash::check($request->password, $user->password)
+            && $user->pin && Hash::check($request->pin, $user->pin)) {
             Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended('/agenda');
@@ -81,15 +84,20 @@ class AuthController extends Controller
     {
         $request->validate([
             'name'     => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'telefono' => 'required|digits:10',
+            'password' => 'required|string|min:6|confirmed', // confirmed revisa password_confirmation
         ]);
 
         // Guardar nuevo registro en MySQL
         $user = User::create([
             'name'     => $request->name,
+            'apellido' => $request->apellido,
             'email'    => $request->email,
+            'telefono' => $request->telefono,
             'password' => Hash::make($request->password), // Encriptación segura
+            'rol'      => 'cliente',
         ]);
 
         // Iniciar sesión automáticamente tras el registro

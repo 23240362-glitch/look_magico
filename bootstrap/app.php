@@ -11,7 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Nombre corto para proteger rutas de la administradora: ->middleware('admin')
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\EsAdmin::class,
+        ]);
+
+        // Si alguien sin sesión entra a una ruta protegida, va a "Elige tu usuario"
+        $middleware->redirectGuestsTo(fn () => route('login.roles'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

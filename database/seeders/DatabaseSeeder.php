@@ -3,16 +3,16 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Servicio; // O el modelo que estén usando
 
 class DatabaseSeeder extends Seeder
 {
+    // Datos iniciales del sistema. Se ejecuta con: php artisan db:seed
     public function run(): void
     {
-        // Pongan aquí los registros directos, por ejemplo:
-        // Servicio::create([...]);
+        $this->call([
+            AdminSeeder::class,     // Cuenta de la administradora
+            ServicioSeeder::class,  // Servicios del catálogo
+            ProductoSeeder::class,  // Productos del catálogo
+        ]);
     }
 }
-
-
-

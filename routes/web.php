@@ -78,3 +78,33 @@ Route::post('/citas/guardar', [CitaController::class, 'guardar'])->name('citas.g
 
 // Ruta para ver la pantalla de confirmación con el ID de la cita creada
 Route::get('/cita/confirmada/{id}', [CitaController::class, 'confirmacion'])->name('cita.confirmacion');
+
+// 7. Catálogo de Productos
+Route::get('/productos', function () {
+    return view('productos_general');
+})->name('productos.general');
+
+Route::get('/productos/shampoos', function () {
+    return view('shampoos');
+})->name('productos.shampoos');
+
+Route::get('/productos/acondicionadores', function () {
+    return view('acondicionadores');
+})->name('productos.acondicionadores');
+
+Route::get('/productos/tratamientos', function () {
+    return view('productos_tratamientos');
+})->name('productos.tratamientos');
+
+Route::get('/productos/skincare', function () {
+    return view('skincare');
+})->name('productos.skincare');
+
+// 8. Cerrar sesión
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// 9. Panel de Administración (solo entra la administradora con sesión iniciada)
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    // Aquí van las rutas del panel de administración, por ejemplo:
+    // Route::get('/citas', [AdminController::class, 'citas'])->name('admin.citas');
+});
