@@ -11,6 +11,7 @@ class Cita extends Model
 
     protected $table = 'citas';
 
+    // Permite que Laravel guarde estos campos
     protected $fillable = [
         'user_id',
         'servicio',
@@ -19,6 +20,7 @@ class Cita extends Model
         'estado',
     ];
 
+    // Relación con el usuario
     public function user()
     {
         return $this->belongsTo(User::class);

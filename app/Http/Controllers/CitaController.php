@@ -25,47 +25,48 @@ class CitaController extends Controller
         return response()->json(['ocupadas' => $horasOcupadas]);
     }
 
-    // Guarda la cita enviada desde JavaScript
+    // En app/Http/Controllers/CitaController.php
     public function guardar(Request $request)
     {
-        try {
-            $request->validate([
-                'servicio' => 'required|string',
-                'fecha'    => 'required|date',
-                'hora'     => 'required|string',
-            ]);
+     $request->validate([
+        'servicio' => 'required|string',
+        'fecha' => 'required|date',
+        'hora' => 'required|string',
+    ]);
 
-            $cita = Cita::create([
-                'user_id'  => Auth::id() ?? 1,
-                'servicio' => $request->servicio,
-                'fecha'    => $request->fecha,
-                'hora'     => $request->hora,
-                'estado'   => 'confirmada',
-            ]);
+    $userId = Auth::id() ?? \App\Models\User::first()->id ?? 1;
+        // 1. Obtener ID del usuario autenticado
+        $userId = Auth::id();
 
-            return response()->json([
-                'status'  => 'success',
-                'cita_id' => $cita->id,
-                'message' => '¡Cita confirmada con éxito!'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status'  => 'error',
-                'message' => $e->getMessage()
-            ], 500);
+        // 2. Si no hay sesión iniciada, toma el primer usuario registrado en la BD
+        if (!$userId) {
+            $user = User::first();
+            
+            // 3. Si no existe ningún usuario en la tabla 'users', crea uno por defecto
+            if (!$user) {
+                $user = User::create([
+                    'name'     => 'Pily Carmona',
+                    'email'    => 'pily@example.com',
+                    'password' => bcrypt('12345678'),
+                    'telefono' => '4772554597',
+                ]);
+            }
+            
+            $userId = $user->id;
         }
-    }
 
-    // Muestra la vista de confirmación final
-    public function confirmacion($id)
-    {
-        $cita = Cita::find($id) ?? (object)[
-            'id'       => $id,
-            'servicio' => 'Corte de cabello',
-            'fecha'    => date('Y-m-d'),
-            'hora'     => '12:00 PM'
-        ];
+        // Registrar la cita
+        $cita = Cita::create([
+            'user_id'  => $userId,
+            'servicio' => $request->servicio,
+            'fecha'    => $request->fecha,
+            'hora'     => $request->hora,
+            'estado'   => 'confirmada',
+        ]);
 
-        return view('confirmacion', compact('cita'));
+        return response()->json([
+            'status'  => 'success',
+            'cita_id' => $cita->id,
+        ]);
     }
 }

@@ -9,9 +9,40 @@ use App\Http\Controllers\CitaController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+//pruebas, elegir formato donde se va a documentar, descripcion, resultado esperado,obtenido
+//id, fecha, tipo de prueba, modulo/fragmento, version, descripcion/caso de prueba, datos de entrada, resultado esperado, resultado real, 
 // 2. Catálogo de Servicios
-Route::get('/servicios', [ServicioController::class, 'index']);
+Route::get('/clasificacion', function () {
+    return view('clasificacion');
+})->name('clasificacion');
+
+Route::get('/servicios/general', function () {
+    return view('servicios_general');
+})->name('servicios.general');
+
+Route::get('/depilaciones', function () {
+    return view('depilaciones');
+})->name('depilaciones');
+
+Route::get('/maquillajes', function () {
+    return view('maquillajes');
+})->name('maquillajes');
+
+Route::get('/peinados', function () {
+    return view('peinados');
+})->name('peinados');
+
+Route::get('/manicuras', function () {
+    return view('manicuras');
+})->name('manicuras');
+
+Route::get('/pedicuras', function () {
+    return view('pedicuras');
+})->name('pedicuras');
+
+Route::get('/tintes', function () {
+    return view('tintes');
+})->name('tintes');
 
 // 3. Selección de Rol (Cliente vs Admin)
 Route::get('/iniciar-sesion', [AuthController::class, 'seleccionarRol'])->name('login.roles');
@@ -26,6 +57,12 @@ Route::get('/cliente/inicio', [AuthController::class, 'inicioCliente'])->name('c
 // 6. Módulo Autenticación Administradora
 Route::get('/login/admin', [AuthController::class, 'showLoginAdmin'])->name('login.admin');
 Route::post('/login/admin', [AuthController::class, 'loginAdmin'])->name('login.admin.post');
+
+Route::get('/forgot-password', function () {
+    return view('recuperar_pass'); // O el nombre de tu vista
+})->name('password.request');
+
+Route::post('/forgot-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
 // Ruta para mostrar el formulario de registro
 Route::get('/registro', function () {

@@ -102,108 +102,106 @@
     </div>
 
     <script>
-    let fechaBD = '';
-    let horaSeleccionada = '';
-    const rutaGuardar = "{{ url('/citas/guardar') }}";
-    const rutaConfirmacionBase = "{{ url('/cita/confirmada') }}";
-    const rutaHorariosOcupados = "{{ url('/api/horarios-ocupados') }}";
+        let fechaBD = '';
+        let horaSeleccionada = '';
+        const rutaGuardar = "{{ url('/citas/guardar') }}";
+        const rutaConfirmacionBase = "{{ url('/cita/confirmada') }}";
+        const rutaHorariosOcupados = "{{ url('/api/horarios-ocupados') }}";
 
-    // 1. Clic en Día del Calendario
-    document.querySelectorAll('.calendar-table td[data-day]').forEach(td => {
-        td.addEventListener('click', function() {
-            document.querySelectorAll('.calendar-table td').forEach(c => c.classList.remove('selected'));
-            this.classList.add('selected');
+        // 1. Clic en Día del Calendario
+        document.querySelectorAll('.calendar-table td[data-day]').forEach(td => {
+            td.addEventListener('click', function() {
+                document.querySelectorAll('.calendar-table td').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
 
-            const dia = this.getAttribute('data-day');
-            const textoFecha = this.getAttribute('data-formatted');
-            fechaBD = `2026-09-${dia}`;
-            
-            // Actualizar el recuadro de texto de Fecha
-            document.getElementById('resumen-fecha').value = textoFecha;
+                const dia = this.getAttribute('data-day');
+                const textoFecha = this.getAttribute('data-formatted');
+                fechaBD = `2026-09-${dia}`;
+                
+                document.getElementById('resumen-fecha').value = textoFecha;
 
-            // Resetear hora al cambiar de día
-            horaSeleccionada = '';
-            document.getElementById('resumen-hora').value = '[ Selecciona una hora (+)]';
+                horaSeleccionada = '';
+                document.getElementById('resumen-hora').value = '[ Selecciona una hora (+)]';
 
-            // Consultar horas ocupadas para deshabilitar botones
-            fetch(`${rutaHorariosOcupados}?fecha=${fechaBD}`)
-                .then(res => res.json())
-                .then(data => {
-                    const ocupadas = data.ocupadas || [];
-                    document.querySelectorAll('.btn-hora').forEach(btn => {
-                        const hora = btn.getAttribute('data-hora');
-                        btn.classList.remove('selected');
-                        if (ocupadas.includes(hora)) {
-                            btn.disabled = true;
-                        } else {
-                            btn.disabled = false;
-                        }
+                fetch(`${rutaHorariosOcupados}?fecha=${fechaBD}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        const ocupadas = data.ocupadas || [];
+                        document.querySelectorAll('.btn-hora').forEach(btn => {
+                            const hora = btn.getAttribute('data-hora');
+                            btn.classList.remove('selected');
+                            if (ocupadas.includes(hora)) {
+                                btn.disabled = true;
+                            } else {
+                                btn.disabled = false;
+                            }
+                        });
+                    })
+                    .catch(() => {
+                        document.querySelectorAll('.btn-hora').forEach(btn => btn.disabled = false);
                     });
-                })
-                .catch(() => {
-                    document.querySelectorAll('.btn-hora').forEach(btn => btn.disabled = false);
-                });
+            });
         });
-    });
 
-    // 2. Clic en Botón de Hora Disponible
-    document.querySelectorAll('.btn-hora').forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (this.disabled) return;
-            document.querySelectorAll('.btn-hora').forEach(b => b.classList.remove('selected'));
-            this.classList.add('selected');
-            
-            horaSeleccionada = this.getAttribute('data-hora');
-            // Actualizar el recuadro de texto de Hora
-            document.getElementById('resumen-hora').value = horaSeleccionada;
+        // 2. Clic en Botón de Hora Disponible
+        document.querySelectorAll('.btn-hora').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.disabled) return;
+                document.querySelectorAll('.btn-hora').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                horaSeleccionada = this.getAttribute('data-hora');
+                document.getElementById('resumen-hora').value = horaSeleccionada;
+            });
         });
-    });
 
-    // 3. Clic en Confirmar Cita
-    document.getElementById('btn-confirmar').addEventListener('click', function() {
-        const servicioInput = document.getElementById('resumen-servicio');
-        const servicio = servicioInput ? servicioInput.value.trim() : '';
+        // 3. Clic en Confirmar Cita
+        document.getElementById('btn-confirmar').addEventListener('click', function() {
+            const servicioInput = document.getElementById('resumen-servicio');
+            const servicio = servicioInput ? servicioInput.value.trim() : '';
 
-        // Validar que el usuario haya escrito un servicio
-        if (!servicio) {
-            alert('Por favor ingresa o escribe el servicio que deseas agendar.');
-            if (servicioInput) servicioInput.focus();
-            return;
-        }
-
-        // Validar selección de fecha y hora
-        if (!fechaBD || !horaSeleccionada) {
-            alert('Por favor selecciona un día del calendario y una hora disponible.');
-            return;
-        }
-
-        // Guardar en la base de datos y redirigir
-        fetch(rutaGuardar, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                servicio: servicio,
-                fecha: fechaBD,
-                hora: horaSeleccionada
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.status === 'success' && data.cita_id) {
-                // Redirecciona de inmediato a la interfaz de confirmación
-                window.location.href = `${rutaConfirmacionBase}/${data.cita_id}`;
-            } else {
-                alert(data.message || 'Ocurrió un problema al guardar la cita.');
+            if (!servicio) {
+                alert('Por favor ingresa o escribe el servicio que deseas agendar.');
+                if (servicioInput) servicioInput.focus();
+                return;
             }
-        })
-        .catch(err => {
-            console.error(err);
-            alert('Error al conectar con el servidor.');
+
+            if (!fechaBD || !horaSeleccionada) {
+                alert('Por favor selecciona un día del calendario y una hora disponible.');
+                return;
+            }
+
+            fetch(rutaGuardar, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    servicio: servicio,
+                    fecha: fechaBD,
+                    hora: horaSeleccionada
+                })
+            })
+            .then(async res => {
+                const text = await res.text();
+                try {
+                    const data = JSON.parse(text);
+                    if (res.ok && data.status === 'success' && data.cita_id) {
+                        window.location.href = `${rutaConfirmacionBase}/${data.cita_id}`;
+                    } else {
+                        alert(data.message || 'Ocurrió un problema al guardar la cita en la base de datos.');
+                    }
+                } catch (e) {
+                    console.error('Respuesta no JSON del servidor:', text);
+                    alert('Error en el servidor Laravel (500). Revisa las variables $fillable del modelo Cita.');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error al conectar con el servidor.');
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>
