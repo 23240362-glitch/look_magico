@@ -56,17 +56,12 @@
                 <div><span>Hora:</span> <strong>{{ $cita->hora }}</strong></div>
                 <div><span>Núm. Teléfono:</span> <strong>{{ $cita->user->telefono ?? '4772554597' }}</strong></div>
                 
-                <div class="monto">
-                    <span>Monto Estimado:</span> <strong>${{ number_format($montoEstimado, 2) }} MXN</strong>
-                </div>
             </div>
 
             <a href="https://wa.me/524772554597?text=Hola,%20quisiera%20consultar%20sobre%20mi%20cita%20de%20{{ urlencode($cita->servicio) }}" class="whatsapp-btn" target="_blank">
                 <div class="whatsapp-icon">💬</div>
                 <span>Enviar WhatsApp</span>
             </a>
-
-            <a href="{{ url('/cliente/citas') }}" class="link-citas">&lt; Ir a mis citas &gt;</a>
         </div>
 
         <a href="{{ url('/cliente/inicio') }}" class="btn-inicio">Volver al Inicio</a>

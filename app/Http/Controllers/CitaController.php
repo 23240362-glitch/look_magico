@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Cita;
@@ -24,35 +25,47 @@ class CitaController extends Controller
         return response()->json(['ocupadas' => $horasOcupadas]);
     }
 
-    // En app/Http/Controllers/CitaController.php
-public function guardar(Request $request)
-{
-    $request->validate([
-        'servicio' => 'required|string',
-        'fecha' => 'required|date',
-        'hora' => 'required|string',
-    ]);
+    // Guarda la cita enviada desde JavaScript
+    public function guardar(Request $request)
+    {
+        try {
+            $request->validate([
+                'servicio' => 'required|string',
+                'fecha'    => 'required|date',
+                'hora'     => 'required|string',
+            ]);
 
-    $cita = Cita::create([
-        'user_id' => Auth::id() ?? 1,
-        'servicio' => $request->servicio,
-        'fecha' => $request->fecha,
-        'hora' => $request->hora,
-        'estado' => 'confirmada',
-    ]);
+            $cita = Cita::create([
+                'user_id'  => Auth::id() ?? 1,
+                'servicio' => $request->servicio,
+                'fecha'    => $request->fecha,
+                'hora'     => $request->hora,
+                'estado'   => 'confirmada',
+            ]);
 
-    // Retornamos el ID de la cita para hacer la redirección
-    return response()->json([
-        'status' => 'success',
-        'cita_id' => $cita->id
-    ]);
-}
+            return response()->json([
+                'status'  => 'success',
+                'cita_id' => $cita->id,
+                'message' => '¡Cita confirmada con éxito!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
+    // Muestra la vista de confirmación final
     public function confirmacion($id)
     {
-         $cita = Cita::with('user')->findOrFail($id);
-         $montoEstimado = $precios[$cita->servicio] ?? 1000.00;
+        $cita = Cita::find($id) ?? (object)[
+            'id'       => $id,
+            'servicio' => 'Corte de cabello',
+            'fecha'    => date('Y-m-d'),
+            'hora'     => '12:00 PM'
+        ];
 
-    return view('confirmacion', compact('cita', 'montoEstimado'));
+        return view('confirmacion', compact('cita'));
     }
 }
