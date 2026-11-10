@@ -71,7 +71,7 @@ class AuthController extends Controller
             && $user->pin && Hash::check($request->pin, $user->pin)) {
             Auth::login($user);
             $request->session()->regenerate();
-            return redirect()->intended('/agenda');
+            return redirect()->intended(route('admin.dashboard'));
         }
 
         return back()->withErrors([

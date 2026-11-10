@@ -9,8 +9,7 @@ use App\Http\Controllers\CitaController;
 Route::get('/', function () {
     return view('welcome');
 });
-//pruebas, elegir formato donde se va a documentar, descripcion, resultado esperado,obtenido
-//id, fecha, tipo de prueba, modulo/fragmento, version, descripcion/caso de prueba, datos de entrada, resultado esperado, resultado real, 
+
 // 2. Catálogo de Servicios
 Route::get('/clasificacion', function () {
     return view('clasificacion');
@@ -67,7 +66,7 @@ Route::get('/login/admin', [AuthController::class, 'showLoginAdmin'])->name('log
 Route::post('/login/admin', [AuthController::class, 'loginAdmin'])->name('login.admin.post');
 
 Route::get('/forgot-password', function () {
-    return view('recuperar_pass'); // O el nombre de tu vista
+    return view('recuperar_pass');
 })->name('password.request');
 
 Route::post('/forgot-password', [AuthController::class, 'resetPassword'])->name('password.update');
@@ -111,8 +110,9 @@ Route::get('/productos/skincare', function () {
 // 8. Cerrar sesión
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// 9. Panel de Administración (solo entra la administradora con sesión iniciada)
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    // Aquí van las rutas del panel de administración, por ejemplo:
-    // Route::get('/citas', [AdminController::class, 'citas'])->name('admin.citas');
+// 9. Panel de Administración (Panel exclusivo para Administradora)
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin_dashboard');
+    })->name('admin.dashboard');
 });
