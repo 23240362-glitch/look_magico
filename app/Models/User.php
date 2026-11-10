@@ -20,9 +20,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'apellido',
         'email',
+        'telefono',
         'password',
-        'telefono'
+        'rol',
+        'pin',
     ];
 
     /**
@@ -32,6 +35,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'pin',
         'remember_token',
     ];
 
@@ -44,7 +48,20 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password' => 'hashed',   // La contraseña se guarda encriptada
+            'pin' => 'hashed',        // El PIN de la administradora también
         ];
+    }
+
+    // Relación: una clienta puede tener muchas citas
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
+    }
+
+    // Indica si la cuenta es de la administradora
+    public function esAdmin(): bool
+    {
+        return $this->rol === 'admin';
     }
 }
