@@ -192,7 +192,7 @@
 
     <!-- Encabezado -->
     <header>
-        <a href="{{ url('/') }}" class="back-btn">←</a>
+        <a href="{{ url('/cliente/inicio') }}" class="back-btn">←</a>
         <div class="header-title-container">
             <h1>Servicios Generales</h1>
         </div>
