@@ -70,13 +70,15 @@
         /* Contenido Principal */
         main {
             flex: 1;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Barra de Filtros por Categoría */
+        /* Filtros Por Categoría */
         .filter-container {
             display: flex;
             gap: 15px;
@@ -91,10 +93,10 @@
             font-weight: bold;
             font-size: 14px;
             cursor: pointer;
+            text-decoration: underline;
+            transition: opacity 0.2s, background-color 0.2s;
             background-color: #8C99AA;
             color: #000;
-            text-decoration: underline;
-            transition: all 0.2s ease;
         }
 
         .filter-btn.active {
@@ -106,13 +108,12 @@
             opacity: 0.85;
         }
 
-        /* Grid de Tratamientos */
+        /* Grid de Tratamientos (6 por fila) */
         .tratamientos-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
             margin-bottom: 25px;
-            justify-items: center;
         }
 
         /* Tarjeta individual */
@@ -121,17 +122,14 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            width: 100%;
-            max-width: 190px;
         }
 
         .img-wrapper {
             position: relative;
             width: 100%;
             aspect-ratio: 1 / 1;
-            border-radius: 22px;
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
         .img-wrapper img {
@@ -139,24 +137,25 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
-            border-radius: 22px;
+            border-radius: 18px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
 
-        /* Flor decorativa rosa */
+        /* Flor decorativa rosa en la esquina */
         .flower-icon {
             position: absolute;
-            top: -12px;
-            right: -12px;
-            font-size: 32px;
+            top: -10px;
+            right: -10px;
+            font-size: 26px;
             z-index: 2;
             pointer-events: none;
         }
 
         .tratamiento-name {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #000;
-            margin: 10px 0 6px 0;
+            margin: 8px 0 4px 0;
             text-align: center;
         }
 
@@ -164,61 +163,35 @@
             background-color: #FFC0CB;
             color: #000;
             border: none;
-            padding: 5px 14px;
+            padding: 4px 12px;
             border-radius: 15px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             text-decoration: underline;
             cursor: pointer;
             white-space: nowrap;
-            transition: background-color 0.2s;
+            text-align: center;
         }
 
         .btn-agregar:hover {
             background-color: #f7b6c6;
         }
 
-        /* Paginación Inferior */
-        .pagination-container {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 12px;
-            margin-top: 10px;
+        /* Estilo del botón Ver más (alineado al final como en la plantilla) */
+        .btn-ver-mas {
+            align-self: flex-end;
+            margin-top: auto;
         }
 
-        .page-info {
-            font-size: 13px;
-            font-weight: bold;
-            color: #9C5174;
-        }
-
-        .page-btn {
-            background-color: #BD4B7B;
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.2s ease;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
+        /* Adaptabilidad en pantallas más pequeñas */
+        @media (max-width: 900px) {
             .tratamientos-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
+                grid-template-columns: repeat(3, 1fr);
             }
         }
-        @media (max-width: 480px) {
+        @media (max-width: 550px) {
             .tratamientos-grid {
-                grid-template-columns: repeat(1, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -227,7 +200,7 @@
 
     <!-- Encabezado -->
     <header>
-        <a href="{{ url('/rayos') }}" class="back-btn">←</a>
+        <a href="{{ url('/pedicuras') }}" class="back-btn">←</a>
         <div class="header-title-container">
             <h1>Tratamientos</h1>
         </div>
@@ -238,12 +211,12 @@
 
     <!-- Contenido Principal -->
     <main>
-        <!-- Filtros por tipo de tratamiento -->
+        <!-- Filtros por Tipo de Tratamiento -->
         <div class="filter-container">
-            <button class="filter-btn active" onclick="filtrarCategoria('todos', this)">🌟 Todos</button>
-            <button class="filter-btn" onclick="filtrarCategoria('faciales', this)">💆‍♀️ Faciales</button>
-            <button class="filter-btn" onclick="filtrarCategoria('corporales', this)">🧘‍♀️ Corporales</button>
-            <button class="filter-btn" onclick="filtrarCategoria('capilares', this)">💇‍♀️ Capilares</button>
+            <button class="filter-btn active" onclick="filtrar('todos', this)">🌟 Todos</button>
+            <button class="filter-btn" onclick="filtrar('faciales', this)">💆‍♀️ Faciales</button>
+            <button class="filter-btn" onclick="filtrar('corporales', this)">🧘‍♀️ Corporales</button>
+            <button class="filter-btn" onclick="filtrar('capilares', this)">💇‍♀️ Capilares</button>
         </div>
 
         <!-- Grid de Tratamientos -->
@@ -253,7 +226,7 @@
             <div class="tratamiento-card" data-tipo="faciales">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_limpieza_profunda.jpg') }}" alt="Limpiezas profundas" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Limpiezas'">
+                    <img src="{{ asset('img/trat_limpieza_profunda.jpg') }}" alt="Limpiezas profundas" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Limpiezas'">
                 </div>
                 <span class="tratamiento-name">Limpiezas profundas</span>
                 <a href="{{ route('agenda', ['servicio' => 'limpiezas_profundas']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -262,7 +235,7 @@
             <div class="tratamiento-card" data-tipo="faciales">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_peeling_quimico.jpg') }}" alt="Peeling químicos" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Peeling'">
+                    <img src="{{ asset('img/trat_peeling_quimico.jpg') }}" alt="Peeling químicos" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Peeling'">
                 </div>
                 <span class="tratamiento-name">Peeling químicos</span>
                 <a href="{{ route('agenda', ['servicio' => 'peeling_quimicos']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -271,7 +244,7 @@
             <div class="tratamiento-card" data-tipo="faciales">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_hidratacion_nutricion.jpg') }}" alt="Hidratación y Nutrición" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Hidratacion'">
+                    <img src="{{ asset('img/trat_hidratacion_nutricion.jpg') }}" alt="Hidratación y Nutrición" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Hidratacion'">
                 </div>
                 <span class="tratamiento-name">Hidratación y Nutrición</span>
                 <a href="{{ route('agenda', ['servicio' => 'hidratacion_nutricion']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -280,7 +253,7 @@
             <div class="tratamiento-card" data-tipo="faciales">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_radiofrecuencia.jpg') }}" alt="Radiofrecuencia" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Radiofrecuencia'">
+                    <img src="{{ asset('img/trat_radiofrecuencia.jpg') }}" alt="Radiofrecuencia" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Radiofrecuencia'">
                 </div>
                 <span class="tratamiento-name">Radiofrecuencia</span>
                 <a href="{{ route('agenda', ['servicio' => 'radiofrecuencia']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -290,7 +263,7 @@
             <div class="tratamiento-card" data-tipo="corporales">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_cavitacion.jpg') }}" alt="Cavitación" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Cavitacion'">
+                    <img src="{{ asset('img/trat_cavitacion.jpg') }}" alt="Cavitación" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Cavitacion'">
                 </div>
                 <span class="tratamiento-name">Cavitación</span>
                 <a href="{{ route('agenda', ['servicio' => 'cavitacion']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -299,7 +272,7 @@
             <div class="tratamiento-card" data-tipo="corporales">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_luz_pulsada.jpg') }}" alt="Luz Pulsada" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Luz+Pulsada'">
+                    <img src="{{ asset('img/trat_luz_pulsada.jpg') }}" alt="Luz Pulsada" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Luz+Pulsada'">
                 </div>
                 <span class="tratamiento-name">Luz Pulsada</span>
                 <a href="{{ route('agenda', ['servicio' => 'luz_pulsada']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -309,7 +282,7 @@
             <div class="tratamiento-card" data-tipo="capilares">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_botox_capilar.jpg') }}" alt="Botox Capilar" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Botox+Capilar'">
+                    <img src="{{ asset('img/trat_botox_capilar.jpg') }}" alt="Botox Capilar" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Botox+Capilar'">
                 </div>
                 <span class="tratamiento-name">Botox Capilar</span>
                 <a href="{{ route('agenda', ['servicio' => 'botox_capilar']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -318,7 +291,7 @@
             <div class="tratamiento-card" data-tipo="capilares">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_queratina.jpg') }}" alt="Queratina" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Queratina'">
+                    <img src="{{ asset('img/trat_queratina.jpg') }}" alt="Queratina" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Queratina'">
                 </div>
                 <span class="tratamiento-name">Queratina</span>
                 <a href="{{ route('agenda', ['servicio' => 'queratina']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -327,7 +300,7 @@
             <div class="tratamiento-card" data-tipo="capilares">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_cauterizacion.jpg') }}" alt="Cauterización" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Cauterizacion'">
+                    <img src="{{ asset('img/trat_cauterizacion.jpg') }}" alt="Cauterización" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Cauterizacion'">
                 </div>
                 <span class="tratamiento-name">Cauterización</span>
                 <a href="{{ route('agenda', ['servicio' => 'cauterizacion']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -336,7 +309,7 @@
             <div class="tratamiento-card" data-tipo="capilares">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_lifting.jpg') }}" alt="Lifting" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Lifting'">
+                    <img src="{{ asset('img/trat_lifting.jpg') }}" alt="Lifting" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Lifting'">
                 </div>
                 <span class="tratamiento-name">Lifting</span>
                 <a href="{{ route('agenda', ['servicio' => 'lifting']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -345,7 +318,7 @@
             <div class="tratamiento-card" data-tipo="capilares">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_detox.jpg') }}" alt="Detox" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Detox'">
+                    <img src="{{ asset('img/trat_detox.jpg') }}" alt="Detox" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Detox'">
                 </div>
                 <span class="tratamiento-name">Detox</span>
                 <a href="{{ route('agenda', ['servicio' => 'detox']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -354,7 +327,7 @@
             <div class="tratamiento-card" data-tipo="capilares">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/trat_anticaspa.jpg') }}" alt="Anticaspa" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Anticaspa'">
+                    <img src="{{ asset('img/trat_anticaspa.jpg') }}" alt="Anticaspa" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Anticaspa'">
                 </div>
                 <span class="tratamiento-name">Anticaspa</span>
                 <a href="{{ route('agenda', ['servicio' => 'anticaspa']) }}" class="btn-agregar">Agregar Servicio</a>
@@ -362,14 +335,28 @@
 
         </section>
 
-        <!-- Botones Paginación 
-        <div class="pagination-container">
-            <button class="page-btn" id="btn-prev" onclick="cambiarPagina(-1)">←</button>
-            <span class="page-info" id="page-info">Página 1</span>
-            <button class="page-btn" id="btn-next" onclick="cambiarPagina(1)">→</button>
-        </div>-->
+        <!-- Redirección directa a la vista de cliente/inicio -->
+        <a href="{{ url('/cliente/inicio') }}" class="btn-agregar btn-ver-mas">Volver a Inicio</a>
     </main>
-    <!-- Redirección directa a la siguiente vista -->
-    <a href="{{ route('cliente/inicio', ['cliente/inicio' => '_']) }}" class="btn-agregar">Volver al Inicio</a>
+
+    <script>
+        function filtrar(categoria, btn) {
+            const tarjetas = document.querySelectorAll('.tratamiento-card');
+            const botones = document.querySelectorAll('.filter-btn');
+
+            // Actualizar estilo de botón activo
+            botones.forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            // Filtrar elementos en pantalla
+            tarjetas.forEach(card => {
+                if (categoria === 'todos' || card.dataset.tipo === categoria) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>

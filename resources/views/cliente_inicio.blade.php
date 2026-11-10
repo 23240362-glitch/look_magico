@@ -300,7 +300,7 @@
                     <a href="{{ url('/agenda') }}" class="btn-pink">Agenda tu cita hoy</a>
                 </li>
                 <li>
-                    <a href="{{ url('/servicios') }}" class="btn-pink">Ver servicios</a>
+                    <a href="{{ url('/servicios/general') }}" class="btn-pink">Ver servicios</a>
                 </li>
             </ul>
         </section>

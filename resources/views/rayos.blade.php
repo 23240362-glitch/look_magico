@@ -320,15 +320,8 @@
 
         </section>
 
-        <!-- Botones Paginación -->
-        <div class="pagination-container">
-            <button class="page-btn" id="btn-prev" onclick="cambiarPagina(-1)">←</button>
-            <span class="page-info" id="page-info">Página 1</span>
-            <button class="page-btn" id="btn-next" onclick="cambiarPagina(1)">→</button>
-        </div>
+        <!-- Redirección directa a la siguiente vista -->
+        <a href="{{ route('tratamientos', ['tratamientos' => '_']) }}" class="btn-agregar">Ver más...</a>
     </main>
-
-    <!-- Redirección directa a la siguiente vista -->
-    <a href="{{ route('tratamientos', ['tratamientos' => '_']) }}" class="btn-agregar">Ver más...</a>
 </body>
 </html>

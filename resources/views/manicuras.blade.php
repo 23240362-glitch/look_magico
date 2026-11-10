@@ -303,7 +303,7 @@
         </section>
 
         <!-- Redirección directa a la siguiente vista -->
-        <a href="{{ route('manicuras', ['manicuras' => '_']) }}" class="btn-agregar">Ver más...</a>
+        <a href="{{ route('pedicuras', ['pedicuras' => '_']) }}" class="btn-agregar">Ver más...</a>
     </main>
 </body>
 </html>

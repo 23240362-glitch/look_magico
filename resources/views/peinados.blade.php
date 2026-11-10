@@ -321,7 +321,7 @@
         </section>
 
         <!-- Redirección directa a la siguiente vista -->
-        <a href="{{ route('peinados', ['peinados' => '_']) }}" class="btn-agregar">Ver más...</a>
+        <a href="{{ route('manicuras', ['manicuras' => '_']) }}" class="btn-agregar">Ver más...</a>
     </main>
 </body>
 </html>
