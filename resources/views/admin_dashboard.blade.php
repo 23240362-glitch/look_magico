@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administradora - Look Mágico</title>
+    <title>Look Mágico - Panel de Control</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome Iconos -->
@@ -11,195 +11,306 @@
     
     <style>
         :root {
-            --rosa-principal: #d63384;
-            --rosa-oscuro: #b02a6f;
-            --rosa-claro: #fdf2f7;
-            --dorado: #d4af37;
-            --fondo: #f8f9fa;
+            --magenta-principal: #b04b77;
+            --magenta-oscuro: #923a60;
+            --rosa-tarjeta: #ffd1e4;
+            --rosa-claro-bg: #fdf5f8;
+            --texto-oscuro: #333333;
         }
 
         body {
-            background-color: var(--fondo);
+            background-color: var(--rosa-claro-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--texto-oscuro);
         }
 
-        /* Sidebar Navegación */
+        /* Sidebar Lateral */
         .sidebar {
             min-height: 100vh;
-            background: linear-gradient(180deg, #2b2b2b 0%, #1a1a1a 100%);
+            background-color: var(--magenta-principal);
             color: #fff;
-            padding-top: 20px;
+            padding: 25px 15px;
         }
 
-        .sidebar .brand-title {
-            color: var(--rosa-principal);
-            font-weight: 700;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            padding: 0 20px 20px 20px;
-            border-bottom: 1px solid #444;
-        }
-
-        .sidebar a {
-            color: #ccc;
-            text-decoration: none;
-            padding: 12px 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-
-        .sidebar a:hover, .sidebar a.active {
-            background-color: var(--rosa-principal);
-            color: #fff;
-            border-radius: 0 25px 25px 0;
-            margin-right: 15px;
-        }
-
-        /* Encabezado */
-        .navbar-custom {
+        .logo-container {
             background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-list li {
+            margin-bottom: 8px;
+        }
+
+        .menu-list a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: block;
+            padding: 10px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .menu-list a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .menu-list a.active {
+            background-color: #f7bcd4;
+            color: var(--magenta-oscuro);
+        }
+
+        /* Top Bar */
+        .top-header {
+            background-color: var(--magenta-principal);
+            color: #fff;
             padding: 15px 30px;
-        }
-
-        /* Tarjetas de Estadísticas */
-        .card-stat {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-            transition: transform 0.2s;
-        }
-
-        .card-stat:hover {
-            transform: translateY(-4px);
-        }
-
-        .icon-box {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-header h5 {
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            background-color: #fff;
+            color: var(--magenta-oscuro);
+            border-radius: 50%;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-weight: bold;
         }
 
-        .bg-rosa-light { background-color: var(--rosa-claro); color: var(--rosa-principal); }
-        .bg-dorado-light { background-color: #fffdf0; color: var(--dorado); }
-
-        /* Botón Logout */
-        .btn-logout {
-            background-color: transparent;
-            color: #ff6b6b;
-            border: 1px solid #ff6b6b;
-            padding: 8px 20px;
-            border-radius: 20px;
-            transition: all 0.3s;
+        /* Tarjetas de Dashboard */
+        .card-stat-pink {
+            background-color: var(--rosa-tarjeta);
+            border-radius: 25px;
+            padding: 25px 20px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            height: 100%;
         }
 
-        .btn-logout:hover {
-            background-color: #ff6b6b;
+        .stat-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #111;
+            line-height: 1;
+        }
+
+        /* Performance Bar */
+        .progress-bar-custom {
+            height: 6px;
+            background-color: #e2aec4;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #333;
+        }
+
+        /* Tabla Próximas Citas */
+        .section-subtitle {
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        .table-header-pink {
+            background-color: var(--magenta-principal);
             color: #fff;
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 0.5px;
         }
+
+        .table-row-item {
+            padding: 12px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-bottom: 1px dashed #e5c0d0;
+        }
+
+        /* Gráfica Insumos */
+        .chart-bar {
+            width: 32px;
+            border-radius: 4px 4px 0 0;
+            display: inline-block;
+        }
+        .bar-blue { background-color: #4a86f7; }
+        .bar-purple { background-color: #b28bf5; }
     </style>
 </head>
 <body>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Panel Lateral (Sidebar) -->
-        <div class="col-md-3 col-lg-2 sidebar px-0">
-            <div class="brand-title text-center">
-                <i class="fa-solid fa-wand-magic-sparkles me-2"></i>LOOK MÁGICO
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        <!-- Sidebar Izquierda -->
+        <div class="col-md-3 col-lg-2 sidebar">
+            <!-- Contenedor Logo -->
+            <div class="logo-container">
+                <img src="{{ asset('img/logo.png') }}" alt="Look Mágico Logo" onerror="this.src='https://via.placeholder.com/150x150/ffffff/b04b77?text=Look+Mágico'">
             </div>
-            <div class="mt-4">
-                <a href="#" class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-                <a href="{{ route('agenda') }}"><i class="fa-solid fa-calendar-days"></i> Agenda Citas</a>
-                <a href="{{ route('servicios.general') }}"><i class="fa-solid fa-scissors"></i> Servicios</a>
-                <a href="{{ route('productos.general') }}"><i class="fa-solid fa-pump-soap"></i> Productos</a>
-            </div>
+
+            <!-- Menú -->
+            <ul class="menu-list">
+                <li><a href="#" class="active">- PANEL PRINCIPAL</a></li>
+                <li><a href="{{ route('servicios.general') }}">- INVENTARIO DE SERVICIOS</a></li>
+                <li><a href="{{ route('productos.general') }}">- CONTROL DE INVENTARIO (INSUMOS)</a></li>
+                <li><a href="{{ route('agenda') }}">- CONTROL DE AGENDA (CITAS)</a></li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" style="background:none; border:none; color:#fff; font-weight:600; font-size:0.88rem; padding:10px 12px; text-transform:uppercase;">
+                            - CERRAR SESIÓN
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
 
         <!-- Contenido Principal -->
-        <div class="col-md-9 col-lg-10 px-0">
-            <!-- Barra Superior (Navbar) -->
-            <div class="navbar-custom d-flex justify-content-between align-items-center">
-                <div>
-                    <h4 class="m-0 text-dark fw-bold">Panel de Administradora</h4>
-                    <small class="text-muted">Bienvenida, {{ Auth::user()->name ?? 'Administradora' }}</small>
+        <div class="col-md-9 col-lg-10">
+            <!-- Header Superior -->
+            <div class="top-header">
+                <h5>LOOK MAGICO - PANEL DE CONTROL</h5>
+                <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-bell text-warning fs-5"></i>
+                    <div class="user-avatar">
+                        {{ strtoupper(substr(Auth::user()->name ?? 'G', 0, 1)) }}
+                    </div>
                 </div>
-
-                <!-- Formulario de Cerrar Sesión -->
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-logout">
-                        <i class="fa-solid fa-right-from-bracket me-1"></i> Cerrar Sesión
-                    </button>
-                </form>
             </div>
 
-            <!-- Contenido Dashboard -->
+            <!-- Dashboard Body -->
             <div class="p-4">
-                <!-- Tarjetas Métricas Rápidas -->
-                <div class="row g-4 mb-4">
+                <h6 class="fw-bold mb-4" style="letter-spacing: 1px;">PANEL PRINCIPAL</h6>
+
+                <!-- Fila de Tarjetas -->
+                <div class="row g-3 mb-4">
                     <div class="col-md-4">
-                        <div class="card card-stat p-3">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h6 class="text-muted mb-1">Citas del Día</h6>
-                                    <h3 class="fw-bold mb-0">8</h3>
-                                </div>
-                                <div class="icon-box bg-rosa-light">
-                                    <i class="fa-solid fa-calendar-check"></i>
-                                </div>
+                        <div class="card-stat-pink d-flex flex-column justify-content-between">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <span class="stat-title">CITAS HOY</span>
+                                <span class="fs-4">🗓️</span>
                             </div>
+                            <div class="stat-number">10</div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <div class="card card-stat p-3">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h6 class="text-muted mb-1">Clientas Registradas</h6>
-                                    <h3 class="fw-bold mb-0">24</h3>
-                                </div>
-                                <div class="icon-box bg-dorado-light">
-                                    <i class="fa-solid fa-users"></i>
-                                </div>
-                            </div>
+                        <div class="card-stat-pink d-flex flex-column justify-content-between">
+                            <span class="stat-title">INGRESOS SEMANALES</span>
+                            <div class="stat-number">$5,000</div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <div class="card card-stat p-3">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h6 class="text-muted mb-1">Servicios Activos</h6>
-                                    <h3 class="fw-bold mb-0">12</h3>
+                        <div class="card-stat-pink">
+                            <span class="stat-title d-block text-center mb-3">RENDIMIENTO DE SERVICIOS</span>
+                            <div class="mt-4">
+                                <div class="progress-bar-custom">
+                                    <div class="progress-fill" style="width: 70%;"></div>
                                 </div>
-                                <div class="icon-box bg-rosa-light">
-                                    <i class="fa-solid fa-sparkles"></i>
+                                <div class="progress-bar-custom">
+                                    <div class="progress-fill" style="width: 45%;"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tabla de accesos / resumen -->
-                <div class="card card-stat p-4">
-                    <h5 class="fw-bold mb-3" style="color: var(--rosa-principal);">Acciones Rápidas</h5>
-                    <div class="d-flex gap-3 flex-wrap">
-                        <a href="{{ route('agenda') }}" class="btn text-white px-4 py-2" style="background-color: var(--rosa-principal); border-radius: 10px;">
-                            <i class="fa-solid fa-calendar-plus me-1"></i> Ver Agenda General
-                        </a>
-                        <a href="{{ route('productos.general') }}" class="btn btn-outline-secondary px-4 py-2" style="border-radius: 10px;">
-                            <i class="fa-solid fa-boxes-stacked me-1"></i> Revisar Catálogo
-                        </a>
+                <!-- Sección Próximas Citas & Insumos -->
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="section-subtitle">PRÓXIMAS CITAS</div>
+
+                        <!-- Header Tabla -->
+                        <div class="table-header-pink row text-uppercase g-0">
+                            <div class="col-4">Nombre de Clientes</div>
+                            <div class="col-3">Servicio</div>
+                            <div class="col-3">Fecha/Horario</div>
+                            <div class="col-2">Estatus</div>
+                        </div>
+
+                        <!-- Filas Citas -->
+                        <div class="table-row-item row g-0 align-items-center">
+                            <div class="col-4">PILY CARMONA</div>
+                            <div class="col-3">PLANCHADO ECONOMICO</div>
+                            <div class="col-3">SAB 19/SEP 11:20AM</div>
+                            <div class="col-2 text-uppercase">CONFIRMADO</div>
+                        </div>
+
+                        <div class="table-row-item row g-0 align-items-center">
+                            <div class="col-4">TOBY HERNANDEZ</div>
+                            <div class="col-3">CORTE DE HOMBRE</div>
+                            <div class="col-3">SAB 19/SEP 1:00 PM</div>
+                            <div class="col-2 text-uppercase">CONFIRMADO</div>
+                        </div>
+                    </div>
+
+                    <!-- Resumen de Insumos (Gráfica) -->
+                    <div class="col-lg-4 text-center">
+                        <div class="section-subtitle mb-3">RESUMEN DE INSUMOS</div>
+                        
+                        <div class="d-flex justify-content-center gap-3 mb-3 fs-7">
+                            <small><span style="color:#4a86f7;">●</span> Uso</small>
+                            <small><span style="color:#b28bf5;">●</span> Pérdidas</small>
+                        </div>
+
+                        <!-- Barras Simulación -->
+                        <div class="d-flex justify-content-center align-items-end gap-2" style="height: 180px; border-bottom: 1px solid #ccc;">
+                            <div class="chart-bar bar-blue" style="height: 85%;"></div>
+                            <div class="chart-bar bar-purple" style="height: 55%;"></div>
+                            <div class="chart-bar bar-blue" style="height: 70%;"></div>
+                            <div class="chart-bar bar-purple" style="height: 40%;"></div>
+                            <div class="chart-bar bar-blue" style="height: 50%;"></div>
+                            <div class="chart-bar bar-purple" style="height: 30%;"></div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
