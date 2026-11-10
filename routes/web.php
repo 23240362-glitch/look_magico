@@ -44,6 +44,14 @@ Route::get('/tintes', function () {
     return view('tintes');
 })->name('tintes');
 
+Route::get('/rayos', function () {
+    return view('rayos');
+})->name('rayos');
+
+Route::get('/tratamientos', function () {
+    return view('tratamientos');
+})->name('tratamientos');
+
 // 3. Selección de Rol (Cliente vs Admin)
 Route::get('/iniciar-sesion', [AuthController::class, 'seleccionarRol'])->name('login.roles');
 
