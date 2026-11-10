@@ -110,9 +110,14 @@ Route::get('/productos/skincare', function () {
 // 8. Cerrar sesión
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// 9. Panel de Administración (Panel exclusivo para Administradora)
+// 9. Panel de Administración
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin_dashboard');
     })->name('admin.dashboard');
+
+    // Esta es la ruta para la agenda de la administradora:
+    Route::get('/agenda', function () {
+        return view('admin_agenda');
+    })->name('admin.agenda');
 });

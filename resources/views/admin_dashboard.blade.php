@@ -194,20 +194,25 @@
             </div>
 
             <!-- Menú -->
-            <ul class="menu-list">
-                <li><a href="#" class="active">- PANEL PRINCIPAL</a></li>
-                <li><a href="{{ route('servicios.general') }}">- INVENTARIO DE SERVICIOS</a></li>
-                <li><a href="{{ route('productos.general') }}">- CONTROL DE INVENTARIO (INSUMOS)</a></li>
-                <li><a href="{{ route('agenda') }}">- CONTROL DE AGENDA (CITAS)</a></li>
-                <li>
-                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" style="background:none; border:none; color:#fff; font-weight:600; font-size:0.88rem; padding:10px 12px; text-transform:uppercase;">
-                            - CERRAR SESIÓN
-                        </button>
-                    </form>
-                </li>
-            </ul>
+            <!-- En resources/views/admin_dashboard.blade.php -->
+<ul class="menu-list">
+    <li><a href="{{ route('admin.dashboard') }}">- PANEL PRINCIPAL</a></li>
+    <li><a href="{{ route('servicios.general') }}">- INVENTARIO DE SERVICIOS</a></li>
+    <li><a href="{{ route('productos.general') }}">- CONTROL DE INVENTARIO (INSUMOS)</a></li>
+    <!-- Enlace a la agenda de citas -->
+   <li>
+    <a href="{{ route('admin.agenda') }}" class="{{ request()->routeIs('admin.agenda') ? 'active' : '' }}">
+        - CONTROL DE AGENDA (CITAS)
+    </a>
+</li>
+        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+            @csrf
+            <button type="submit" style="background:none; border:none; color:#fff; font-weight:600; font-size:0.88rem; padding:10px 12px; text-transform:uppercase;">
+                - CERRAR SESIÓN
+            </button>
+        </form>
+    </li>
+</ul>
         </div>
 
         <!-- Contenido Principal -->
