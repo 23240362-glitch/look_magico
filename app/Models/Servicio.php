@@ -5,45 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cita extends Model
+class Servicio extends Model
 {
     use HasFactory;
 
-    protected $table = 'citas';
+    protected $table = 'servicios';
 
-    // Todos los campos permitidos para asignación masiva
+    // Permite que Laravel guarde estos campos
     protected $fillable = [
-        'user_id',
-        'servicio',
-        'servicio_id',
-        'fecha',
-        'hora',
-        'estado',
+        'nombre',
+        'categoria',
+        'precio',
+        'duracion_minutos',
+        'imagen',
+        'estatus',
     ];
 
-    // Relación con el cliente que agenda la cita
-    public function user()
+    // Relación: un servicio puede estar en muchas citas
+    public function citas()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Cita::class, 'servicio_id');
     }
 
-    // Relación con el modelo Servicio
-    public function servicioCatalogo()
+    // Solo los servicios dados de alta
+    public function scopeActivos($query)
     {
-        return $this->belongsTo(Servicio::class, 'servicio_id');
-    }
-
-    // Evento previo a guardar la cita
-    protected static function booted(): void
-    {
-        static::saving(function (Cita $cita) {
-            // Si no enviamos servicio_id explícito, busca en la tabla servicios de tus compañeros por nombre
-            if (empty($cita->servicio_id) && !empty($cita->servicio)) {
-                $servicioObj = Servicio::where('nombre', 'LIKE', '%' . $cita->servicio . '%')->first();
-                if ($servicioObj) {
-                    $cita->servicio_id = $servicioObj->id;
-                }
-            }
-        });
+        return $query->where('estatus', 'ALTA');
     }
 }

@@ -176,6 +176,14 @@
             white-space: nowrap;
         }
 
+        .sin-productos {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #9C5174;
+            font-weight: bold;
+            padding: 20px;
+        }
+
         .btn-agregar:hover {
             background-color: #f7b6c6;
         }
@@ -217,75 +225,22 @@
             <a href="{{ route('productos.skincare') }}" class="filter-btn">Skincare y Corporal</a>
         </div>
 
-        <!-- Grid de Productos -->
+        <!-- Grid de Productos (se llenan desde la tabla productos de la BD) -->
         <section class="productos-grid">
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/acondicionador_hidratante.png') }}" alt="Acondicionador Hidratante" onerror="this.src='{{ asset('img/logo.png') }}'">
+            @forelse ($productos as $producto)
+                <div class="producto-card">
+                    <div class="img-wrapper">
+                        <span class="flower-icon">🌺</span>
+                        <img src="{{ asset('img/productos/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" onerror="this.src='{{ asset('img/logo.png') }}'">
+                    </div>
+                    <span class="producto-name">{{ $producto->nombre }}</span>
+                    <span class="producto-marca">{{ $producto->marca }}</span>
+                    <span class="producto-precio">${{ number_format($producto->precio, 2) }}</span>
+                    <a href="https://wa.me/524772554597?text={{ rawurlencode('Hola, me interesa el producto ' . $producto->nombre) }}" target="_blank" class="btn-agregar">Apartar Producto</a>
                 </div>
-                <span class="producto-name">Acondicionador Hidratante</span>
-                <span class="producto-marca">L'Oréal Professionnel</span>
-                <span class="producto-precio">$399.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Acondicionador%20Hidratante" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/acondicionador_matizador.png') }}" alt="Acondicionador Matizador" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Acondicionador Matizador</span>
-                <span class="producto-marca">Redken</span>
-                <span class="producto-precio">$540.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Acondicionador%20Matizador" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/acondicionador_reparador.png') }}" alt="Acondicionador Reparador" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Acondicionador Reparador</span>
-                <span class="producto-marca">Olaplex</span>
-                <span class="producto-precio">$750.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Acondicionador%20Reparador" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/acondicionador_rizos.png') }}" alt="Acondicionador Rizos" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Acondicionador Rizos</span>
-                <span class="producto-marca">Moroccanoil</span>
-                <span class="producto-precio">$690.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Acondicionador%20Rizos" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/acondicionador_sin_enjuague.png') }}" alt="Acondicionador sin Enjuague" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Acondicionador sin Enjuague</span>
-                <span class="producto-marca">Pantene</span>
-                <span class="producto-precio">$149.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Acondicionador%20sin%20Enjuague" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/acondicionador_nutritivo.png') }}" alt="Acondicionador Nutritivo" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Acondicionador Nutritivo</span>
-                <span class="producto-marca">Kérastase</span>
-                <span class="producto-precio">$920.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Acondicionador%20Nutritivo" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
+            @empty
+                <p class="sin-productos">Por ahora no hay productos en esta categoría.</p>
+            @endforelse
         </section>
 
         <!-- Redirección directa a la vista de tratamientos -->

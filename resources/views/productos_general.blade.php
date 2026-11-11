@@ -176,6 +176,14 @@
             white-space: nowrap;
         }
 
+        .sin-productos {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #9C5174;
+            font-weight: bold;
+            padding: 20px;
+        }
+
         .btn-agregar:hover {
             background-color: #f7b6c6;
         }
@@ -217,145 +225,22 @@
             <a href="{{ route('productos.skincare') }}" class="filter-btn">Skincare y Corporal</a>
         </div>
 
-        <!-- Grid de Productos -->
+        <!-- Grid de Productos (se llenan desde la tabla productos de la BD) -->
         <section class="productos-grid">
-
-            <!-- Shampoos -->
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/shampoo_hidratante.png') }}" alt="Shampoo Hidratante" onerror="this.src='{{ asset('img/logo.png') }}'">
+            @forelse ($productos as $producto)
+                <div class="producto-card">
+                    <div class="img-wrapper">
+                        <span class="flower-icon">🌺</span>
+                        <img src="{{ asset('img/productos/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" onerror="this.src='{{ asset('img/logo.png') }}'">
+                    </div>
+                    <span class="producto-name">{{ $producto->nombre }}</span>
+                    <span class="producto-marca">{{ $producto->marca }}</span>
+                    <span class="producto-precio">${{ number_format($producto->precio, 2) }}</span>
+                    <a href="https://wa.me/524772554597?text={{ rawurlencode('Hola, me interesa el producto ' . $producto->nombre) }}" target="_blank" class="btn-agregar">Apartar Producto</a>
                 </div>
-                <span class="producto-name">Shampoo Hidratante</span>
-                <span class="producto-marca">L'Oréal Professionnel</span>
-                <span class="producto-precio">$389.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Shampoo%20Hidratante" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/shampoo_matizador.png') }}" alt="Shampoo Matizador" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Shampoo Matizador</span>
-                <span class="producto-marca">Redken</span>
-                <span class="producto-precio">$520.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Shampoo%20Matizador" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/shampoo_anticaspa.png') }}" alt="Shampoo Anticaspa" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Shampoo Anticaspa</span>
-                <span class="producto-marca">Head &amp; Shoulders</span>
-                <span class="producto-precio">$129.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Shampoo%20Anticaspa" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <!-- Acondicionadores -->
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/acondicionador_hidratante.png') }}" alt="Acondicionador Hidratante" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Acondicionador Hidratante</span>
-                <span class="producto-marca">L'Oréal Professionnel</span>
-                <span class="producto-precio">$399.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Acondicionador%20Hidratante" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/acondicionador_matizador.png') }}" alt="Acondicionador Matizador" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Acondicionador Matizador</span>
-                <span class="producto-marca">Redken</span>
-                <span class="producto-precio">$540.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Acondicionador%20Matizador" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/acondicionador_reparador.png') }}" alt="Acondicionador Reparador" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Acondicionador Reparador</span>
-                <span class="producto-marca">Olaplex</span>
-                <span class="producto-precio">$750.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Acondicionador%20Reparador" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <!-- Tratamientos -->
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/aceite_argan.png') }}" alt="Aceite de Argán" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Aceite de Argán</span>
-                <span class="producto-marca">Moroccanoil</span>
-                <span class="producto-precio">$820.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Aceite%20de%20Arg%C3%A1n" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/mascarilla_reparadora.png') }}" alt="Mascarilla Reparadora" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Mascarilla Reparadora</span>
-                <span class="producto-marca">Olaplex</span>
-                <span class="producto-precio">$780.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Mascarilla%20Reparadora" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/ampolletas_anticaida.png') }}" alt="Ampolletas Anticaída" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Ampolletas Anticaída</span>
-                <span class="producto-marca">Kérastase</span>
-                <span class="producto-precio">$1,150.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Ampolletas%20Antica%C3%ADda" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <!-- Skincare y Corporal -->
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/limpiador_facial.png') }}" alt="Limpiador Facial" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Limpiador Facial</span>
-                <span class="producto-marca">Cetaphil</span>
-                <span class="producto-precio">$289.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Limpiador%20Facial" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/crema_hidratante.png') }}" alt="Crema Hidratante" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Crema Hidratante</span>
-                <span class="producto-marca">Neutrogena</span>
-                <span class="producto-precio">$249.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Crema%20Hidratante" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/protector_solar.png') }}" alt="Protector Solar FPS 50" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Protector Solar FPS 50</span>
-                <span class="producto-marca">La Roche-Posay</span>
-                <span class="producto-precio">$520.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Protector%20Solar%20FPS%2050" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
+            @empty
+                <p class="sin-productos">Por ahora no hay productos en esta categoría.</p>
+            @endforelse
         </section>
 
         <!-- Redirección directa a la vista de shampoos -->

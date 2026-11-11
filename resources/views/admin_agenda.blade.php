@@ -95,7 +95,7 @@
             <ul class="menu-list">
                 <li><a href="{{ route('admin.dashboard') }}">- PANEL PRINCIPAL</a></li>
                 <li><a href="{{ route('servicios.general') }}">- INVENTARIO DE SERVICIOS</a></li>
-                <li><a href="{{ route('productos.general') }}">- CONTROL DE INVENTARIO (INSUMOS)</a></li>
+                <li><a href="{{ route('admin.productos.index') }}">- CONTROL DE INVENTARIO (INSUMOS)</a></li>
                 <li><a href="{{ route('admin.agenda') }}" class="active">- CONTROL DE AGENDA (CITAS)</a></li>
             </ul>
         </div>
