@@ -3,323 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Look Mágico - Servicios en General</title>
+    <title>Look Mágico - Inventario de Servicios</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+        :root {
+            --magenta-principal: #b04b77;
+            --magenta-oscuro: #923a60;
+            --rosa-tarjeta: #ffd1e4;
+            --rosa-claro-bg: #fdf5f8;
+            --texto-oscuro: #333333;
         }
 
         body {
-            background-color: #FAF0E6;
-            color: #333;
+            background-color: var(--rosa-claro-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--texto-oscuro);
+        }
+
+        /* Sidebar Lateral */
+        .sidebar {
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
+            background-color: var(--magenta-principal);
+            color: #fff;
+            padding: 25px 15px;
         }
 
-        /* Encabezado superior Mauve */
-        header {
-            background-color: #9C5174;
-            color: white;
-            padding: 12px 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
+        .logo-container {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .back-btn {
-            color: white;
-            font-size: 24px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .header-title-container {
-            flex-grow: 1;
-            margin-left: 20px;
-        }
-
-        .header-title-container h1 {
-            font-size: 24px;
-            letter-spacing: 2px;
-            font-weight: bold;
-        }
-
-        .logo-box {
-            width: 75px;
-            background-color: white;
-            border-radius: 15px;
-            padding: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .logo-box img {
-            width: 100%;
+        .logo-container img {
+            max-width: 100%;
             height: auto;
             border-radius: 10px;
         }
 
-        /* Contenido Principal */
-        main {
-            flex: 1;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-            width: 100%;
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        /* Grid de Servicios (6 por fila) */
-        .servicios-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
+        .menu-list li {
+            margin-bottom: 8px;
         }
 
-        /* Tarjeta individual de Servicio */
-        .servicio-card {
+        .menu-list a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: block;
+            padding: 10px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .menu-list a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .menu-list a.active {
+            background-color: #f7bcd4;
+            color: var(--magenta-oscuro);
+        }
+
+        /* Top Bar */
+        .top-header {
+            background-color: var(--magenta-principal);
+            color: #fff;
+            padding: 15px 30px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            position: relative;
         }
 
-        .img-wrapper {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 18px;
-            overflow: hidden;
+        .top-header h5 {
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
         }
 
-        .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 18px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        }
-
-        /* Flor decorativa rosa en la esquina */
-        .flower-icon {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 26px;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .servicio-name {
-            font-size: 13px;
-            font-weight: bold;
-            color: #000;
-            margin: 8px 0 4px 0;
-            text-align: center;
-        }
-
-        .btn-agregar {
-            background-color: #FFC0CB;
-            color: #000;
-            border: none;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 10px;
-            font-weight: bold;
-            text-decoration: underline;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .btn-agregar:hover {
-            background-color: #f7b6c6;
-        }
-
-        /* Paginación Inferior */
-        .pagination-container {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .page-info {
-            font-size: 13px;
-            font-weight: bold;
-            color: #9C5174;
-        }
-
-        .page-btn {
-            background-color: #BD4B7B;
-            color: white;
-            border: none;
-            width: 34px;
-            height: 34px;
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            background-color: #fff;
+            color: var(--magenta-oscuro);
             border-radius: 50%;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.2s ease;
+            font-weight: bold;
         }
 
-        /* Adaptabilidad en pantallas más pequeñas */
-        @media (max-width: 900px) {
-            .servicios-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        /* Tabla de servicios */
+        .card-custom {
+            background-color: #fff;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
         }
-        @media (max-width: 550px) {
-            .servicios-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+
+        .tabla-servicios thead th {
+            background-color: var(--magenta-principal);
+            color: #fff;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            border: none;
+        }
+
+        .tabla-servicios td {
+            font-size: 0.88rem;
+        }
+
+        .miniatura {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .btn-magenta {
+            background-color: var(--magenta-principal);
+            color: #fff;
+            border-radius: 20px;
+            font-weight: 600;
+            padding: 8px 20px;
+        }
+
+        .btn-magenta:hover {
+            background-color: var(--magenta-oscuro);
+            color: #fff;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid var(--rosa-tarjeta);
+            border-radius: 15px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--magenta-principal);
+            box-shadow: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- Encabezado -->
-    <header>
-        <a href="{{ url('/cliente/inicio') }}" class="back-btn">←</a>
-        <div class="header-title-container">
-            <h1>Servicios Generales</h1>
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        <!-- Sidebar Izquierda -->
+        <div class="col-md-3 col-lg-2 sidebar">
+            <!-- Contenedor Logo -->
+            <div class="logo-container">
+                <img src="{{ asset('img/logo.png') }}" alt="Look Mágico Logo" onerror="this.src='https://via.placeholder.com/150x150/ffffff/b04b77?text=Look+Mágico'">
+            </div>
+
+            <!-- Menú -->
+            <ul class="menu-list">
+                <li><a href="{{ route('admin.dashboard') }}">- PANEL PRINCIPAL</a></li>
+                <li><a href="{{ route('servicios.general') }}" class="active">- INVENTARIO DE SERVICIOS</a></li>
+                <li><a href="{{ route('admin.productos.index') }}">- CONTROL DE INVENTARIO (INSUMOS)</a></li>
+                <li><a href="{{ route('admin.agenda') }}">- CONTROL DE AGENDA (CITAS)</a></li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" style="background:none; border:none; color:#fff; font-weight:600; font-size:0.88rem; padding:10px 12px; text-transform:uppercase;">
+                            - CERRAR SESIÓN
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
-        <div class="logo-box">
-            <img src="{{ asset('img/logo.png') }}" alt="Logo Look Mágico" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+
+        <!-- Contenido Principal -->
+        <div class="col-md-9 col-lg-10">
+            <!-- Header Superior -->
+            <div class="top-header">
+                <h5>LOOK MAGICO - INVENTARIO DE SERVICIOS</h5>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-avatar">
+                        {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4">
+                <!-- Mensajes de éxito -->
+                @if (session('success'))
+                    <div class="alert alert-success border-0 shadow-sm rounded-3">{{ session('success') }}</div>
+                @endif
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                    <h6 class="fw-bold m-0" style="letter-spacing: 1px;">SERVICIOS DEL CATÁLOGO</h6>
+                    <a href="{{ route('servicios.create') }}" class="btn btn-magenta">
+                        <i class="fa-solid fa-plus"></i> Nuevo servicio
+                    </a>
+                </div>
+
+                <!-- Filtros por categoría y estatus -->
+                <form method="GET" action="{{ route('servicios.general') }}" class="row g-2 mb-4">
+                    <div class="col-md-4">
+                        <select name="categoria" class="form-select">
+                            <option value="">Todas las categorías</option>
+                            @php
+                                $categoriasServicios = ['Cortes', 'Depilaciones', 'Maquillajes', 'Peinados', 'Manicuras', 'Pedicuras', 'Tintes', 'Rayos', 'Tratamientos'];
+                            @endphp
+                            @foreach ($categoriasServicios as $cat)
+                                <option value="{{ $cat }}" @selected(request('categoria') == $cat)>{{ $cat }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="estatus" class="form-select">
+                            <option value="">Alta y baja</option>
+                            <option value="ALTA" @selected(request('estatus') == 'ALTA')>Solo en alta</option>
+                            <option value="BAJA" @selected(request('estatus') == 'BAJA')>Solo dados de baja</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5 d-flex gap-2">
+                        <button type="submit" class="btn btn-magenta">Filtrar</button>
+                        <a href="{{ route('servicios.general') }}" class="btn btn-outline-secondary" style="border-radius: 20px;">Limpiar</a>
+                    </div>
+                </form>
+
+                <!-- Tabla de servicios -->
+                <div class="card card-custom p-3">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle tabla-servicios mb-0">
+                            <thead>
+                                <tr>
+                                    <th>FOTO</th>
+                                    <th>SERVICIO</th>
+                                    <th>CATEGORÍA</th>
+                                    <th>PRECIO</th>
+                                    <th>DURACIÓN</th>
+                                    <th>ESTATUS</th>
+                                    <th class="text-center">ACCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($servicios as $servicio)
+                                    <tr>
+                                        <td>
+                                            <img src="{{ asset('img/' . ($servicio->imagen ?? 'logo.png')) }}" alt="{{ $servicio->nombre }}" class="miniatura" onerror="this.src='{{ asset('img/logo.png') }}'">
+                                        </td>
+                                        <td><strong>{{ $servicio->nombre }}</strong><br><small class="text-muted">{{ $servicio->descripcion ?? 'Sin descripción' }}</small></td>
+                                        <td>{{ $servicio->categoria }}</td>
+                                        <td>${{ number_format($servicio->precio, 2) }}</td>
+                                        <td>{{ $servicio->duracion ?? '45' }} min</td>
+                                        <td>
+                                            @if (($servicio->estatus ?? 'ALTA') == 'ALTA')
+                                                <span class="badge bg-success">Alta</span>
+                                            @else
+                                                <span class="badge bg-secondary">Baja</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <!-- Modificar -->
+                                            <a href="{{ route('servicios.edit', $servicio->id) }}" class="btn btn-sm btn-outline-primary" title="Modificar">
+                                                <i class="fa-solid fa-pen"></i> Modificar
+                                            </a>
+
+                                            @if (($servicio->estatus ?? 'ALTA') == 'ALTA')
+                                                <!-- Dar de baja -->
+                                                <form action="{{ route('servicios.baja', $servicio->id) }}" method="POST" class="d-inline"
+                                                      onsubmit="return confirm('¿Dar de baja {{ $servicio->nombre }}? Ya no estará disponible para citas.');">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Dar de baja">
+                                                        <i class="fa-solid fa-arrow-down"></i> Baja
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <!-- Volver a dar de alta -->
+                                                <form action="{{ route('servicios.alta', $servicio->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-sm btn-outline-success" title="Dar de alta">
+                                                        <i class="fa-solid fa-arrow-up"></i> Alta
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted py-4">No hay servicios registrados con esos filtros.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    </header>
+    </div>
+</div>
 
-    <!-- Contenido Principal -->
-    <main>
-
-        <!-- Grid de Servicios -->
-        <section class="servicios-grid">
-
-            <!-- Fila 1 (Página 1) -->
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/Pixie.jpg') }}" alt="Corte Pixie" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Pixie'">
-                </div>
-                <span class="servicio-name">Corte Pixie</span>
-                <a href="{{ route('agenda', ['servicio' => 'pixie']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/cortecesar.jpg') }}" alt="Corte César" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Corte+César'">
-                </div>
-                <span class="servicio-name">Corte César</span>
-                <a href="{{ route('agenda', ['servicio' => 'corte_cesar']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/manicura_francesa.jpg') }}" alt="Manicura Francesa" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Manicura'">
-                </div>
-                <span class="servicio-name">Manicura Francesa</span>
-                <a href="{{ route('agenda', ['servicio' => 'manicura_francesa']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/manicura_semipermanente.jpg') }}" alt="Manicura Semipermanente" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Manicura+Semipermanente'">
-                </div>
-                <span class="servicio-name">Manicura Semipermanente</span>
-                <a href="{{ route('agenda', ['servicio' => 'manicura_semipermanente']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajeteatral.jpg') }}" alt="Maquillaje Teatral" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Maquillaje+Teatral'">
-                </div>
-                <span class="servicio-name">Maquillaje Teatral</span>
-                <a href="{{ route('agenda', ['servicio' => 'maquillaje_teatral']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajeartistico.jpg') }}" alt="Maquillaje Artístico" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Maquillaje+Artístico'">
-                </div>
-                <span class="servicio-name">Maquillaje Artístico</span>
-                <a href="{{ route('agenda', ['servicio' => 'maquillaje_artistico']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/hidratacion_facial.jpg') }}" alt="Hidratación Facial" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Hidratación+Facial'">
-                </div>
-                <span class="servicio-name">Hidratación Facial</span>
-                <a href="{{ route('agenda', ['servicio' => 'hidratacion_facial']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <!-- Fila 2 (Página 2) -->
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/depilaciondebozo.jpg') }}" alt="Depilación de Bazo" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Depilación+de+Bazo'">
-                </div>
-                <span class="servicio-name">Depilación de Bazo</span>
-                <a href="{{ route('agenda', ['servicio' => 'depilacion_de_bazo']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/manicura_spa.jpg') }}" alt="Manicura Spa" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Manicura+Spa'">
-                </div>
-                <span class="servicio-name">Manicura Spa</span>
-                <a href="{{ route('agenda', ['servicio' => 'manicura_spa']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/radiofrecuencia_facial.jpg') }}" alt="Radiofrecuencia Facial" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Radiofrecuencia+Facial'">
-                </div>
-                <span class="servicio-name">Radiofrecuencia Facial</span>
-                <a href="{{ route('agenda', ['servicio' => 'radiofrecuencia_facial']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/tinte_temporal.jpg') }}" alt="Tinte Temporal" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Tinte+Temporal'">
-                </div>
-                <span class="servicio-name">Tinte Temporal</span>
-                <a href="{{ route('agenda', ['servicio' => 'tinte_temporal']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="servicio-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajefotografico.jpg') }}" alt="Maquillaje Fotográfico" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Maquillaje+Fotográfico'">
-                </div>
-                <span class="servicio-name">Maquillaje Fotográfico</span>
-                <a href="{{ route('agenda', ['servicio' => 'maquillaje_fotografico']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-        <!-- Redirección directa a la vista clasificacion -->
-        <a href="{{ route('clasificacion', ['clasificacion' => '_']) }}" class="btn-agregar">Ver más...</a>
-    </section>
-    </main>
 </body>
 </html>

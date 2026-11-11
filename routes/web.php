@@ -12,14 +12,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// 2. Catálogo de Servicios
+// 2. Catálogo de Servicios (Vista Cliente)
 Route::get('/clasificacion', function () {
     return view('clasificacion');
 })->name('clasificacion');
-
-Route::get('/servicios/general', function () {
-    return view('servicios_general');
-})->name('servicios.general');
 
 Route::get('/depilaciones', function () {
     return view('depilaciones');
@@ -73,24 +69,20 @@ Route::get('/forgot-password', function () {
 
 Route::post('/forgot-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
-// Ruta para mostrar el formulario de registro
+// Registro de usuario
 Route::get('/registro', function () {
     return view('registro');
 });
-
-// Ruta para procesar el envío de datos
 Route::post('/registro', [AuthController::class, 'register']);
 
+// Citas y Agenda Cliente
 Route::get('/agenda', [CitaController::class, 'index'])->name('agenda');
 Route::get('/api/horarios-ocupados', [CitaController::class, 'obtenerHorariosOcupados']);
 Route::post('/citas/guardar', [CitaController::class, 'guardar'])->name('citas.guardar');
-
-// Ruta para ver la pantalla de confirmación con el ID de la cita creada
 Route::get('/cita/confirmada/{id}', [CitaController::class, 'confirmacion'])->name('cita.confirmacion');
 
-// 7. Catálogo de Productos (los productos se leen de la tabla productos)
+// 7. Catálogo de Productos (Vista Cliente)
 Route::get('/productos', function () {
-    // Muestra 3 productos de cada categoría
     $productos = Producto::activos()->get()->groupBy('categoria')->map->take(3)->flatten();
     return view('productos_general', compact('productos'));
 })->name('productos.general');
@@ -118,18 +110,27 @@ Route::get('/productos/skincare', function () {
 // 8. Cerrar sesión
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// 9. Panel de Administración (solo entra la administradora con sesión iniciada)
+// 9. Panel de Administración (Administradora Autenticada)
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin_dashboard');
     })->name('admin.dashboard');
 
-    // Esta es la ruta para la agenda de la administradora:
+    // Agenda Administradora
     Route::get('/agenda', function () {
         return view('admin_agenda');
     })->name('admin.agenda');
 
-    // Control de inventario: alta, consulta, modificación y baja de productos
+    // Módulo de Servicios: consulta, alta, edición y baja
+    Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.general');
+    Route::get('/servicios/nuevo', [ServicioController::class, 'create'])->name('servicios.create');
+    Route::post('/servicios', [ServicioController::class, 'store'])->name('servicios.store');
+    Route::get('/servicios/{id}/editar', [ServicioController::class, 'edit'])->name('servicios.edit');
+    Route::put('/servicios/{id}', [ServicioController::class, 'update'])->name('servicios.update');
+    Route::patch('/servicios/{id}/baja', [ServicioController::class, 'baja'])->name('servicios.baja');
+    Route::patch('/servicios/{id}/alta', [ServicioController::class, 'alta'])->name('servicios.alta');
+
+    // Módulo de Productos (Insumos): consulta, alta, edición y baja
     Route::get('/productos', [ProductoController::class, 'index'])->name('admin.productos.index');
     Route::get('/productos/nuevo', [ProductoController::class, 'create'])->name('admin.productos.create');
     Route::post('/productos', [ProductoController::class, 'store'])->name('admin.productos.store');
