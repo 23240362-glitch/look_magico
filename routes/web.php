@@ -52,7 +52,10 @@ Route::get('/tratamientos', function () {
 })->name('tratamientos');
 
 // 3. Selección de Rol (Cliente vs Admin)
-Route::get('/iniciar-sesion', [AuthController::class, 'seleccionarRol'])->name('login.roles');
+//Route::get('/iniciar-sesion', [AuthController::class, 'seleccionarRol'])->name('login.roles');
+Route::get('/seleccionar/rol', function () {
+    return view('seleccionar_rol'); // Nombre exacto de tu archivo Blade
+})->name('seleccionar.rol');
 
 // 4. Módulo Autenticación Clienta
 Route::get('/login/cliente', [AuthController::class, 'showLoginCliente'])->name('login.cliente');
