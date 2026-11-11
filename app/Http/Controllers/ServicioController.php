@@ -138,7 +138,7 @@ class ServicioController extends Controller
         return redirect()->back()
             ->with('success', 'Servicio "' . $servicio->nombre . '" dado de baja correctamente.');
     }
-
+ 
     /**
      * 7. Cambiar estatus a ALTA
      */
