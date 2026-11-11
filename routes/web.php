@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\ProductoController;
+use App\Models\Producto;
 
 // 1. Pantalla de Bienvenida Pública
 Route::get('/', function () {
@@ -86,32 +88,38 @@ Route::post('/citas/guardar', [CitaController::class, 'guardar'])->name('citas.g
 // Ruta para ver la pantalla de confirmación con el ID de la cita creada
 Route::get('/cita/confirmada/{id}', [CitaController::class, 'confirmacion'])->name('cita.confirmacion');
 
-// 7. Catálogo de Productos
+// 7. Catálogo de Productos (los productos se leen de la tabla productos)
 Route::get('/productos', function () {
-    return view('productos_general');
+    // Muestra 3 productos de cada categoría
+    $productos = Producto::activos()->get()->groupBy('categoria')->map->take(3)->flatten();
+    return view('productos_general', compact('productos'));
 })->name('productos.general');
 
 Route::get('/productos/shampoos', function () {
-    return view('shampoos');
+    $productos = Producto::activos()->deCategoria('Shampoos')->orderBy('nombre')->get();
+    return view('shampoos', compact('productos'));
 })->name('productos.shampoos');
 
 Route::get('/productos/acondicionadores', function () {
-    return view('acondicionadores');
+    $productos = Producto::activos()->deCategoria('Acondicionadores')->orderBy('nombre')->get();
+    return view('acondicionadores', compact('productos'));
 })->name('productos.acondicionadores');
 
 Route::get('/productos/tratamientos', function () {
-    return view('productos_tratamientos');
+    $productos = Producto::activos()->deCategoria('Tratamientos')->orderBy('nombre')->get();
+    return view('productos_tratamientos', compact('productos'));
 })->name('productos.tratamientos');
 
 Route::get('/productos/skincare', function () {
-    return view('skincare');
+    $productos = Producto::activos()->deCategoria('Skincare y Corporal')->orderBy('nombre')->get();
+    return view('skincare', compact('productos'));
 })->name('productos.skincare');
 
 // 8. Cerrar sesión
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// 9. Panel de Administración
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+// 9. Panel de Administración (solo entra la administradora con sesión iniciada)
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin_dashboard');
     })->name('admin.dashboard');
@@ -120,4 +128,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/agenda', function () {
         return view('admin_agenda');
     })->name('admin.agenda');
+
+    // Control de inventario: alta, consulta, modificación y baja de productos
+    Route::get('/productos', [ProductoController::class, 'index'])->name('admin.productos.index');
+    Route::get('/productos/nuevo', [ProductoController::class, 'create'])->name('admin.productos.create');
+    Route::post('/productos', [ProductoController::class, 'store'])->name('admin.productos.store');
+    Route::get('/productos/{id}/editar', [ProductoController::class, 'edit'])->name('admin.productos.edit');
+    Route::put('/productos/{id}', [ProductoController::class, 'update'])->name('admin.productos.update');
+    Route::patch('/productos/{id}/baja', [ProductoController::class, 'baja'])->name('admin.productos.baja');
+    Route::patch('/productos/{id}/alta', [ProductoController::class, 'alta'])->name('admin.productos.alta');
 });

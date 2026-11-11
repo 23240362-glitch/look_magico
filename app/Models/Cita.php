@@ -11,10 +11,11 @@ class Cita extends Model
 
     protected $table = 'citas';
 
-    // Permite que Laravel| guarde estos campos
+    // Permite que Laravel guarde estos campos
     protected $fillable = [
-|       'user_id',
-|       'servicio',
+        'user_id',
+        'servicio_id',
+        'servicio',
         'fecha',
         'hora',
         'estado',

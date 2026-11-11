@@ -176,6 +176,14 @@
             white-space: nowrap;
         }
 
+        .sin-productos {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #9C5174;
+            font-weight: bold;
+            padding: 20px;
+        }
+
         .btn-agregar:hover {
             background-color: #f7b6c6;
         }
@@ -217,75 +225,22 @@
             <a href="{{ route('productos.skincare') }}" class="filter-btn activo">Skincare y Corporal</a>
         </div>
 
-        <!-- Grid de Productos -->
+        <!-- Grid de Productos (se llenan desde la tabla productos de la BD) -->
         <section class="productos-grid">
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/limpiador_facial.png') }}" alt="Limpiador Facial" onerror="this.src='{{ asset('img/logo.png') }}'">
+            @forelse ($productos as $producto)
+                <div class="producto-card">
+                    <div class="img-wrapper">
+                        <span class="flower-icon">🌺</span>
+                        <img src="{{ asset('img/productos/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" onerror="this.src='{{ asset('img/logo.png') }}'">
+                    </div>
+                    <span class="producto-name">{{ $producto->nombre }}</span>
+                    <span class="producto-marca">{{ $producto->marca }}</span>
+                    <span class="producto-precio">${{ number_format($producto->precio, 2) }}</span>
+                    <a href="https://wa.me/524772554597?text={{ rawurlencode('Hola, me interesa el producto ' . $producto->nombre) }}" target="_blank" class="btn-agregar">Apartar Producto</a>
                 </div>
-                <span class="producto-name">Limpiador Facial</span>
-                <span class="producto-marca">Cetaphil</span>
-                <span class="producto-precio">$289.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Limpiador%20Facial" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/crema_hidratante.png') }}" alt="Crema Hidratante" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Crema Hidratante</span>
-                <span class="producto-marca">Neutrogena</span>
-                <span class="producto-precio">$249.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Crema%20Hidratante" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/protector_solar.png') }}" alt="Protector Solar FPS 50" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Protector Solar FPS 50</span>
-                <span class="producto-marca">La Roche-Posay</span>
-                <span class="producto-precio">$520.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Protector%20Solar%20FPS%2050" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/serum_vitamina_c.png') }}" alt="Sérum Vitamina C" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Sérum Vitamina C</span>
-                <span class="producto-marca">The Ordinary</span>
-                <span class="producto-precio">$380.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20S%C3%A9rum%20Vitamina%20C" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/crema_corporal.png') }}" alt="Crema Corporal" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Crema Corporal</span>
-                <span class="producto-marca">Nivea</span>
-                <span class="producto-precio">$159.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Crema%20Corporal" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/exfoliante_corporal.png') }}" alt="Exfoliante Corporal" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Exfoliante Corporal</span>
-                <span class="producto-marca">St. Ives</span>
-                <span class="producto-precio">$139.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Exfoliante%20Corporal" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
+            @empty
+                <p class="sin-productos">Por ahora no hay productos en esta categoría.</p>
+            @endforelse
         </section>
 
         <!-- Regresa a la vista general de productos -->

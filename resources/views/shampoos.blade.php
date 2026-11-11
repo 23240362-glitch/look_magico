@@ -176,6 +176,14 @@
             white-space: nowrap;
         }
 
+        .sin-productos {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #9C5174;
+            font-weight: bold;
+            padding: 20px;
+        }
+
         .btn-agregar:hover {
             background-color: #f7b6c6;
         }
@@ -217,75 +225,22 @@
             <a href="{{ route('productos.skincare') }}" class="filter-btn">Skincare y Corporal</a>
         </div>
 
-        <!-- Grid de Productos -->
+        <!-- Grid de Productos (se llenan desde la tabla productos de la BD) -->
         <section class="productos-grid">
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/shampoo_hidratante.png') }}" alt="Shampoo Hidratante" onerror="this.src='{{ asset('img/logo.png') }}'">
+            @forelse ($productos as $producto)
+                <div class="producto-card">
+                    <div class="img-wrapper">
+                        <span class="flower-icon">🌺</span>
+                        <img src="{{ asset('img/productos/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" onerror="this.src='{{ asset('img/logo.png') }}'">
+                    </div>
+                    <span class="producto-name">{{ $producto->nombre }}</span>
+                    <span class="producto-marca">{{ $producto->marca }}</span>
+                    <span class="producto-precio">${{ number_format($producto->precio, 2) }}</span>
+                    <a href="https://wa.me/524772554597?text={{ rawurlencode('Hola, me interesa el producto ' . $producto->nombre) }}" target="_blank" class="btn-agregar">Apartar Producto</a>
                 </div>
-                <span class="producto-name">Shampoo Hidratante</span>
-                <span class="producto-marca">L'Oréal Professionnel</span>
-                <span class="producto-precio">$389.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Shampoo%20Hidratante" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/shampoo_matizador.png') }}" alt="Shampoo Matizador" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Shampoo Matizador</span>
-                <span class="producto-marca">Redken</span>
-                <span class="producto-precio">$520.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Shampoo%20Matizador" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/shampoo_anticaspa.png') }}" alt="Shampoo Anticaspa" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Shampoo Anticaspa</span>
-                <span class="producto-marca">Head &amp; Shoulders</span>
-                <span class="producto-precio">$129.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Shampoo%20Anticaspa" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/shampoo_reparador.png') }}" alt="Shampoo Reparador" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Shampoo Reparador</span>
-                <span class="producto-marca">Olaplex</span>
-                <span class="producto-precio">$750.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Shampoo%20Reparador" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/shampoo_sin_sulfatos.png') }}" alt="Shampoo Sin Sulfatos" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Shampoo Sin Sulfatos</span>
-                <span class="producto-marca">Moroccanoil</span>
-                <span class="producto-precio">$690.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Shampoo%20Sin%20Sulfatos" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/shampoo_anticaida.png') }}" alt="Shampoo Anticaída" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Shampoo Anticaída</span>
-                <span class="producto-marca">Kérastase</span>
-                <span class="producto-precio">$890.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Shampoo%20Antica%C3%ADda" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
+            @empty
+                <p class="sin-productos">Por ahora no hay productos en esta categoría.</p>
+            @endforelse
         </section>
 
         <!-- Redirección directa a la vista de acondicionadores -->

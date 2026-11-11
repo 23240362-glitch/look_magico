@@ -176,6 +176,14 @@
             white-space: nowrap;
         }
 
+        .sin-productos {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #9C5174;
+            font-weight: bold;
+            padding: 20px;
+        }
+
         .btn-agregar:hover {
             background-color: #f7b6c6;
         }
@@ -217,75 +225,22 @@
             <a href="{{ route('productos.skincare') }}" class="filter-btn">Skincare y Corporal</a>
         </div>
 
-        <!-- Grid de Productos -->
+        <!-- Grid de Productos (se llenan desde la tabla productos de la BD) -->
         <section class="productos-grid">
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/aceite_argan.png') }}" alt="Aceite de Argán" onerror="this.src='{{ asset('img/logo.png') }}'">
+            @forelse ($productos as $producto)
+                <div class="producto-card">
+                    <div class="img-wrapper">
+                        <span class="flower-icon">🌺</span>
+                        <img src="{{ asset('img/productos/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" onerror="this.src='{{ asset('img/logo.png') }}'">
+                    </div>
+                    <span class="producto-name">{{ $producto->nombre }}</span>
+                    <span class="producto-marca">{{ $producto->marca }}</span>
+                    <span class="producto-precio">${{ number_format($producto->precio, 2) }}</span>
+                    <a href="https://wa.me/524772554597?text={{ rawurlencode('Hola, me interesa el producto ' . $producto->nombre) }}" target="_blank" class="btn-agregar">Apartar Producto</a>
                 </div>
-                <span class="producto-name">Aceite de Argán</span>
-                <span class="producto-marca">Moroccanoil</span>
-                <span class="producto-precio">$820.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Aceite%20de%20Arg%C3%A1n" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/mascarilla_reparadora.png') }}" alt="Mascarilla Reparadora" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Mascarilla Reparadora</span>
-                <span class="producto-marca">Olaplex</span>
-                <span class="producto-precio">$780.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Mascarilla%20Reparadora" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/ampolletas_anticaida.png') }}" alt="Ampolletas Anticaída" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Ampolletas Anticaída</span>
-                <span class="producto-marca">Kérastase</span>
-                <span class="producto-precio">$1,150.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Ampolletas%20Antica%C3%ADda" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/protector_termico.png') }}" alt="Protector Térmico" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Protector Térmico</span>
-                <span class="producto-marca">L'Oréal Professionnel</span>
-                <span class="producto-precio">$420.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Protector%20T%C3%A9rmico" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/bond_builder.png') }}" alt="Bond Builder No. 3" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Bond Builder No. 3</span>
-                <span class="producto-marca">Olaplex</span>
-                <span class="producto-precio">$750.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20Bond%20Builder%20No.%203" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
-            <div class="producto-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/productos/serum_antifrizz.png') }}" alt="Sérum Anti-frizz" onerror="this.src='{{ asset('img/logo.png') }}'">
-                </div>
-                <span class="producto-name">Sérum Anti-frizz</span>
-                <span class="producto-marca">Redken</span>
-                <span class="producto-precio">$560.00</span>
-                <a href="https://wa.me/524772554597?text=Hola,%20me%20interesa%20el%20producto%20S%C3%A9rum%20Anti-frizz" target="_blank" class="btn-agregar">Apartar Producto</a>
-            </div>
-
+            @empty
+                <p class="sin-productos">Por ahora no hay productos en esta categoría.</p>
+            @endforelse
         </section>
 
         <!-- Redirección directa a la vista de skincare y corporal -->

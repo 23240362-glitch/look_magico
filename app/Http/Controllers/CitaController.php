@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cita;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +35,6 @@ class CitaController extends Controller
         'hora' => 'required|string',
     ]);
 
-    $userId = Auth::id() ?? \App\Models\User::first()->id ?? 1;
         // 1. Obtener ID del usuario autenticado
         $userId = Auth::id();
 
