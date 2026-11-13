@@ -139,3 +139,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::patch('/productos/{id}/baja', [ProductoController::class, 'baja'])->name('admin.productos.baja');
     Route::patch('/productos/{id}/alta', [ProductoController::class, 'alta'])->name('admin.productos.alta');
 });
+
+//CONTACTOS
+Route::get('/contactos', function () {
+    return view('contactos');
+})->name('contactos');
