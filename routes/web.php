@@ -5,6 +5,7 @@ use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ContactoController;
 use App\Models\Producto;
 
 // 1. Pantalla de Bienvenida Pública
@@ -141,6 +142,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 });
 
 //CONTACTOS
-Route::get('/contactos', function () {
-    return view('contactos');
-})->name('contactos');
+Route::get('/contactos', [ContactoController::class, 'index'])->name('contactos');
+Route::post('/contactos', [ContactoController::class, 'store'])->name('contactos.store');
