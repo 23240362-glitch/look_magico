@@ -230,8 +230,8 @@
         <!-- Filtros por Género -->
         <div class="filter-container">
             <button class="filter-btn active-all" onclick="filtrar('todos')">💥 Todos</button>
-            <button class="filter-btn active-all" onclick="filtrar('mujer')">👧 Mujer</button>
-            <button class="filter-btn active-all" onclick="filtrar('hombre')">👦 Hombre</button>
+            <button class="filter-btn gender-btn" onclick="filtrar('mujer')">👧 Mujer</button>
+            <button class="filter-btn gender-btn" onclick="filtrar('hombre')">👦 Hombre</button>
         </div>
 
         <!-- Grid de Cortes -->
@@ -352,5 +352,28 @@
         <!-- Redirección directa a la siguiente vista -->
         <a href="{{ route('depilaciones', ['depilaciones' => '_']) }}" class="btn-agregar">Ver más...</a>
     </main>
+<script>
+        function filtrar(genero) {
+            const tarjetas = document.querySelectorAll('.corte-card');
+            const botones = document.querySelectorAll('.filter-btn');
+
+            // 1. Mostrar u ocultar tarjetas según el género
+            tarjetas.forEach(tarjeta => {
+                if (genero === 'todos' || tarjeta.getAttribute('data-genero') === genero) {
+                    tarjeta.style.display = 'flex';
+                } else {
+                    tarjeta.style.display = 'none';
+                }
+            });
+
+            // 2. Cambiar el color del botón activo
+            botones.forEach(btn => {
+                btn.classList.remove('active-all');
+                btn.classList.add('gender-btn');
+            });
+            event.currentTarget.classList.remove('gender-btn');
+            event.currentTarget.classList.add('active-all');
+        }
+    </script>
 </body>
 </html>

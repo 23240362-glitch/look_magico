@@ -335,8 +335,8 @@
 
         </section>
 
-        <!-- Redirección directa a la vista de cliente/inicio -->
-        <a href="{{ url('/cliente/inicio') }}" class="btn-agregar btn-ver-mas">Volver a Inicio</a>
+        <!-- Redirección directa a inicio -->
+        <a href="{{ url('/') }}" class="btn-agregar btn-ver-mas">Volver a Inicio</a>
     </main>
 
     <script>

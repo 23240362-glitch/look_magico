@@ -137,7 +137,7 @@
     <nav>
         <ul class="nav-container">
             <li><a href="{{ url('/') }}">Inicio</a></li>
-            <li><a href="{{ route('servicios.general') }}">Servicios</a></li>
+            <li><a href="{{ url('/clasificacion') }}">Servicios</a></li>
             <li><a href="{{ url('/productos') }}">Productos</a></li>
             <li><a href="{{ url('/contactos') }}">Contactos</a></li>
         </ul>
