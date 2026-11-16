@@ -282,7 +282,7 @@
                 <a href="{{ route('agenda', ['servicio' => 'podologica']) }}" class="btn-agregar">Agregar Servicio</a>
             </div>
 
-        </section>
+    </section>
 
         <!-- Redirección directa a la siguiente vista -->
         <a href="{{ route('tintes', ['tintes' => '_']) }}" class="btn-agregar">Ver más...</a>
