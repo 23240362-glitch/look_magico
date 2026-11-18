@@ -7,6 +7,8 @@ use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ContactoController;
 use App\Models\Producto;
+use App\Models\Cita;
+use Carbon\Carbon;
 
 // 1. Pantalla de Bienvenida Pública
 Route::get('/', function () {
@@ -117,12 +119,19 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // 9. Panel de Administración (Administradora Autenticada)
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
-        return view('admin_dashboard');
+        $citasHoy = Cita::whereDate('fecha', Carbon::today())->count();
+        $proximasCitas = Cita::orderBy('fecha', 'desc')
+            ->orderBy('hora', 'asc')
+            ->take(5)
+            ->get();
+
+        return view('admin_dashboard', compact('citasHoy', 'proximasCitas'));
     })->name('admin.dashboard');
 
     // Agenda Administradora
     Route::get('/agenda', function () {
-        return view('admin_agenda');
+        $citas = Cita::orderBy('fecha', 'desc')->orderBy('hora', 'asc')->get();
+        return view('admin_agenda', compact('citas'));
     })->name('admin.agenda');
 
     // Módulo de Servicios: consulta, alta, edición y baja

@@ -109,7 +109,7 @@
             <div class="p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h5 class="fw-bold m-0">CITAS PROGRAMADAS</h5>
-                    <span class="badge bg-danger fs-6">Hoy: 10 Citas</span>
+                    <span class="badge bg-danger fs-6">Total: {{ isset($citas) ? $citas->count() : 0 }} Citas</span>
                 </div>
 
                 <div class="card card-custom p-3">
@@ -118,32 +118,50 @@
                             <tr>
                                 <th>CLIENTE</th>
                                 <th>SERVICIO</th>
-                                <th>HORARIO</th>
+                                <th>FECHA / HORARIO</th>
                                 <th>ESTATUS</th>
                                 <th class="text-center">ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><strong>Pily Carmona</strong><br><small class="text-muted">Tel: 477-123-4567</small></td>
-                                <td>Planchado Económico</td>
-                                <td><span class="badge bg-light text-dark border">11:20 AM</span></td>
-                                <td><span class="badge bg-success status-badge">Confirmada</span></td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-outline-success btn-confirmar" title="Confirmar Cita"><i class="fa-solid fa-check"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger btn-cancelar" title="Cancelar Cita"><i class="fa-solid fa-xmark"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Toby Hernández</strong><br><small class="text-muted">Tel: 477-987-6543</small></td>
-                                <td>Corte de Hombre</td>
-                                <td><span class="badge bg-light text-dark border">01:00 PM</span></td>
-                                <td><span class="badge bg-warning text-dark status-badge">Pendiente</span></td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-outline-success btn-confirmar" title="Confirmar Cita"><i class="fa-solid fa-check"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger btn-cancelar" title="Cancelar Cita"><i class="fa-solid fa-xmark"></i></button>
-                                </td>
-                            </tr>
+                            @forelse($citas ?? [] as $cita)
+                                @php
+                                    $estadoActual = strtolower($cita->estado ?? 'confirmada');
+                                    $badgeClass = 'bg-success';
+                                    if ($estadoActual === 'pendiente') {
+                                        $badgeClass = 'bg-warning text-dark';
+                                    } elseif ($estadoActual === 'cancelada') {
+                                        $badgeClass = 'bg-danger';
+                                    }
+                                @endphp
+                                <tr>
+                                    <td>
+                                        <strong>{{ $cita->user->name ?? $cita->clienta ?? 'Clienta' }}</strong><br>
+                                        <small class="text-muted">Tel: {{ $cita->user->telefono ?? $cita->telefono ?? 'Sin teléfono' }}</small>
+                                    </td>
+                                    <td>{{ $cita->servicio }}</td>
+                                    <td>
+                                        <span class="badge bg-light text-dark border">
+                                            {{ \Carbon\Carbon::parse($cita->fecha)->format('d/M/Y') }} - {{ $cita->hora }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge {{ $badgeClass }} status-badge">
+                                            {{ ucfirst($estadoActual) }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-outline-success btn-confirmar" title="Confirmar Cita"><i class="fa-solid fa-check"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger btn-cancelar" title="Cancelar Cita"><i class="fa-solid fa-xmark"></i></button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center py-4 text-muted">
+                                        No hay citas registradas en la base de datos.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
