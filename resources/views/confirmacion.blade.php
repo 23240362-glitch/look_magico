@@ -58,7 +58,7 @@
                 
             </div>
 
-            <a href="https://wa.me/524772554597?text=Hola,%20quisiera%20consultar%20sobre%20mi%20cita%20de%20{{ urlencode($cita->servicio) }}" class="whatsapp-btn" target="_blank">
+            <a href="https://wa.me/524771238261?text=Hola,%20quisiera%20consultar%20sobre%20mi%20cita%20de%20{{ urlencode($cita->servicio) }}" class="whatsapp-btn" target="_blank">
                 <div class="whatsapp-icon">💬</div>
                 <span>Enviar WhatsApp</span>
             </a>

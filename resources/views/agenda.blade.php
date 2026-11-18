@@ -21,11 +21,14 @@
 
         /* Calendario */
         .calendar-box { text-align: center; }
-        .calendar-title { background: white; display: inline-block; padding: 5px 20px; font-weight: bold; border-radius: 5px; margin-bottom: 10px; }
+        .calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .calendar-nav button { background: #9C5174; color: white; border: none; padding: 5px 14px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; }
+        .calendar-nav button:hover { background: #7d3e5b; }
+        .calendar-title { background: white; display: inline-block; padding: 5px 20px; font-weight: bold; border-radius: 5px; color: #9C5174; }
         .calendar-table { width: 100%; border-collapse: collapse; background: white; border: 2px solid #9C5174; }
         .calendar-table th { background: #fce4ec; border: 1px solid #9C5174; padding: 8px; font-size: 14px; }
         .calendar-table td { border: 1px solid #9C5174; padding: 12px; text-align: center; cursor: pointer; font-weight: bold; }
-        .calendar-table td.empty { color: #ccc; cursor: default; }
+        .calendar-table td.empty { color: #ccc; cursor: default; background-color: #fafafa; }
         .calendar-table td:not(.empty):hover { background-color: #fce4ec; }
         .calendar-table td.selected { background-color: #32cd32 !important; color: white; border-radius: 50%; }
 
@@ -38,6 +41,10 @@
         /* Resumen */
         .summary-box label { display: block; font-size: 13px; font-weight: bold; margin-top: 10px; margin-bottom: 4px; }
         .summary-input { width: 100%; padding: 10px; background-color: #FFD1DC; border: none; border-radius: 15px; text-align: center; font-weight: bold; color: #9C5174; outline: none; font-size: 14px; }
+        select.summary-input { cursor: pointer; text-align-last: center; }
+        select.summary-input optgroup { background-color: #FAF0E6; color: #9C5174; font-weight: bold; text-align: left; }
+        select.summary-input option { background-color: white; color: #333; font-weight: normal; }
+
         .btn-confirm { background-color: #FFD1DC; color: #9C5174; font-weight: bold; padding: 12px 30px; border-radius: 20px; border: none; cursor: pointer; display: block; width: 100%; font-size: 16px; margin-top: 20px; }
         .btn-confirm:hover { background-color: #FFC0CB; }
     </style>
@@ -56,18 +63,16 @@
         <div class="col-left">
             <h3>1. Selecciona el dia para tu cita:</h3>
             <div class="calendar-box">
-                <div class="calendar-title">September 2026</div>
+                <div class="calendar-nav">
+                    <button type="button" id="prev-month">&larr;</button>
+                    <div class="calendar-title" id="calendar-month-year"></div>
+                    <button type="button" id="next-month">&rarr;</button>
+                </div>
                 <table class="calendar-table">
                     <thead>
-                        <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+                        <tr><th>Dom</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th></tr>
                     </thead>
-                    <tbody>
-                        <tr><td class="empty">30</td><td class="empty">31</td><td data-day="01" data-formatted="Martes 01 de Sep">1</td><td data-day="02" data-formatted="Miércoles 02 de Sep">2</td><td data-day="03" data-formatted="Jueves 03 de Sep">3</td><td data-day="04" data-formatted="Viernes 04 de Sep">4</td><td data-day="05" data-formatted="Sábado 05 de Sep">5</td></tr>
-                        <tr><td data-day="06" data-formatted="Domingo 06 de Sep">6</td><td data-day="07" data-formatted="Lunes 07 de Sep">7</td><td data-day="08" data-formatted="Martes 08 de Sep">8</td><td data-day="09" data-formatted="Miércoles 09 de Sep">9</td><td data-day="10" data-formatted="Jueves 10 de Sep">10</td><td data-day="11" data-formatted="Viernes 11 de Sep">11</td><td data-day="12" data-formatted="Sábado 12 de Sep">12</td></tr>
-                        <tr><td data-day="13" data-formatted="Domingo 13 de Sep">13</td><td data-day="14" data-formatted="Lunes 14 de Sep">14</td><td data-day="15" data-formatted="Martes 15 de Sep">15</td><td data-day="16" data-formatted="Miércoles 16 de Sep">16</td><td data-day="17" data-formatted="Jueves 17 de Sep">17</td><td data-day="18" data-formatted="Viernes 18 de Sep">18</td><td data-day="19" data-formatted="Sábado 19 de Sep">19</td></tr>
-                        <tr><td data-day="20" data-formatted="Domingo 20 de Sep">20</td><td data-day="21" data-formatted="Lunes 21 de Sep">21</td><td data-day="22" data-formatted="Martes 22 de Sep">22</td><td data-day="23" data-formatted="Miércoles 23 de Sep">23</td><td data-day="24" data-formatted="Jueves 24 de Sep">24</td><td data-day="25" data-formatted="Viernes 25 de Sep">25</td><td data-day="26" data-formatted="Sábado 26 de Sep">26</td></tr>
-                        <tr><td data-day="27" data-formatted="Domingo 27 de Sep">27</td><td data-day="28" data-formatted="Lunes 28 de Sep">28</td><td data-day="29" data-formatted="Martes 29 de Sep">29</td><td data-day="30" data-formatted="Miércoles 30 de Sep">30</td><td class="empty">1</td><td class="empty">2</td><td class="empty">3</td></tr>
-                    </tbody>
+                    <tbody id="calendar-body"></tbody>
                 </table>
             </div>
         </div>
@@ -76,19 +81,81 @@
         <div class="col-right">
             <h3>2. Horarios Disponibles:</h3>
             <div class="horarios-grid">
-                <button class="btn-hora" data-hora="11:00 AM">11:00 AM</button>
-                <button class="btn-hora" data-hora="11:30 AM">11:30 AM</button>
-                <button class="btn-hora" data-hora="12:00 PM">12:00 PM</button>
-                <button class="btn-hora" data-hora="12:30 PM">12:30 PM</button>
-                <button class="btn-hora" data-hora="1:00 PM">1:00 PM</button>
-                <button class="btn-hora" data-hora="1:30 PM">1:30 PM</button>
+                <button type="button" class="btn-hora" data-hora="11:00 AM">11:00 AM</button>
+                <button type="button" class="btn-hora" data-hora="11:30 AM">11:30 AM</button>
+                <button type="button" class="btn-hora" data-hora="12:00 PM">12:00 PM</button>
+                <button type="button" class="btn-hora" data-hora="12:30 PM">12:30 PM</button>
+                <button type="button" class="btn-hora" data-hora="1:00 PM">1:00 PM</button>
+                <button type="button" class="btn-hora" data-hora="1:30 PM">1:30 PM</button>
             </div>
 
             <div class="summary-box">
                 <h3>3. Resumen de Reserva</h3>
                 
-                <label>Servicio:</label>
-                <input type="text" id="resumen-servicio" class="summary-input" placeholder="Escribe el servicio aquí..." required>
+                <label for="resumen-servicio">Servicio:</label>
+                <select id="resumen-servicio" class="summary-input" required>
+                    <option value="" disabled selected>[ Selecciona un servicio (+) ]</option>
+
+                    <optgroup label="Tratamientos Faciales">
+                        <option value="Limpiezas profundas" data-slug="limpiezas_profundas">Limpiezas profundas</option>
+                        <option value="Peeling químicos" data-slug="peeling_quimicos">Peeling químicos</option>
+                        <option value="Hidratación y Nutrición" data-slug="hidratacion_nutricion">Hidratación y Nutrición</option>
+                        <option value="Radiofrecuencia" data-slug="radiofrecuencia">Radiofrecuencia</option>
+                    </optgroup>
+
+                    <optgroup label="Tratamientos Corporales">
+                        <option value="Cavitación" data-slug="cavitacion">Cavitación</option>
+                        <option value="Luz Pulsada" data-slug="luz_pulsada">Luz Pulsada</option>
+                    </optgroup>
+
+                    <optgroup label="Tratamientos Capilares">
+                        <option value="Botox Capilar" data-slug="botox_capilar">Botox Capilar</option>
+                        <option value="Queratina" data-slug="queratina">Queratina</option>
+                        <option value="Cauterización" data-slug="cauterizacion">Cauterización</option>
+                        <option value="Lifting" data-slug="lifting">Lifting</option>
+                        <option value="Detox" data-slug="detox">Detox</option>
+                        <option value="Anticaspa" data-slug="anticaspa">Anticaspa</option>
+                    </optgroup>
+
+                    <optgroup label="Manicuras">
+                        <option value="Manicura Clásica" data-slug="clasica">Clásica</option>
+                        <option value="Manicura Francesa" data-slug="francesa">Francesa</option>
+                        <option value="Manicura Semipermanente" data-slug="semipermanente">Semipermanente</option>
+                        <option value="Uñas Acrílicas" data-slug="acrilicas">Uñas Acrílicas</option>
+                        <option value="Uñas de Gel" data-slug="gel">Uñas de Gel</option>
+                        <option value="Manicura BIAB" data-slug="biab">BIAB</option>
+                    </optgroup>
+
+                    <optgroup label="Pedicuras">
+                        <option value="Pedicura Clásica">Clásica</option>
+                        <option value="Pedicura en Seco" data-slug="seco">Seco</option>
+                        <option value="Pedicura Semipermanente">Semipermanente</option>
+                        <option value="Pedicura Francesa">Francesa</option>
+                        <option value="Pedicura con Parafina" data-slug="parafina">Parafina</option>
+                        <option value="Pedicura Piedras Calientes" data-slug="piedras_calientes">Piedras Calientes</option>
+                        <option value="Pedicura Spa" data-slug="spa">Spa</option>
+                        <option value="Pedicura Podológica" data-slug="podologica">Podológica</option>
+                    </optgroup>
+
+                    <optgroup label="Cortes, Tintes y Rayos">
+                        <option value="Corte de Dama">Corte de Dama</option>
+                        <option value="Corte de Caballero">Corte de Caballero</option>
+                        <option value="Corte Infantil">Corte Infantil</option>
+                        <option value="Tinte Completo">Tinte Completo</option>
+                        <option value="Retoque de Raíz">Retoque de Raíz</option>
+                        <option value="Rayos / Mechas">Rayos / Mechas</option>
+                        <option value="Balayage">Balayage</option>
+                        <option value="Babylights">Babylights</option>
+                    </optgroup>
+
+                    <optgroup label="Peinados y Depilaciones">
+                        <option value="Peinado Social / Evento">Peinado Social / Evento</option>
+                        <option value="Maquillaje Social">Maquillaje Social</option>
+                        <option value="Diseño y Depilación de Ceja">Diseño y Depilación de Ceja</option>
+                        <option value="Depilación de Bozo / Rostro">Depilación de Bozo / Rostro</option>
+                        <option value="Depilación Corporal">Depilación Corporal</option>
+                    </optgroup>
+                </select>
                 
                 <label>Fecha:</label>
                 <input type="text" id="resumen-fecha" class="summary-input" value="[ Selecciona un dia (+)]" readonly>
@@ -96,7 +163,7 @@
                 <label>Hora:</label>
                 <input type="text" id="resumen-hora" class="summary-input" value="[ Selecciona una hora (+)]" readonly>
 
-                <button class="btn-confirm" id="btn-confirmar">Confirmar cita &rarr;</button>
+                <button type="button" class="btn-confirm" id="btn-confirmar">Confirmar cita &rarr;</button>
             </div>
         </div>
     </div>
@@ -108,40 +175,116 @@
         const rutaConfirmacionBase = "{{ url('/cita/confirmada') }}";
         const rutaHorariosOcupados = "{{ url('/api/horarios-ocupados') }}";
 
-        // 1. Clic en Día del Calendario
-        document.querySelectorAll('.calendar-table td[data-day]').forEach(td => {
-            td.addEventListener('click', function() {
-                document.querySelectorAll('.calendar-table td').forEach(c => c.classList.remove('selected'));
-                this.classList.add('selected');
+        // Auto-seleccionar servicio si viene desde ?servicio=...
+        const paramsUrl = new URLSearchParams(window.location.search);
+        const servicioParam = paramsUrl.get('servicio');
+        if (servicioParam) {
+            const selectServicio = document.getElementById('resumen-servicio');
+            const opcionEncontrada = Array.from(selectServicio.options).find(
+                opt => opt.dataset.slug === servicioParam || opt.value.toLowerCase() === servicioParam.toLowerCase()
+            );
+            if (opcionEncontrada) {
+                selectServicio.value = opcionEncontrada.value;
+            }
+        }
 
-                const dia = this.getAttribute('data-day');
-                const textoFecha = this.getAttribute('data-formatted');
-                fechaBD = `2026-09-${dia}`;
-                
-                document.getElementById('resumen-fecha').value = textoFecha;
+        // 1. Calendario Dinámico
+        const mesesNombres = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        const mesesCortos = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+        const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
-                horaSeleccionada = '';
-                document.getElementById('resumen-hora').value = '[ Selecciona una hora (+)]';
+        let fechaActual = new Date();
+        let mesActual = fechaActual.getMonth();
+        let anioActual = fechaActual.getFullYear();
 
-                fetch(`${rutaHorariosOcupados}?fecha=${fechaBD}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        const ocupadas = data.ocupadas || [];
-                        document.querySelectorAll('.btn-hora').forEach(btn => {
-                            const hora = btn.getAttribute('data-hora');
-                            btn.classList.remove('selected');
-                            if (ocupadas.includes(hora)) {
-                                btn.disabled = true;
-                            } else {
-                                btn.disabled = false;
-                            }
-                        });
-                    })
-                    .catch(() => {
-                        document.querySelectorAll('.btn-hora').forEach(btn => btn.disabled = false);
-                    });
-            });
+        function renderizarCalendario(mes, anio) {
+            const tbody = document.getElementById('calendar-body');
+            const titulo = document.getElementById('calendar-month-year');
+            tbody.innerHTML = '';
+            titulo.textContent = `${mesesNombres[mes]} ${anio}`;
+
+            const primerDia = new Date(anio, mes, 1).getDay();
+            const diasEnMes = new Date(anio, mes + 1, 0).getDate();
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+
+            let fechaContador = 1;
+            for (let fila = 0; fila < 6; fila++) {
+                const tr = document.createElement('tr');
+                let filaVacia = true;
+
+                for (let col = 0; col < 7; col++) {
+                    const td = document.createElement('td');
+
+                    if ((fila === 0 && col < primerDia) || fechaContador > diasEnMes) {
+                        td.classList.add('empty');
+                    } else {
+                        filaVacia = false;
+                        const diaNum = fechaContador;
+                        const fechaCelda = new Date(anio, mes, diaNum);
+                        td.textContent = diaNum;
+
+                        if (fechaCelda < hoy) {
+                            td.classList.add('empty');
+                            td.title = 'Fecha pasada';
+                        } else {
+                            const mesStr = String(mes + 1).padStart(2, '0');
+                            const diaStr = String(diaNum).padStart(2, '0');
+                            const isoDate = `${anio}-${mesStr}-${diaStr}`;
+                            const textoFormateado = `${diasSemana[fechaCelda.getDay()]} ${diaStr} de ${mesesCortos[mes]}`;
+
+                            td.addEventListener('click', function () {
+                                document.querySelectorAll('.calendar-table td').forEach(c => c.classList.remove('selected'));
+                                this.classList.add('selected');
+
+                                fechaBD = isoDate;
+                                document.getElementById('resumen-fecha').value = textoFormateado;
+
+                                horaSeleccionada = '';
+                                document.getElementById('resumen-hora').value = '[ Selecciona una hora (+)]';
+
+                                fetch(`${rutaHorariosOcupados}?fecha=${fechaBD}`)
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        const ocupadas = data.ocupadas || [];
+                                        document.querySelectorAll('.btn-hora').forEach(btn => {
+                                            const hora = btn.getAttribute('data-hora');
+                                            btn.classList.remove('selected');
+                                            btn.disabled = ocupadas.includes(hora);
+                                        });
+                                    })
+                                    .catch(() => {
+                                        document.querySelectorAll('.btn-hora').forEach(btn => btn.disabled = false);
+                                    });
+                            });
+                        }
+                        fechaContador++;
+                    }
+                    tr.appendChild(td);
+                }
+                if (!filaVacia) tbody.appendChild(tr);
+            }
+        }
+
+        document.getElementById('prev-month').addEventListener('click', () => {
+            mesActual--;
+            if (mesActual < 0) {
+                mesActual = 11;
+                anioActual--;
+            }
+            renderizarCalendario(mesActual, anioActual);
         });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            mesActual++;
+            if (mesActual > 11) {
+                mesActual = 0;
+                anioActual++;
+            }
+            renderizarCalendario(mesActual, anioActual);
+        });
+
+        renderizarCalendario(mesActual, anioActual);
 
         // 2. Clic en Botón de Hora Disponible
         document.querySelectorAll('.btn-hora').forEach(btn => {
@@ -161,7 +304,7 @@
             const servicio = servicioInput ? servicioInput.value.trim() : '';
 
             if (!servicio) {
-                alert('Por favor ingresa o escribe el servicio que deseas agendar.');
+                alert('Por favor selecciona el servicio que deseas agendar.');
                 if (servicioInput) servicioInput.focus();
                 return;
             }
