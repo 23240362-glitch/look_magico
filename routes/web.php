@@ -13,6 +13,10 @@ use Carbon\Carbon;
 // 1. Pantalla de Bienvenida Pública
 Route::get('/', function () {
     return view('welcome');
+})->name('welcome');
+
+Route::get('/welcome', function () {
+    return view('welcome');
 });
 
 // 2. Catálogo de Servicios (Vista Cliente)
@@ -53,17 +57,26 @@ Route::get('/tratamientos', function () {
 })->name('tratamientos');
 
 // 3. Selección de Rol (Cliente vs Admin)
-//Route::get('/iniciar-sesion', [AuthController::class, 'seleccionarRol'])->name('login.roles');
 Route::get('/seleccionar/rol', function () {
-    return view('seleccionar_rol'); // Nombre exacto de tu archivo Blade
+    return view('seleccionar_rol');
 })->name('seleccionar.rol');
 
+Route::get('/iniciar-sesion', function () {
+    return view('seleccionar_rol');
+})->name('login.roles');
+
 // 4. Módulo Autenticación Clienta
+Route::get('/login', function () {
+    return redirect()->route('login.cliente');
+})->name('login');
+
 Route::get('/login/cliente', [AuthController::class, 'showLoginCliente'])->name('login.cliente');
 Route::post('/login/cliente', [AuthController::class, 'loginCliente'])->name('login.cliente.post');
 
 // 5. Pantalla Principal de Clienta Autenticada
-Route::get('/cliente/inicio', [AuthController::class, 'inicioCliente'])->name('cliente.inicio');
+Route::get('/cliente/inicio', [AuthController::class, 'inicioCliente'])
+    ->name('cliente.inicio')
+    ->middleware('auth');
 
 // 6. Módulo Autenticación Administradora
 Route::get('/login/admin', [AuthController::class, 'showLoginAdmin'])->name('login.admin');
@@ -82,7 +95,7 @@ Route::get('/registro', function () {
 Route::post('/registro', [AuthController::class, 'register']);
 
 // Citas y Agenda Cliente
-Route::get('/agenda', [CitaController::class, 'index'])->name('agenda');
+Route::get('/agenda', [CitaController::class, 'index'])->name('agenda')->middleware('auth');
 Route::get('/api/horarios-ocupados', [CitaController::class, 'obtenerHorariosOcupados']);
 Route::post('/citas/guardar', [CitaController::class, 'guardar'])->name('citas.guardar');
 Route::get('/cita/confirmada/{id}', [CitaController::class, 'confirmacion'])->name('cita.confirmacion');
@@ -119,8 +132,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // 9. Panel de Administración (Administradora Autenticada)
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
-        $citasHoy = Cita::whereDate('fecha', Carbon::today())->count();
-        $proximasCitas = Cita::orderBy('fecha', 'desc')
+        $citasHoy = Cita::whereDate('fecha', Carbon::today())->count();$proximasCitas = Cita::orderBy('fecha', 'desc')
             ->orderBy('hora', 'asc')
             ->take(5)
             ->get();
@@ -153,6 +165,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::patch('/productos/{id}/alta', [ProductoController::class, 'alta'])->name('admin.productos.alta');
 });
 
-//CONTACTOS
+// CONTACTOS
 Route::get('/contactos', [ContactoController::class, 'index'])->name('contactos');
 Route::post('/contactos', [ContactoController::class, 'store'])->name('contactos.store');

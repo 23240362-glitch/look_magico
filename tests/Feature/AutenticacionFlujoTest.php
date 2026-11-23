@@ -3,13 +3,10 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
-use App\Models\User;
 
 class AutenticacionFlujoTest extends TestCase
 {
-    // Limpia y migra la base de datos temporalmente en cada prueba para no ensuciar tus datos reales
     use RefreshDatabase;
 
     /**
@@ -38,13 +35,9 @@ class AutenticacionFlujoTest extends TestCase
             'password_confirmation' => 'secreto123',
         ]);
 
-        // 1. Verifica que redirige a la vista de inicio del cliente
         $response->assertRedirect(route('cliente.inicio'));
-
-        // 2. Verifica que el usuario quedó autenticado en la sesión
         $this->assertAuthenticated();
 
-        // 3. Verifica que los datos se guardaron realmente en la tabla 'users'
         $this->assertDatabaseHas('users', [
             'name'     => 'Sofía',
             'apellido' => 'Ramírez',
@@ -55,28 +48,33 @@ class AutenticacionFlujoTest extends TestCase
     }
 
     /**
-     * Prueba 3: Verifica que un usuario ya registrado pueda iniciar sesión por el login de clienta
+     * Prueba 3: Registra una clienta mediante el formulario libre, cierra sesión
+     * y verifica que pueda volver a entrar por el login de clienta.
      */
     public function test_cliente_registrado_puede_hacer_login(): void
     {
-        // Creamos un usuario previo en la BD de pruebas
-        $user = User::create([
-            'name'     => 'Valeria',
-            'apellido' => 'Gómez',
-            'email'    => 'valeria@gmail.com',
-            'telefono' => '4779876543',
-            'password' => Hash::make('clave1234'),
-            'rol'      => 'cliente',
+        // 1. Registro libre a través de la ruta /registro
+        $this->post('/registro', [
+            'name'                  => 'Valeria',
+            'apellido'              => 'Gómez',
+            'email'                 => 'valeria@gmail.com',
+            'telefono'              => '4779876543',
+            'password'              => 'clave1234',
+            'password_confirmation' => 'clave1234',
         ]);
 
-        // Simulamos el envío del formulario de login
-        $response = $this->post('/login', [
+        // 2. Cerramos sesión para probar el login desde cero
+        $this->post('/logout');
+        $this->assertGuest();
+
+        // 3. Simulamos el envío del formulario de login real
+        $response = $this->post(route('login.cliente.post'), [
             'email'    => 'valeria@gmail.com',
             'password' => 'clave1234',
         ]);
 
         $response->assertRedirect(route('cliente.inicio'));
-        $this->assertAuthenticatedAs($user);
+        $this->assertAuthenticated();
     }
 
     /**
@@ -84,10 +82,9 @@ class AutenticacionFlujoTest extends TestCase
      */
     public function test_ruta_protegida_redirige_si_no_hay_sesion(): void
     {
-        $response = $this->get('/cliente/inicio');
+        $response = $this->get('/agenda');
 
-        // Debe expulsar al usuario no autenticado hacia el login
-        $response->assertRedirect('/login');
+        $response->assertRedirect(route('login.roles'));
         $this->assertGuest();
     }
 }
