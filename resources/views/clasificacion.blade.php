@@ -216,7 +216,7 @@
 
     <!-- Encabezado -->
     <header>
-        <a href="{{ url('/servicios/general') }}" class="back-btn">←</a>
+        <a href="{{ url('/') }}" class="back-btn">←</a>
         <div class="header-title-container">
             <h1>Cortes de Cabello</h1>
         </div>

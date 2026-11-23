@@ -81,12 +81,13 @@
         <div class="col-right">
             <h3>2. Horarios Disponibles:</h3>
             <div class="horarios-grid">
-                <button type="button" class="btn-hora" data-hora="11:00 AM">11:00 AM</button>
-                <button type="button" class="btn-hora" data-hora="11:30 AM">11:30 AM</button>
-                <button type="button" class="btn-hora" data-hora="12:00 PM">12:00 PM</button>
-                <button type="button" class="btn-hora" data-hora="12:30 PM">12:30 PM</button>
-                <button type="button" class="btn-hora" data-hora="1:00 PM">1:00 PM</button>
-                <button type="button" class="btn-hora" data-hora="1:30 PM">1:30 PM</button>
+                <button type="button" class="btn-hora" data-hora="11:00 AM">10:00 AM</button>
+                <button type="button" class="btn-hora" data-hora="11:30 AM">11:10 AM</button>
+                <button type="button" class="btn-hora" data-hora="12:00 PM">12:20 PM</button>
+                <button type="button" class="btn-hora" data-hora="12:30 PM">13:30 PM</button>
+                <button type="button" class="btn-hora" data-hora="1:00 PM">14:40 PM</button>
+                <button type="button" class="btn-hora" data-hora="1:30 PM">16:30 PM</button>
+                <button type="button" class="btn-hora" data-hora="1:30 PM">17:40 PM</button>
             </div>
 
             <div class="summary-box">

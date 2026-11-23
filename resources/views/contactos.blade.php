@@ -320,12 +320,12 @@
                         <div class="col-md-8">
                             <div class="card-lila-info text-center">
                                 <p class="mb-1">Atención a Cliente</p>
-                                <p class="mb-2 text-start ps-2">Teléfono : 477 123 4567</p>
+                                <p class="mb-2 text-start ps-2">Teléfono : 52 1 477 123 8261</p>
                                 <div class="d-flex align-items-center justify-content-center gap-3">
-                                    <a href="https://wa.me/524771234567" target="_blank" class="whatsapp-circle" title="Enviar WhatsApp">
+                                    <a href="https://wa.me/5214771238261" target="_blank" class="whatsapp-circle" title="Enviar WhatsApp">
                                         <i class="fa-brands fa-whatsapp"></i>
                                     </a>
-                                    <a href="https://wa.me/524771234567" target="_blank" class="text-dark text-decoration-none fw-bold">
+                                    <a href="https://wa.me/5214771238261" target="_blank" class="text-dark text-decoration-none fw-bold">
                                         Enviar WhatsApp
                                     </a>
                                 </div>
