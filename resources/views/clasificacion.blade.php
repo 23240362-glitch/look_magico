@@ -216,7 +216,7 @@
 
     <!-- Encabezado -->
     <header>
-        <a href="{{ url('/servicios/general') }}" class="back-btn">←</a>
+        <a href="{{ url('/') }}" class="back-btn">←</a>
         <div class="header-title-container">
             <h1>Cortes de Cabello</h1>
         </div>
@@ -230,127 +230,77 @@
         <!-- Filtros por Género -->
         <div class="filter-container">
             <button class="filter-btn active-all" onclick="filtrar('todos')">💥 Todos</button>
-            <button class="filter-btn active-all" onclick="filtrar('mujer')">👧 Mujer</button>
-            <button class="filter-btn active-all" onclick="filtrar('hombre')">👦 Hombre</button>
+            <button class="filter-btn gender-btn" onclick="filtrar('mujer')">👧 Mujer</button>
+            <button class="filter-btn gender-btn" onclick="filtrar('hombre')">👦 Hombre</button>
         </div>
 
         <!-- Grid de Cortes -->
         <section class="cortes-grid">
 
-            <!-- Fila 1 -->
-            <div class="corte-card" data-genero="mujer">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/Pixie.jpg') }}" alt="Pixie" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Pixie'">
-                </div>
-                <span class="corte-name">Pixie</span>
-                <a href="{{ route('agenda', ['corte' => 'pixie']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
+            {{-- Clasificación de cada servicio para los botones de filtro --}}
+            @php
+                $generoPor = [
+                    'Pixie' => 'mujer',
+                    'Middle Part' => 'hombre',
+                    'Corte Recto' => 'mujer',
+                    'Bob Clasico' => 'mujer',
+                    'French Bob' => 'mujer',
+                    'Fade' => 'hombre',
+                    'Wolf' => 'hombre',
+                    'Spiky' => 'hombre',
+                    'Corte Mariposa' => 'mujer',
+                    'Quiff' => 'hombre',
+                    'Cesar' => 'hombre',
+                    'Corte Capas' => 'mujer',
+                ];
+            @endphp
 
-            <div class="corte-card" data-genero="hombre">
+            {{-- Los servicios se leen de la base de datos (solo los dados de ALTA de esta categoría) --}}
+            @forelse ($servicios as $servicio)
+            <div class="corte-card" data-genero="{{ $generoPor[$servicio->nombre] ?? 'mujer' }}">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/cortemullet.jpg') }}" alt="Middle Part" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Middle+Part'">
+                    <img src="{{ asset('img/' . ($servicio->imagen ?? 'logo.png')) }}" alt="{{ $servicio->nombre }}" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Look+Magico'">
                 </div>
-                <span class="corte-name">Middle Part</span>
-                <a href="{{ route('agenda', ['corte' => 'middle_part']) }}" class="btn-agregar">Agregar Servicio</a>
+                <span class="corte-name">{{ $servicio->nombre }}</span>
+                @if ($servicio->precio > 0)
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">${{ number_format($servicio->precio, 2) }} · {{ $servicio->duracion_minutos }} min</span>
+                @else
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">Precio por confirmar</span>
+                @endif
+                <a href="{{ route('agenda', ['servicio_id' => $servicio->id]) }}" class="btn-agregar">Agregar Servicio</a>
             </div>
-
-            <div class="corte-card" data-genero="mujer">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/corterecto.jpg') }}" alt="Corte Recto" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Corte+Recto'">
-                </div>
-                <span class="corte-name">Corte Recto</span>
-                <a href="{{ route('agenda', ['corte' => 'corte_recto']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="corte-card" data-genero="mujer">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/bobclasico.jpg') }}" alt="Bob Clasico" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Bob+Clasico'">
-                </div>
-                <span class="corte-name">Bob Clasico</span>
-                <a href="{{ route('agenda', ['corte' => 'bob_clasico']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="corte-card" data-genero="mujer">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/frenchbob.jpg') }}" alt="French Bob" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=French+Bob'">
-                </div>
-                <span class="corte-name">French Bob</span>
-                <a href="{{ route('agenda', ['corte' => 'french_bob']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="corte-card" data-genero="hombre">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/fade.jpg') }}" alt="Fade" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Fade'">
-                </div>
-                <span class="corte-name">Fade</span>
-                <a href="{{ route('agenda', ['corte' => 'fade']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <!-- Fila 2 -->
-            <div class="corte-card" data-genero="hombre">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/cortewolf.jpg') }}" alt="Wolf" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Wolf'">
-                </div>
-                <span class="corte-name">Wolf</span>
-                <a href="{{ route('agenda', ['corte' => 'wolf']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="corte-card" data-genero="hombre">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/spiky.jpg') }}" alt="Spiky" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Spiky'">
-                </div>
-                <span class="corte-name">Spiky</span>
-                <a href="{{ route('agenda', ['corte' => 'spiky']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="corte-card" data-genero="mujer">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/cortemariposa.jpg') }}" alt="Corte Mariposa" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Corte+Mariposa'">
-                </div>
-                <span class="corte-name">Corte Mariposa</span>
-                <a href="{{ route('agenda', ['corte' => 'corte_mariposa']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="corte-card" data-genero="hombre">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/cortequiff.jpg') }}" alt="Quiff" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Quiff'">
-                </div>
-                <span class="corte-name">Quiff</span>
-                <a href="{{ route('agenda', ['corte' => 'quiff']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="corte-card" data-genero="hombre">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/cortecesar.jpg') }}" alt="Cesar" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Cesar'">
-                </div>
-                <span class="corte-name">Cesar</span>
-                <a href="{{ route('agenda', ['corte' => 'cesar']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="corte-card" data-genero="mujer">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/cortecapas.jpg') }}" alt="Corte Capas" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Corte+Capas'">
-                </div>
-                <span class="corte-name">Corte Capas</span>
-                <a href="{{ route('agenda', ['corte' => 'corte_capas']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
+            @empty
+                <p style="grid-column: 1 / -1; text-align: center; font-weight: bold; color: #9C5174;">Por el momento no hay servicios disponibles en esta categoría.</p>
+            @endforelse
 
         </section>
 
         <!-- Redirección directa a la siguiente vista -->
         <a href="{{ route('depilaciones', ['depilaciones' => '_']) }}" class="btn-agregar">Ver más...</a>
     </main>
+<script>
+        function filtrar(genero) {
+            const tarjetas = document.querySelectorAll('.corte-card');
+            const botones = document.querySelectorAll('.filter-btn');
+
+            // 1. Mostrar u ocultar tarjetas según el género
+            tarjetas.forEach(tarjeta => {
+                if (genero === 'todos' || tarjeta.getAttribute('data-genero') === genero) {
+                    tarjeta.style.display = 'flex';
+                } else {
+                    tarjeta.style.display = 'none';
+                }
+            });
+
+            // 2. Cambiar el color del botón activo
+            botones.forEach(btn => {
+                btn.classList.remove('active-all');
+                btn.classList.add('gender-btn');
+            });
+            event.currentTarget.classList.remove('gender-btn');
+            event.currentTarget.classList.add('active-all');
+        }
+    </script>
 </body>
 </html>

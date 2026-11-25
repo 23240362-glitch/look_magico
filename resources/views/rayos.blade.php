@@ -208,115 +208,24 @@
         <!-- Grid de Rayos -->
         <section class="rayos-grid">
 
-            <!-- Fila 1 -->
+            {{-- Los servicios se leen de la base de datos (solo los dados de ALTA de esta categoría) --}}
+            @forelse ($servicios as $servicio)
             <div class="rayo-card">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_tradicionales.jpg') }}" alt="Tradicionales" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Tradicionales'">
+                    <img src="{{ asset('img/' . ($servicio->imagen ?? 'logo.png')) }}" alt="{{ $servicio->nombre }}" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Look+Magico'">
                 </div>
-                <span class="rayo-name">Tradicionales</span>
-                <a href="{{ route('agenda', ['servicio' => 'tradicionales']) }}" class="btn-agregar">Agregar Servicio</a>
+                <span class="rayo-name">{{ $servicio->nombre }}</span>
+                @if ($servicio->precio > 0)
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">${{ number_format($servicio->precio, 2) }} · {{ $servicio->duracion_minutos }} min</span>
+                @else
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">Precio por confirmar</span>
+                @endif
+                <a href="{{ route('agenda', ['servicio_id' => $servicio->id]) }}" class="btn-agregar">Agregar Servicio</a>
             </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_babylights.jpg') }}" alt="Babylights" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Babylights'">
-                </div>
-                <span class="rayo-name">Babylights</span>
-                <a href="{{ route('agenda', ['servicio' => 'babylights']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_chunky.jpg') }}" alt="Chunky Highlights" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Chunky'">
-                </div>
-                <span class="rayo-name">Chunky Highlights</span>
-                <a href="{{ route('agenda', ['servicio' => 'chunky_highlights']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_reflejos.jpg') }}" alt="Reflejos" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Reflejos'">
-                </div>
-                <span class="rayo-name">Reflejos</span>
-                <a href="{{ route('agenda', ['servicio' => 'reflejos']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_transparencias.jpg') }}" alt="Transparencias" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Transparencias'">
-                </div>
-                <span class="rayo-name">Transparencias</span>
-                <a href="{{ route('agenda', ['servicio' => 'transparencias']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_balayage.jpg') }}" alt="Balayage" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Balayage'">
-                </div>
-                <span class="rayo-name">Balayage</span>
-                <a href="{{ route('agenda', ['servicio' => 'balayage']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <!-- Fila 2 -->
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_french_milky.jpg') }}" alt="French Milky" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=French+Milky'">
-                </div>
-                <span class="rayo-name">French Milky</span>
-                <a href="{{ route('agenda', ['servicio' => 'french_milky']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_californianas.jpg') }}" alt="Californianas" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Californianas'">
-                </div>
-                <span class="rayo-name">Californianas</span>
-                <a href="{{ route('agenda', ['servicio' => 'californianas']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_face_framing.jpg') }}" alt="Face Framing" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Face+Framing'">
-                </div>
-                <span class="rayo-name">Face Framing</span>
-                <a href="{{ route('agenda', ['servicio' => 'face_framing']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_money_piece.jpg') }}" alt="Money Piece" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Money+Piece'">
-                </div>
-                <span class="rayo-name">Money Piece</span>
-                <a href="{{ route('agenda', ['servicio' => 'money_piece']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_dorados.jpg') }}" alt="Dorados" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Dorados'">
-                </div>
-                <span class="rayo-name">Dorados</span>
-                <a href="{{ route('agenda', ['servicio' => 'dorados']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="rayo-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/rayo_cenizo.jpg') }}" alt="Cenizo" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Cenizo'">
-                </div>
-                <span class="rayo-name">Cenizo</span>
-                <a href="{{ route('agenda', ['servicio' => 'cenizo']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
+            @empty
+                <p style="grid-column: 1 / -1; text-align: center; font-weight: bold; color: #9C5174;">Por el momento no hay servicios disponibles en esta categoría.</p>
+            @endforelse
 
         </section>
 

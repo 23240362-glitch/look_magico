@@ -208,97 +208,24 @@
         <!-- Grid de Manicuras -->
         <section class="manicuras-grid">
 
-            <!-- Fila 1 -->
+            {{-- Los servicios se leen de la base de datos (solo los dados de ALTA de esta categoría) --}}
+            @forelse ($servicios as $servicio)
             <div class="manicura-card">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_clasica.jpg') }}" alt="Clásica" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Clasica'">
+                    <img src="{{ asset('img/' . ($servicio->imagen ?? 'logo.png')) }}" alt="{{ $servicio->nombre }}" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Look+Magico'">
                 </div>
-                <span class="manicura-name">Clásica</span>
-                <a href="{{ route('agenda', ['servicio' => 'clasica']) }}" class="btn-agregar">Agregar Servicio</a>
+                <span class="manicura-name">{{ $servicio->nombre }}</span>
+                @if ($servicio->precio > 0)
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">${{ number_format($servicio->precio, 2) }} · {{ $servicio->duracion_minutos }} min</span>
+                @else
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">Precio por confirmar</span>
+                @endif
+                <a href="{{ route('agenda', ['servicio_id' => $servicio->id]) }}" class="btn-agregar">Agregar Servicio</a>
             </div>
-
-            <div class="manicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_francesa.jpg') }}" alt="Francesa" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Francesa'">
-                </div>
-                <span class="manicura-name">Francesa</span>
-                <a href="{{ route('agenda', ['servicio' => 'francesa']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="manicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_semipermanente.jpg') }}" alt="Semipermanente" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Semipermanente'">
-                </div>
-                <span class="manicura-name">Semipermanente</span>
-                <a href="{{ route('agenda', ['servicio' => 'semipermanente']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="manicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_acrilicas.jpg') }}" alt="Uñas Acrílicas" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Acrilicas'">
-                </div>
-                <span class="manicura-name">Uñas Acrílicas</span>
-                <a href="{{ route('agenda', ['servicio' => 'acrilicas']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="manicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_gel.jpg') }}" alt="Uñas de Gel" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Gel'">
-                </div>
-                <span class="manicura-name">Uñas de Gel</span>
-                <a href="{{ route('agenda', ['servicio' => 'gel']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <!-- Fila 2 -->
-            <div class="manicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_biab.jpg') }}" alt="BIAB" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=BIAB'">
-                </div>
-                <span class="manicura-name">BIAB</span>
-                <a href="{{ route('agenda', ['servicio' => 'biab']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="manicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_rusa.jpg') }}" alt="Rusa" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Rusa'">
-                </div>
-                <span class="manicura-name">Rusa</span>
-                <a href="{{ route('agenda', ['servicio' => 'rusa']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="manicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_spa.jpg') }}" alt="Spa" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Spa'">
-                </div>
-                <span class="manicura-name">Spa</span>
-                <a href="{{ route('agenda', ['servicio' => 'spa']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="manicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_japonesa.jpg') }}" alt="Japonesa" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Japonesa'">
-                </div>
-                <span class="manicura-name">Japonesa</span>
-                <a href="{{ route('agenda', ['servicio' => 'japonesa']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="manicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/mani_nail_art.jpg') }}" alt="Nail Art" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Nail+Art'">
-                </div>
-                <span class="manicura-name">Nail Art</span>
-                <a href="{{ route('agenda', ['servicio' => 'nail_art']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
+            @empty
+                <p style="grid-column: 1 / -1; text-align: center; font-weight: bold; color: #9C5174;">Por el momento no hay servicios disponibles en esta categoría.</p>
+            @endforelse
 
         </section>
 

@@ -220,6 +220,20 @@
         .btn-pink:hover { 
             background-color: #f7b6c6; 
         }
+        /* Mis próximas citas */
+        .mis-citas { margin-top: 35px; }
+        .cita-card { background: white; border: 2px solid #FFD1DC; border-radius: 15px; padding: 12px 18px; margin: 10px auto; max-width: 600px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; text-align: left; }
+        .cita-acciones { display: flex; gap: 8px; align-items: center; }
+        .cita-acciones form { margin: 0; }
+        .btn-mini { padding: 6px 14px !important; font-size: 13px !important; border: none; cursor: pointer; }
+        .btn-cancelar { background-color: #e9a1a1 !important; }
+        .estado { display: inline-block; margin-top: 4px; padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: bold; }
+        .estado-pendiente { background: #fff3cd; color: #856404; }
+        .estado-confirmada { background: #d4edda; color: #155724; }
+        .estado-cancelada { background: #f8d7da; color: #721c24; }
+        .aviso { max-width: 600px; margin: 10px auto; padding: 10px; border-radius: 10px; font-weight: bold; }
+        .aviso-ok { background: #d4edda; color: #155724; }
+        .aviso-error { background: #f8d7da; color: #721c24; }
     </style>
 </head>
 <body>
@@ -300,9 +314,43 @@
                     <a href="{{ url('/agenda') }}" class="btn-pink">Agenda tu cita hoy</a>
                 </li>
                 <li>
-                    <a href="{{ url('/servicios/general') }}" class="btn-pink">Ver servicios</a>
+                    <a href="{{ route('clasificacion') }}" class="btn-pink">Ver servicios</a>
                 </li>
             </ul>
+        </section>
+
+        {{-- RF10, RF11 y RF12: la clienta consulta, cancela o reprograma sus próximas citas --}}
+        <section class="mis-citas">
+            <h2 class="bienvenida-txt">MIS PRÓXIMAS CITAS</h2>
+
+            @if (session('success'))
+                <p class="aviso aviso-ok">{{ session('success') }}</p>
+            @endif
+            @if (session('error'))
+                <p class="aviso aviso-error">{{ session('error') }}</p>
+            @endif
+
+            @forelse ($misCitas ?? [] as $cita)
+                <div class="cita-card">
+                    <div>
+                        <strong>#{{ $cita->id }} · {{ $cita->servicio }}</strong><br>
+                        {{ \Carbon\Carbon::parse($cita->fecha)->locale('es')->isoFormat('dddd D [de] MMMM') }} · {{ $cita->hora }}<br>
+                        <span class="estado estado-{{ $cita->estado }}">{{ ucfirst($cita->estado) }}</span>
+                    </div>
+                    @if ($cita->estado !== 'cancelada')
+                        <div class="cita-acciones">
+                            <a href="{{ route('citas.reprogramar', $cita->id) }}" class="btn-pink btn-mini">Reprogramar</a>
+                            <form method="POST" action="{{ route('citas.cancelar', $cita->id) }}" onsubmit="return confirm('¿Seguro que quieres cancelar esta cita? El horario quedará libre para otra clienta.');">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn-pink btn-mini btn-cancelar">Cancelar</button>
+                            </form>
+                        </div>
+                    @endif
+                </div>
+            @empty
+                <p class="desc-txt">No tienes citas próximas. ¡Agenda la tuya!</p>
+            @endforelse
         </section>
     </main>
 

@@ -208,81 +208,26 @@
         <!-- Grid de Pedicuras -->
         <section class="pedicuras-grid">
 
-            <!-- Fila 1 -->
+            {{-- Los servicios se leen de la base de datos (solo los dados de ALTA de esta categoría) --}}
+            @forelse ($servicios as $servicio)
             <div class="pedicura-card">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pedi_clasica.jpg') }}" alt="Clásica" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Clasica'">
+                    <img src="{{ asset('img/' . ($servicio->imagen ?? 'logo.png')) }}" alt="{{ $servicio->nombre }}" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Look+Magico'">
                 </div>
-                <span class="pedicura-name">Clásica</span>
-                <a href="{{ route('agenda', ['servicio' => 'clasica']) }}" class="btn-agregar">Agregar Servicio</a>
+                <span class="pedicura-name">{{ $servicio->nombre }}</span>
+                @if ($servicio->precio > 0)
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">${{ number_format($servicio->precio, 2) }} · {{ $servicio->duracion_minutos }} min</span>
+                @else
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">Precio por confirmar</span>
+                @endif
+                <a href="{{ route('agenda', ['servicio_id' => $servicio->id]) }}" class="btn-agregar">Agregar Servicio</a>
             </div>
+            @empty
+                <p style="grid-column: 1 / -1; text-align: center; font-weight: bold; color: #9C5174;">Por el momento no hay servicios disponibles en esta categoría.</p>
+            @endforelse
 
-            <div class="pedicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pedi_seco.jpg') }}" alt="Seco" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Seco'">
-                </div>
-                <span class="pedicura-name">Seco</span>
-                <a href="{{ route('agenda', ['servicio' => 'seco']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="pedicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pedi_semipermanente.jpg') }}" alt="Semipermanente" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Semipermanente'">
-                </div>
-                <span class="pedicura-name">Semipermanente</span>
-                <a href="{{ route('agenda', ['servicio' => 'semipermanente']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="pedicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pedi_francesa.jpg') }}" alt="Francesa" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Francesa'">
-                </div>
-                <span class="pedicura-name">Francesa</span>
-                <a href="{{ route('agenda', ['servicio' => 'francesa']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <!-- Fila 2 -->
-            <div class="pedicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pedi_parafina.jpg') }}" alt="Parafina" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Parafina'">
-                </div>
-                <span class="pedicura-name">Parafina</span>
-                <a href="{{ route('agenda', ['servicio' => 'parafina']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="pedicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pedi_piedras_calientes.jpg') }}" alt="Piedras Calientes" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Piedras+Calientes'">
-                </div>
-                <span class="pedicura-name">Piedras Calientes</span>
-                <a href="{{ route('agenda', ['servicio' => 'piedras_calientes']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="pedicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pedi_spa.jpg') }}" alt="Spa" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Spa'">
-                </div>
-                <span class="pedicura-name">Spa</span>
-                <a href="{{ route('agenda', ['servicio' => 'spa']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="pedicura-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pedi_podologica.jpg') }}" alt="Podológica" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Podologica'">
-                </div>
-                <span class="pedicura-name">Podológica</span>
-                <a href="{{ route('agenda', ['servicio' => 'podologica']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-        </section>
+    </section>
 
         <!-- Redirección directa a la siguiente vista -->
         <a href="{{ route('tintes', ['tintes' => '_']) }}" class="btn-agregar">Ver más...</a>

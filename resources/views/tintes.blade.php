@@ -212,61 +212,24 @@
         <!-- Grid de Tintes -->
         <section class="tintes-grid">
 
-            <!-- Fila 1 -->
+            {{-- Los servicios se leen de la base de datos (solo los dados de ALTA de esta categoría) --}}
+            @forelse ($servicios as $servicio)
             <div class="tinte-card">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/tinte_permanente.jpg') }}" alt="Permanente" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Permanente'">
+                    <img src="{{ asset('img/' . ($servicio->imagen ?? 'logo.png')) }}" alt="{{ $servicio->nombre }}" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Look+Magico'">
                 </div>
-                <span class="tinte-name">Permanente</span>
-                <a href="{{ route('agenda', ['servicio' => 'permanente']) }}" class="btn-agregar">Agregar Servicio</a>
+                <span class="tinte-name">{{ $servicio->nombre }}</span>
+                @if ($servicio->precio > 0)
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">${{ number_format($servicio->precio, 2) }} · {{ $servicio->duracion_minutos }} min</span>
+                @else
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">Precio por confirmar</span>
+                @endif
+                <a href="{{ route('agenda', ['servicio_id' => $servicio->id]) }}" class="btn-agregar">Agregar Servicio</a>
             </div>
-
-            <div class="tinte-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/tinte_permanente_sin_amoniaco.jpg') }}" alt="Permanente sin amoniaco" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Sin+Amoniaco'">
-                </div>
-                <span class="tinte-name">Permanente sin amoniaco</span>
-                <a href="{{ route('agenda', ['servicio' => 'permanente_sin_amoniaco']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="tinte-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/tinte_demi_permanente.jpg') }}" alt="Demi-permanente" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Demi-permanente'">
-                </div>
-                <span class="tinte-name">Demi-permanente</span>
-                <a href="{{ route('agenda', ['servicio' => 'demi_permanente']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <!-- Fila 2 -->
-            <div class="tinte-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/tinte_semipermanente.jpg') }}" alt="Semipermanente" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Semipermanente'">
-                </div>
-                <span class="tinte-name">Semipermanente</span>
-                <a href="{{ route('agenda', ['servicio' => 'semipermanente']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="tinte-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/tinte_temporal.jpg') }}" alt="Temporal" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Temporal'">
-                </div>
-                <span class="tinte-name">Temporal</span>
-                <a href="{{ route('agenda', ['servicio' => 'temporal']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="tinte-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/tinte_henna.jpg') }}" alt="Henna" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Henna'">
-                </div>
-                <span class="tinte-name">Henna</span>
-                <a href="{{ route('agenda', ['servicio' => 'henna']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
+            @empty
+                <p style="grid-column: 1 / -1; text-align: center; font-weight: bold; color: #9C5174;">Por el momento no hay servicios disponibles en esta categoría.</p>
+            @endforelse
 
         </section>
 

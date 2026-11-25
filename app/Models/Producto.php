@@ -23,6 +23,14 @@ class Producto extends Model
         'estatus',
     ];
 
+    // Con estas piezas o menos, el producto se marca "Por resurtir" (alerta de RF17)
+    public const STOCK_MINIMO = 3;
+
+    public function porResurtir(): bool
+    {
+        return $this->estatus === 'ALTA' && $this->stock <= self::STOCK_MINIMO;
+    }
+
     // Solo los productos dados de alta
     public function scopeActivos($query)
     {

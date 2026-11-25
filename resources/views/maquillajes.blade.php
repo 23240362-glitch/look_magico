@@ -208,115 +208,24 @@
         <!-- Grid de Maquillajes -->
         <section class="maquillajes-grid">
 
-            <!-- Fila 1 -->
+            {{-- Los servicios se leen de la base de datos (solo los dados de ALTA de esta categoría) --}}
+            @forelse ($servicios as $servicio)
             <div class="maquillaje-card">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajenatural.jpg') }}" alt="Natural" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Natural'">
+                    <img src="{{ asset('img/' . ($servicio->imagen ?? 'logo.png')) }}" alt="{{ $servicio->nombre }}" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Look+Magico'">
                 </div>
-                <span class="maquillaje-name">Natural</span>
-                <a href="{{ route('agenda', ['servicio' => 'natural']) }}" class="btn-agregar">Agregar Servicio</a>
+                <span class="maquillaje-name">{{ $servicio->nombre }}</span>
+                @if ($servicio->precio > 0)
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">${{ number_format($servicio->precio, 2) }} · {{ $servicio->duracion_minutos }} min</span>
+                @else
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">Precio por confirmar</span>
+                @endif
+                <a href="{{ route('agenda', ['servicio_id' => $servicio->id]) }}" class="btn-agregar">Agregar Servicio</a>
             </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajesocial.jpg') }}" alt="Social" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Social'">
-                </div>
-                <span class="maquillaje-name">Social</span>
-                <a href="{{ route('agenda', ['servicio' => 'social']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajenovia.jpg') }}" alt="Novia" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Novia'">
-                </div>
-                <span class="maquillaje-name">Novia</span>
-                <a href="{{ route('agenda', ['servicio' => 'novia']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajefotografico.jpg') }}" alt="Fotografía" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Fotografia'">
-                </div>
-                <span class="maquillaje-name">Fotografía</span>
-                <a href="{{ route('agenda', ['servicio' => 'fotografia']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajeartistico.jpg') }}" alt="Artístico" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Artistico'">
-                </div>
-                <span class="maquillaje-name">Artístico</span>
-                <a href="{{ route('agenda', ['servicio' => 'artistico']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajeteatral.jpg') }}" alt="Teatro" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Teatro'">
-                </div>
-                <span class="maquillaje-name">Teatro</span>
-                <a href="{{ route('agenda', ['servicio' => 'teatro']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <!-- Fila 2 -->
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajeahumado.jpg') }}" alt="Ojos Ahumado" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Ahumado'">
-                </div>
-                <span class="maquillaje-name">Ojos Ahumado</span>
-                <a href="{{ route('agenda', ['servicio' => 'ojos_ahumado']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajecutcrease.jpg') }}" alt="Cut Crease" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Cut+Crease'">
-                </div>
-                <span class="maquillaje-name">Cut Crease</span>
-                <a href="{{ route('agenda', ['servicio' => 'cut_crease']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajeglam.jpg') }}" alt="Glam" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Glam'">
-                </div>
-                <span class="maquillaje-name">Glam</span>
-                <a href="{{ route('agenda', ['servicio' => 'glam']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajecontouring.jpg') }}" alt="Contouring" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Contouring'">
-                </div>
-                <span class="maquillaje-name">Contouring</span>
-                <a href="{{ route('agenda', ['servicio' => 'contouring']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajestrobing.jpg') }}" alt="Strobing" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Strobing'">
-                </div>
-                <span class="maquillaje-name">Strobing</span>
-                <a href="{{ route('agenda', ['servicio' => 'strobing']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="maquillaje-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/maquillajebaking.jpg') }}" alt="Baking" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Baking'">
-                </div>
-                <span class="maquillaje-name">Baking</span>
-                <a href="{{ route('agenda', ['servicio' => 'baking']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
+            @empty
+                <p style="grid-column: 1 / -1; text-align: center; font-weight: bold; color: #9C5174;">Por el momento no hay servicios disponibles en esta categoría.</p>
+            @endforelse
 
         </section>
 

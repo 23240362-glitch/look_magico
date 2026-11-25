@@ -50,15 +50,17 @@
 
         <div class="inner-box">
             <div class="details-white">
-                <div><span>Nombre:</span> <strong>{{ $cita->user->name ?? 'Pily Carmona' }}</strong></div>
+                <div><span>Folio:</span> <strong>#{{ $cita->id }}</strong></div>
+                <div><span>Nombre:</span> <strong>{{ $cita->user->name }} {{ $cita->user->apellido }}</strong></div>
                 <div><span>Servicio:</span> <strong>{{ $cita->servicio }}</strong></div>
                 <div><span>Fecha:</span> <strong>{{ \Carbon\Carbon::parse($cita->fecha)->locale('es')->isoFormat('D \d\e MMMM') }}</strong></div>
                 <div><span>Hora:</span> <strong>{{ $cita->hora }}</strong></div>
-                <div><span>Núm. Teléfono:</span> <strong>{{ $cita->user->telefono ?? '4772554597' }}</strong></div>
+                <div><span>Núm. Teléfono:</span> <strong>{{ $cita->user->telefono }}</strong></div>
+                <div><span>Estatus:</span> <strong>{{ ucfirst($cita->estado) }} (se confirma por WhatsApp)</strong></div>
                 
             </div>
 
-            <a href="https://wa.me/524772554597?text=Hola,%20quisiera%20consultar%20sobre%20mi%20cita%20de%20{{ urlencode($cita->servicio) }}" class="whatsapp-btn" target="_blank">
+            <a href="https://wa.me/524771238261?text=Hola,%20quiero%20confirmar%20mi%20cita%20%23{{ $cita->id }}%20de%20{{ rawurlencode($cita->servicio) }}%20el%20{{ rawurlencode(\Carbon\Carbon::parse($cita->fecha)->format('d/m/Y')) }}%20a%20las%20{{ rawurlencode($cita->hora) }}" class="whatsapp-btn" target="_blank">
                 <div class="whatsapp-icon">💬</div>
                 <span>Enviar WhatsApp</span>
             </a>

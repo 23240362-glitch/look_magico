@@ -15,6 +15,7 @@ class Servicio extends Model
     protected $fillable = [
         'nombre',
         'categoria',
+        'descripcion',
         'precio',
         'duracion_minutos',
         'imagen',
@@ -31,5 +32,19 @@ class Servicio extends Model
     public function scopeActivos($query)
     {
         return $query->where('estatus', 'ALTA');
+    }
+
+    // Permite usar $servicio->duracion en las vistas (la columna se llama duracion_minutos)
+    public function getDuracionAttribute()
+    {
+        return $this->duracion_minutos;
+    }
+
+    // Citas pendientes o confirmadas de hoy en adelante (impiden dar de baja el servicio, RF02)
+    public function citasPorAtender()
+    {
+        return $this->citas()
+            ->whereIn('estado', ['pendiente', 'confirmada'])
+            ->whereDate('fecha', '>=', now()->toDateString());
     }
 }

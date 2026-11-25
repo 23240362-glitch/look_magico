@@ -208,115 +208,24 @@
         <!-- Grid de Peinados -->
         <section class="peinados-grid">
 
-            <!-- Fila 1 -->
+            {{-- Los servicios se leen de la base de datos (solo los dados de ALTA de esta categoría) --}}
+            @forelse ($servicios as $servicio)
             <div class="peinado-card">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_bajo_pulido.jpg') }}" alt="Bajo Pulido" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Bajo+Pulido'">
+                    <img src="{{ asset('img/' . ($servicio->imagen ?? 'logo.png')) }}" alt="{{ $servicio->nombre }}" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Look+Magico'">
                 </div>
-                <span class="peinado-name">Bajo Pulido</span>
-                <a href="{{ route('agenda', ['servicio' => 'bajo_pulido']) }}" class="btn-agregar">Agregar Servicio</a>
+                <span class="peinado-name">{{ $servicio->nombre }}</span>
+                @if ($servicio->precio > 0)
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">${{ number_format($servicio->precio, 2) }} · {{ $servicio->duracion_minutos }} min</span>
+                @else
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">Precio por confirmar</span>
+                @endif
+                <a href="{{ route('agenda', ['servicio_id' => $servicio->id]) }}" class="btn-agregar">Agregar Servicio</a>
             </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_messy_bun.jpg') }}" alt="Messy Bun" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Messy+Bun'">
-                </div>
-                <span class="peinado-name">Messy Bun</span>
-                <a href="{{ route('agenda', ['servicio' => 'messy_bun']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_recogido.jpg') }}" alt="Recogido" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Recogido'">
-                </div>
-                <span class="peinado-name">Recogido</span>
-                <a href="{{ route('agenda', ['servicio' => 'recogido']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_half_up.jpg') }}" alt="Half-up" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Half-up'">
-                </div>
-                <span class="peinado-name">Half-up</span>
-                <a href="{{ route('agenda', ['servicio' => 'half_up']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_semirrecogido.jpg') }}" alt="Semirrecogido" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Semirrecogido'">
-                </div>
-                <span class="peinado-name">Semirrecogido</span>
-                <a href="{{ route('agenda', ['servicio' => 'semirrecogido']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_ondas.jpg') }}" alt="Ondas" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Ondas'">
-                </div>
-                <span class="peinado-name">Ondas</span>
-                <a href="{{ route('agenda', ['servicio' => 'ondas']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <!-- Fila 2 -->
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_liso_espejo.jpg') }}" alt="Liso Espejo" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Liso+Espejo'">
-                </div>
-                <span class="peinado-name">Liso Espejo</span>
-                <a href="{{ route('agenda', ['servicio' => 'liso_espejo']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_beach_waves.jpg') }}" alt="Beach Waves" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Beach+Waves'">
-                </div>
-                <span class="peinado-name">Beach Waves</span>
-                <a href="{{ route('agenda', ['servicio' => 'beach_waves']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_baja_pulida.jpg') }}" alt="Baja Pulida" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Baja+Pulida'">
-                </div>
-                <span class="peinado-name">Baja Pulida</span>
-                <a href="{{ route('agenda', ['servicio' => 'baja_pulida']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_trenzas_sueltas.jpg') }}" alt="Trenzas Sueltas" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Trenzas+Sueltas'">
-                </div>
-                <span class="peinado-name">Trenzas Sueltas</span>
-                <a href="{{ route('agenda', ['servicio' => 'trenzas_sueltas']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_hollywood.jpg') }}" alt="Hollywood" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Hollywood'">
-                </div>
-                <span class="peinado-name">Hollywood</span>
-                <a href="{{ route('agenda', ['servicio' => 'hollywood']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="peinado-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/pei_half_down.jpg') }}" alt="Half-down" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Half-down'">
-                </div>
-                <span class="peinado-name">Half-down</span>
-                <a href="{{ route('agenda', ['servicio' => 'half_down']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
+            @empty
+                <p style="grid-column: 1 / -1; text-align: center; font-weight: bold; color: #9C5174;">Por el momento no hay servicios disponibles en esta categoría.</p>
+            @endforelse
 
         </section>
 

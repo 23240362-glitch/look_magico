@@ -29,7 +29,6 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        // Consulta en la base de datos si el correo y la contraseña coinciden
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended(route('cliente.inicio'));
@@ -41,9 +40,16 @@ class AuthController extends Controller
     }
 
     // Muestra la pantalla de inicio cliente tras loguearse
+    // RF11 (clienta): también le muestra sus citas para consultarlas, cancelarlas o reprogramarlas
     public function inicioCliente()
     {
-        return view('cliente_inicio');
+        $misCitas = Auth::user()->citas()
+            ->whereDate('fecha', '>=', now()->toDateString())
+            ->orderBy('fecha')
+            ->get()
+            ->sortBy(fn ($c) => $c->fecha . ' ' . str_pad((string) \App\Support\Agenda::aMinutos($c->hora), 4, '0', STR_PAD_LEFT));
+
+        return view('cliente_inicio', compact('misCitas'));
     }
 
     // 3. Muestra el login de administradora
@@ -61,12 +67,9 @@ class AuthController extends Controller
             'pin'      => ['required'],
         ]);
 
-        // Buscar a la administradora en la BD
         $user = User::where('email', $request->email)->first();
 
-        // Validar que exista el usuario, que tenga rol de administradora,
-        // que la contraseña encriptada coincida y que el PIN (también encriptado) sea correcto
-        if ($user && $user->esAdmin()
+        if ($user && method_exists($user, 'esAdmin') && $user->esAdmin()
             && Hash::check($request->password, $user->password)
             && $user->pin && Hash::check($request->pin, $user->pin)) {
             Auth::login($user);
@@ -79,28 +82,35 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    // 4. Registro de nuevas clientas en la Base de Datos
+    // 4. Muestra la pantalla de registro
+    public function showRegistro()
+    {
+        return view('registro');
+    }
+
+    // Procesa el registro dinámico de nuevas clientas en la Base de Datos
     public function register(Request $request)
     {
+        // Validar las entradas del usuario dinámicamente
         $request->validate([
             'name'     => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users',
             'telefono' => 'required|digits:10',
-            'password' => 'required|string|min:6|confirmed', // confirmed revisa password_confirmation
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // Guardar nuevo registro en MySQL
+        // Guarda lo que el usuario haya ingresado en el formulario
         $user = User::create([
             'name'     => $request->name,
             'apellido' => $request->apellido,
             'email'    => $request->email,
             'telefono' => $request->telefono,
-            'password' => Hash::make($request->password), // Encriptación segura
+            'password' => Hash::make($request->password),
             'rol'      => 'cliente',
         ]);
 
-        // Iniciar sesión automáticamente tras el registro
+        // Autenticar al usuario recién creado e iniciar sesión
         Auth::login($user);
 
         return redirect()->route('cliente.inicio');
@@ -120,26 +130,23 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        // Buscar el usuario en la BD
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
             return back()->withErrors(['email' => 'El correo electrónico no se encuentra registrado.']);
         }
 
-        // Actualizar la contraseña encriptada en la BD
         $user->password = Hash::make($request->password);
         $user->save();
 
         return redirect()->route('login.cliente')->with('success', '¡Contraseña actualizada correctamente!');
     }
 
-    // Método enlace para evitar el error con la ruta resetPassword
     public function resetPassword(Request $request)
     {
         return $this->procesarRecuperar($request);
     }
-    
+
     // 6. Cerrar sesión
     public function logout(Request $request)
     {

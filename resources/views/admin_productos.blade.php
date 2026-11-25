@@ -346,7 +346,12 @@
                                         <td><strong>{{ $producto->nombre }}</strong><br><small class="text-muted">{{ $producto->marca }}</small></td>
                                         <td>{{ $producto->categoria }}</td>
                                         <td>${{ number_format($producto->precio, 2) }}</td>
-                                        <td>{{ $producto->stock }}</td>
+                                        <td>
+                                            {{ $producto->stock }}
+                                            @if ($producto->porResurtir())
+                                                <br><span class="badge bg-warning text-dark" title="Quedan {{ \App\Models\Producto::STOCK_MINIMO }} piezas o menos">Por resurtir</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             @if ($producto->estatus == 'ALTA')
                                                 <span class="badge bg-success">Alta</span>

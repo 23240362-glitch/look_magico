@@ -208,79 +208,24 @@
         <!-- Grid de Depilaciones -->
         <section class="depilaciones-grid">
 
-            <!-- Fila 1 -->
+            {{-- Los servicios se leen de la base de datos (solo los dados de ALTA de esta categoría) --}}
+            @forelse ($servicios as $servicio)
             <div class="depilacion-card">
                 <div class="img-wrapper">
                     <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/depilaciondebikini.jpg') }}" alt="Bikini" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Bozo'">
+                    <img src="{{ asset('img/' . ($servicio->imagen ?? 'logo.png')) }}" alt="{{ $servicio->nombre }}" onerror="this.src='https://via.placeholder.com/130/9C5174/FFFFFF?text=Look+Magico'">
                 </div>
-                <span class="depilacion-name">Bikini</span>
-                <a href="{{ route('agenda', ['servicio' => 'bikini']) }}" class="btn-agregar">Agregar Servicio</a>
+                <span class="depilacion-name">{{ $servicio->nombre }}</span>
+                @if ($servicio->precio > 0)
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">${{ number_format($servicio->precio, 2) }} · {{ $servicio->duracion_minutos }} min</span>
+                @else
+                    <span style="font-size: 12px; color: #9C5174; font-weight: bold; margin-bottom: 6px;">Precio por confirmar</span>
+                @endif
+                <a href="{{ route('agenda', ['servicio_id' => $servicio->id]) }}" class="btn-agregar">Agregar Servicio</a>
             </div>
-
-            <div class="depilacion-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/depilaciondeaxilas.jpg') }}" alt="Axilas" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Axilas'">
-                </div>
-                <span class="depilacion-name">Axilas</span>
-                <a href="{{ route('agenda', ['servicio' => 'axilas']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="depilacion-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/depilaciondepiernas.jpg') }}" alt="Piernas" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Piernas'">
-                </div>
-                <span class="depilacion-name">Piernas</span>
-                <a href="{{ route('agenda', ['servicio' => 'piernas']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="depilacion-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/depilaciondeabdomen.jpg') }}" alt="Abdomen" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Abdomen'">
-                </div>
-                <span class="depilacion-name">Abdomen</span>
-                <a href="{{ route('agenda', ['servicio' => 'abdomen']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <!-- Fila 2 -->
-            <div class="depilacion-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/depilaciondebozo.jpg') }}" alt="Bozo" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Bozo'">
-                </div>
-                <span class="depilacion-name">Bozo</span>
-                <a href="{{ route('agenda', ['servicio' => 'bozo']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="depilacion-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/depilacionderostro.jpg') }}" alt="Rostro" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Rostro'">
-                </div>
-                <span class="depilacion-name">Rostro</span>
-                <a href="{{ route('agenda', ['servicio' => 'rostro']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="depilacion-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/depilaciondebrazos.jpg') }}" alt="Brazos" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Brazos'">
-                </div>
-                <span class="depilacion-name">Brazos</span>
-                <a href="{{ route('agenda', ['servicio' => 'brazos']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
-
-            <div class="depilacion-card">
-                <div class="img-wrapper">
-                    <span class="flower-icon">🌺</span>
-                    <img src="{{ asset('img/depilaciondededos.jpg') }}" alt="Dedos" onerror="this.src='https://via.placeholder.com/150/9C5174/FFFFFF?text=Dedos'">
-                </div>
-                <span class="depilacion-name">Dedos</span>
-                <a href="{{ route('agenda', ['servicio' => 'dedos']) }}" class="btn-agregar">Agregar Servicio</a>
-            </div>
+            @empty
+                <p style="grid-column: 1 / -1; text-align: center; font-weight: bold; color: #9C5174;">Por el momento no hay servicios disponibles en esta categoría.</p>
+            @endforelse
 
         </section>
 
