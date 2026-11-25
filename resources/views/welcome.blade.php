@@ -137,7 +137,7 @@
     <nav>
         <ul class="nav-container">
             <li><a href="{{ url('/') }}">Inicio</a></li>
-            <li><a href="{{ route('servicios.general') }}">Servicios</a></li>
+            <li><a href="{{ url('/clasificacion') }}">Servicios</a></li>
             <li><a href="{{ url('/productos') }}">Productos</a></li>
             <li><a href="{{ url('/contactos') }}">Contactos</a></li>
         </ul>
@@ -154,8 +154,8 @@
         <section class="hero-section">
             <h1 class="hero-title">Hola<br>Belleza</h1>
     
-    <!-- Redirección directa a la vista cliente_inicio -->
-        <a href="{{ route('login.roles') }}" class="welcome-btn">Iniciar Sesión 👄</a>
+    <!-- Redirección directa a la vista seleccionar_rol -->
+        <a href="{{ route('seleccionar.rol') }}" class="welcome-btn">Iniciar Sesión 👄</a>
     </section>
 
         <!-- Foto decorativa a la derecha -->

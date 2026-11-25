@@ -168,29 +168,34 @@
             <form action="{{ route('login.cliente.post') }}" method="POST">
                 @csrf
                 
-                <!-- Campo Usuario / Correo -->
-                <div class="form-group">
-                    <label for="email">Usuario</label>
-                    <div class="input-purple-container">
-                        <input type="email" id="email" name="email" class="input-purple" placeholder="PILYCARMONA@GMAIL.COM" required>
-                    </div>
-                </div>
+            <form action="{{ route('login.cliente.post') }}" method="POST">
+    @csrf
 
-                <!-- Campo Contraseña -->
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <div class="input-purple-container">
-                        <input type="password" id="password" name="password" class="input-purple" placeholder="••••••••" required>
-                        <!-- Se agrega onclick para activar la función Javascript -->
-                        <span class="eye-icon" onclick="togglePassword('password', this)">👁️</span>
-                    </div>
-                </div>
+    <!-- Campo Correo Electrónico -->
+    <div class="form-group">
+        <label for="email">CORREO ELECTRÓNICO</label>
+        <div class="input-purple-container">
+            <input type="email" id="email" name="email" class="input-purple" value="{{ old('email') }}" required>
+        </div>
+    </div>
 
-                <!-- Enlace a recuperación de contraseña -->
-                <a href="{{ route('password.request') }}" class="forgot-link">¿OLVIDASTE TU CONTRASEÑA?</a>
+    <!-- Campo Contraseña -->
+    <div class="form-group">
+        <label for="password">CONTRASEÑA</label>
+        <div class="input-purple-container">
+            <input type="password" id="password" name="password" class="input-purple" required>
+            <span class="eye-icon" onclick="togglePassword('password', this)">👁️</span>
+        </div>
+    </div>
 
-                <!-- Botón de envío -->
-                <button type="submit" class="btn-submit-pink">INICIAR SESIÓN</button>
+    <!-- Enlace a recuperación de contraseña -->
+    <a href="{{ route('password.request') }}" class="forgot-link">¿OLVIDASTE TU CONTRASEÑA?</a>
+
+    <!-- Botón de envío -->
+    <button type="submit" class="btn-submit-pink">INICIAR SESIÓN</button>
+</form>
+
+                
             </form>
         </section>
     </main>

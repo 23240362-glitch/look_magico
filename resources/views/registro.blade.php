@@ -5,30 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Look Mágico - Crear Cuenta</title>
     <style>
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
         }
 
-        body { 
-            background-color: #FAF0E6; 
-            color: #333; 
-            min-height: 100vh; 
+        body {
+            background-color: #FAF0E6;
+            color: #333;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
-        /* Encabezado superior */
-        header { 
-            background-color: #9C5174; 
-            color: white; 
+        header {
+            background-color: #9C5174;
+            color: white;
             padding: 10px 20px;
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         header .logo-box {
@@ -43,205 +41,199 @@
             border-radius: 8px;
         }
 
-        header .title-header { 
-            font-size: 18px; 
-            letter-spacing: 2px; 
-            font-weight: bold; 
+        header .title-header {
+            font-size: 18px;
+            letter-spacing: 2px;
+            font-weight: bold;
             text-align: center;
             flex-grow: 1;
         }
 
-        header .spacer {
-            width: 60px;
+        header .login-link {
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: underline;
         }
 
-        /* Contenido Principal */
         main {
             flex: 1;
-            max-width: 480px;
+            max-width: 420px;
             margin: 30px auto;
+            text-align: center;
             padding: 0 20px;
             width: 100%;
         }
 
-        .card-container { 
-            background: #9C5174; 
-            border-radius: 20px; 
-            padding: 25px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
-            color: white; 
-            position: relative; 
-            text-align: center;
-        }
-
-        .close-btn { 
-            position: absolute; 
-            right: 15px; 
-            top: 15px; 
-            background: #FFC0CB; 
-            color: #000; 
-            text-decoration: none; 
-            padding: 4px 10px; 
-            font-weight: bold; 
-            border-radius: 50%;
-            font-size: 14px;
-        }
-
-        .card-container h2 {
-            font-size: 20px;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .card-container p {
-            font-size: 13px;
-            margin-bottom: 15px;
-            opacity: 0.9;
-        }
-
-        .inner-box { 
-            background: #BD4B7B; 
-            border-radius: 15px; 
-            padding: 20px; 
-            text-align: left;
+        .title-bienvenida {
+            color: #9C5174;
+            font-size: 22px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
         .form-group {
             margin-bottom: 12px;
+            text-align: left;
         }
 
-        .form-group label { 
-            display: block; 
-            margin-bottom: 4px; 
-            font-size: 12px; 
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #333;
             font-weight: bold;
+            margin-bottom: 4px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .input-purple { 
-            width: 100%; 
-            padding: 10px 15px; 
-            border: none; 
-            border-radius: 20px; 
-            background: #B088F5; 
+        .input-purple-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-purple {
+            width: 100%;
+            background-color: #B088F5;
             color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 13px;
             font-weight: bold;
-            font-size: 14px;
             outline: none;
-            box-sizing: border-box; 
         }
 
-        .input-purple::placeholder {
-            color: #EAE0FF;
-        }
-
-        .terms { 
-            margin: 15px 0; 
-            font-size: 12px; 
-            text-align: center; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .terms input[type="checkbox"] {
-            accent-color: #9C5174;
+        .eye-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
             cursor: pointer;
         }
 
-        .btn-submit { 
-            display: block; 
-            width: 70%; 
-            margin: 15px auto 5px auto; 
-            padding: 10px; 
-            background: #FFC0CB; 
-            color: #000; 
-            font-weight: bold; 
-            border: none; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            text-decoration: underline;
+        .btn-submit-pink {
+            background-color: #FFC0CB;
+            color: black;
+            border: none;
+            padding: 10px 35px;
+            border-radius: 20px;
+            font-weight: bold;
             font-size: 14px;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 15px;
         }
 
-        .btn-submit:hover {
+        .btn-submit-pink:hover {
             background-color: #f7b6c6;
         }
 
-        .login-link { 
-            display: block; 
-            text-align: center; 
-            color: white; 
-            font-size: 13px; 
-            margin-top: 12px; 
-            text-decoration: underline; 
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
             font-weight: bold;
+            margin-bottom: 15px;
+            text-align: left;
         }
     </style>
 </head>
 <body>
 
-    <!-- Encabezado superior -->
     <header>
         <div class="logo-box">
             <img src="{{ asset('img/logo.png') }}" alt="Logo Look Mágico" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
         </div>
-        <h1 class="title-header">LOOK MÁGICO</h1>
-        <div class="spacer"></div>
+        <h1 class="title-header">LOOK MÁGICO - CREAR CUENTA</h1>
+        <a href="{{ route('login.cliente') }}" class="login-link">Iniciar Sesión 🔑</a>
     </header>
 
-    <!-- Contenido principal -->
     <main>
-        <div class="card-container">
-            <a href="{{ url('/login/cliente') }}" class="close-btn">✕</a>
-            <h2>REGÍSTRATE EN LOOK MÁGICO</h2>
-            <p>Es rápido y fácil</p>
+        <h2 class="title-bienvenida">REGÍSTRATE</h2>
 
-            <form action="{{ url('/registro') }}" method="POST" class="inner-box">
-                @csrf
-                
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" id="name" name="name" class="input-purple" required>
+        @if($errors->any())
+            <div class="alert-error">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>• {{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action="{{ url('/registro') }}" method="POST">
+            @csrf
+
+            <!-- Nombre -->
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <div class="input-purple-container">
+                    <input type="text" id="name" name="name" class="input-purple" value="{{ old('name') }}" required>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="apellido">Apellido</label>
-                    <input type="text" id="apellido" name="apellido" class="input-purple" required>
+            <!-- Apellido -->
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <div class="input-purple-container">
+                    <input type="text" id="apellido" name="apellido" class="input-purple" value="{{ old('apellido') }}" required>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="email">Correo</label>
-                    <input type="email" id="email" name="email" class="input-purple" required>
+            <!-- Correo -->
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <div class="input-purple-container">
+                    <input type="email" id="email" name="email" class="input-purple" value="{{ old('email') }}" required>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="telefono">Número de Celular</label>
-                    <input type="tel" id="telefono" name="telefono" class="input-purple" required>
+            <!-- Teléfono -->
+            <div class="form-group">
+                <label for="telefono">Teléfono (10 dígitos)</label>
+                <div class="input-purple-container">
+                    <input type="text" id="telefono" name="telefono" class="input-purple" value="{{ old('telefono') }}" maxlength="10" required>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
+            <!-- Contraseña -->
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <div class="input-purple-container">
                     <input type="password" id="password" name="password" class="input-purple" required>
+                    <span class="eye-icon" onclick="togglePassword('password', this)">👁️</span>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="password_confirmation">Confirmar contraseña</label>
+            <!-- Confirmar Contraseña -->
+            <div class="form-group">
+                <label for="password_confirmation">Confirmar Contraseña</label>
+                <div class="input-purple-container">
                     <input type="password" id="password_confirmation" name="password_confirmation" class="input-purple" required>
+                    <span class="eye-icon" onclick="togglePassword('password_confirmation', this)">👁️</span>
                 </div>
+            </div>
 
-                <div class="terms">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms" style="margin:0; cursor:pointer;">Acepto los Términos y Condiciones</label>
-                </div>
-
-                <button type="submit" class="btn-submit">REGISTRARME</button>
-                <a href="{{ url('/login/cliente') }}" class="login-link">¿Ya tienes cuenta? Inicia Sesión</a>
-            </form>
-        </div>
+            <button type="submit" class="btn-submit-pink">CREAR CUENTA</button>
+        </form>
     </main>
 
+    <script>
+        function togglePassword(inputId, eyeIcon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                eyeIcon.textContent = "🙈";
+            } else {
+                input.type = "password";
+                eyeIcon.textContent = "👁️";
+            }
+        }
+    </script>
 </body>
 </html>

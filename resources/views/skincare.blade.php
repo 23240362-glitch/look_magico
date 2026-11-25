@@ -236,7 +236,7 @@
                     <span class="producto-name">{{ $producto->nombre }}</span>
                     <span class="producto-marca">{{ $producto->marca }}</span>
                     <span class="producto-precio">${{ number_format($producto->precio, 2) }}</span>
-                    <a href="https://wa.me/524772554597?text={{ rawurlencode('Hola, me interesa el producto ' . $producto->nombre) }}" target="_blank" class="btn-agregar">Apartar Producto</a>
+                    <a href="https://wa.me/524771238261?text={{ rawurlencode('Hola, me interesa el producto ' . $producto->nombre) }}" target="_blank" class="btn-agregar">Apartar Producto</a>
                 </div>
             @empty
                 <p class="sin-productos">Por ahora no hay productos en esta categoría.</p>

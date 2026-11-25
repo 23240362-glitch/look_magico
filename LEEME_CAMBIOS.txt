@@ -1,0 +1,67 @@
+LOOK MÁGICO - CAMBIOS PARA QUE EL CÓDIGO COINCIDA CON LOS DOCUMENTOS
+=====================================================================
+
+QUÉ SE AGREGÓ O CORRIGIÓ
+------------------------
+Citas (Objetivo 3)
+- RF09 Alta de cita: el servicio se elige de la base de datos (ya no de una lista fija)
+  y la cita se guarda como "pendiente" hasta que se confirma por WhatsApp.
+- RF10 Cancelación de cita: la clienta (en su inicio) y la administradora (en su agenda)
+  pueden cancelar. El horario queda libre.
+- RF11 Consulta de cita: la clienta ve sus próximas citas en su inicio; la administradora
+  busca por teléfono, nombre o folio y filtra por fecha y estatus.
+- RF12 Modificación de cita: nueva pantalla "Reprogramar" (clienta y administradora).
+- RF13 Control de tiempo: solo se agenda una persona cada 1 h 15 min, de lunes a sábado
+  de 10:00 AM a 7:00 PM; en días festivos de 10:00 AM a 3:00 PM; el domingo no se agenda.
+  La regla se revisa en el servidor (app/Support/Agenda.php), no solo en la pantalla.
+- RF14 Datos del cliente: la agenda pide sesión iniciada y toma nombre y teléfono de la
+  cuenta. Se quitó el error que guardaba la cita a nombre del primer usuario de la BD.
+- La administradora ya puede confirmar citas de verdad (antes el botón solo cambiaba
+  el color en la pantalla y no guardaba nada).
+
+Servicios (Objetivo 1)
+- RF03: las 9 páginas públicas (Cortes, Depilaciones, Maquillajes, Peinados, Manicuras,
+  Pedicuras, Tintes, Rayos, Tratamientos) ahora leen los servicios de la base de datos.
+  Si la administradora da de baja un servicio, deja de verse en la página.
+- Se usa el ServicioSeeder del equipo (92 servicios con sus precios y duraciones),
+  corrigiendo los nombres de las imágenes para que apunten a los archivos que sí existen
+  en public/img (los mismos que usaban las páginas). Si un servicio tuviera precio 0.00,
+  la página muestra "Precio por confirmar".
+- RF01/RF04: la descripción y la duración del servicio no se guardaban; ya se guardan
+  (nueva migración que agrega la columna descripcion).
+- RF02: no deja dar de baja un servicio que tiene citas pendientes o confirmadas.
+- RF20: al dar de alta o modificar un servicio, solo acepta una de las 9 categorías
+  (antes aceptaba cualquier texto). Los productos ya validaban sus 4 categorías.
+
+Productos e inventario (Objetivos 2 y 4)
+- RF17: en la lista de productos de la administradora, los que tienen 3 piezas o menos
+  se marcan "Por resurtir".
+
+Otros arreglos
+- El botón "Ver servicios" del inicio de la clienta apuntaba a una ruta que no existe.
+- La agenda ya no usa los botones de hora fijos: los que estaban mostraban una hora
+  (ej. "10:00 AM") pero guardaban otra ("11:00 AM"), y dos botones guardaban "1:30 PM".
+- tests/Feature/CatalogoServiciosTest.php ahora usa RefreshDatabase, porque las páginas
+  de servicios ya consultan la base de datos.
+
+VERSIÓN 3 (igual a la 2 + validación de categorías de servicios). VERSIÓN 2: hecha sobre el repositorio con los últimos cambios del equipo (seeder con
+precios, rutas login / login.roles, números de WhatsApp nuevos y pruebas). Se respetaron
+todos sus cambios; bootstrap/app.php ya no se modifica porque la ruta login.roles ya existe.
+
+ARCHIVOS NUEVOS
+- app/Support/Agenda.php
+- database/migrations/2026_11_23_000001_add_descripcion_to_servicios_table.php
+- resources/views/reprogramar.blade.php
+
+CÓMO APLICARLO
+--------------
+1. Copia el contenido de esta carpeta encima de tu proyecto (reemplaza archivos).
+2. En la terminal, dentro del proyecto:
+     php artisan migrate
+     php artisan db:seed --class=ServicioSeeder
+     php artisan view:clear
+     php artisan test
+3. Sube los cambios:
+     git add .
+     git commit -m "Cancelar y reprogramar citas, regla de 1h15, servicios desde la BD"
+     git push

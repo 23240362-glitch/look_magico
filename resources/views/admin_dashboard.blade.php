@@ -194,25 +194,24 @@
             </div>
 
             <!-- Menú -->
-            <!-- En resources/views/admin_dashboard.blade.php -->
-<ul class="menu-list">
-    <li><a href="{{ route('admin.dashboard') }}">- PANEL PRINCIPAL</a></li>
-    <li><a href="{{ route('servicios.general') }}">- INVENTARIO DE SERVICIOS</a></li>
-    <li><a href="{{ route('admin.productos.index') }}">- CONTROL DE INVENTARIO (INSUMOS)</a></li>
-    <!-- Enlace a la agenda de citas -->
-   <li>
-    <a href="{{ route('admin.agenda') }}" class="{{ request()->routeIs('admin.agenda') ? 'active' : '' }}">
-        - CONTROL DE AGENDA (CITAS)
-    </a>
-</li>
-        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-            @csrf
-            <button type="submit" style="background:none; border:none; color:#fff; font-weight:600; font-size:0.88rem; padding:10px 12px; text-transform:uppercase;">
-                - CERRAR SESIÓN
-            </button>
-        </form>
-    </li>
-</ul>
+            <ul class="menu-list">
+                <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">- PANEL PRINCIPAL</a></li>
+                <li><a href="{{ route('servicios.general') }}">- INVENTARIO DE SERVICIOS</a></li>
+                <li><a href="{{ route('admin.productos.index') }}">- CONTROL DE INVENTARIO (INSUMOS)</a></li>
+                <li>
+                    <a href="{{ route('admin.agenda') }}" class="{{ request()->routeIs('admin.agenda') ? 'active' : '' }}">
+                        - CONTROL DE AGENDA (CITAS)
+                    </a>
+                </li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" style="background:none; border:none; color:#fff; font-weight:600; font-size:0.88rem; padding:10px 12px; text-transform:uppercase;">
+                            - CERRAR SESIÓN
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
 
         <!-- Contenido Principal -->
@@ -240,7 +239,7 @@
                                 <span class="stat-title">CITAS HOY</span>
                                 <span class="fs-4">🗓️</span>
                             </div>
-                            <div class="stat-number">10</div>
+                            <div class="stat-number">{{ $citasHoy ?? 0 }}</div>
                         </div>
                     </div>
 
@@ -279,20 +278,27 @@
                             <div class="col-2">Estatus</div>
                         </div>
 
-                        <!-- Filas Citas -->
-                        <div class="table-row-item row g-0 align-items-center">
-                            <div class="col-4">PILY CARMONA</div>
-                            <div class="col-3">PLANCHADO ECONOMICO</div>
-                            <div class="col-3">SAB 19/SEP 11:20AM</div>
-                            <div class="col-2 text-uppercase">CONFIRMADO</div>
-                        </div>
-
-                        <div class="table-row-item row g-0 align-items-center">
-                            <div class="col-4">TOBY HERNANDEZ</div>
-                            <div class="col-3">CORTE DE HOMBRE</div>
-                            <div class="col-3">SAB 19/SEP 1:00 PM</div>
-                            <div class="col-2 text-uppercase">CONFIRMADO</div>
-                        </div>
+                        <!-- Filas Citas Dinámicas desde MySQL -->
+                        @forelse($proximasCitas ?? [] as $cita)
+                            <div class="table-row-item row g-0 align-items-center">
+                                <div class="col-4 text-uppercase">
+                                    {{ $cita->user->name ?? $cita->clienta ?? 'Clienta' }}
+                                </div>
+                                <div class="col-3 text-uppercase">
+                                    {{ $cita->servicio }}
+                                </div>
+                                <div class="col-3 text-uppercase">
+                                    {{ \Carbon\Carbon::parse($cita->fecha)->format('d/M') }} {{ $cita->hora }}
+                                </div>
+                                <div class="col-2 text-uppercase">
+                                    {{ $cita->estado ?? 'CONFIRMADO' }}
+                                </div>
+                            </div>
+                        @empty
+                            <div class="table-row-item row g-0 align-items-center text-center text-muted">
+                                <div class="col-12">No hay próximas citas agendadas por el momento.</div>
+                            </div>
+                        @endforelse
                     </div>
 
                     <!-- Resumen de Insumos (Gráfica) -->
